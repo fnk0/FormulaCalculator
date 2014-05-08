@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Formula Calculator</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="sqrt">√</string>
+    <string name="title_activity_calculator">CalculatorActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <!-- Navigation Drawer Titles -->
+    <array name="drawer_items">
+        <item name="calculator"> Calculator</item>
+        <item name="settings"> Settings </item>
+        <!-- <item name="unit_converter">Unit Converter</item> -->
+        <item name="themes"> Themes </item>
+        <item name="about"> About </item>
+        <item name="tutorial"> Tutorial </item>
+    </array>
+
+    <!-- Navigation Drawer Resource Strings -->
+    <array name="drawer_icons">
+        <item name="icon_calculator">@drawable/ic_calculator</item>
+        <item name="icon_settings">@drawable/ic_settings</item>
+        <item name="icon_themes">@drawable/ic_themes</item>
+        <item name="icon_info">@drawable/ic_info</item>
+        <item name="icon_share">@drawable/ic_share</item>
+
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+
+</resources>
