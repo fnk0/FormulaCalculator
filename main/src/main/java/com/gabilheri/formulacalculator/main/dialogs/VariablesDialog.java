@@ -61,9 +61,7 @@ public class VariablesDialog extends DialogFragment {
      * @param view the layout of the dialog.
      */
     private void initializeViews(View view) {
-
         SharedPreferences preferences = getActivity().getSharedPreferences("storeVar", Context.MODE_PRIVATE);
-
         var0 = (Button) view.findViewById(R.id.storeVar0);
         var0.setText(preferences.getString("var0", "Empty"));
         var1 = (Button) view.findViewById(R.id.storeVar1);

@@ -410,6 +410,10 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    /**
+     * 
+     * @param view
+     */
     public void handleVar(View view) {
         String result = varDialog.handleVar(view);
 
@@ -422,6 +426,10 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    /**
+     * Helper method to start a dialog to store or release variables.
+     * @param type the type of dialog
+     */
     public void startDialog(int type) {
         varDialog = new VariablesDialog();
         Bundle dialogStuff = new Bundle();

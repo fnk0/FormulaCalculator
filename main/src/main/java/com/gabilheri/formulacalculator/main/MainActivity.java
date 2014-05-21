@@ -242,10 +242,18 @@ public class MainActivity extends FragmentActivity {
         mainFragment.deleteFromDisplay();
     }
 
+    /**
+     *
+     * @param view
+     */
     public void showDialog(View view) {
         mainFragment.handleKeypad(view);
     }
 
+    /**
+     *
+     * @param view
+     */
     public void handleVar(View view) {
         mainFragment.handleVar(view);
     }
