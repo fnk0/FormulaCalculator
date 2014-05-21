@@ -1,12 +1,12 @@
 package com.gabilheri.formulacalculator.main;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -15,14 +15,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
-import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
+import com.gabilheri.formulacalculator.main.fragments.MainActivityFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
-
 import java.util.ArrayList;
 
+/**
+ * @author Marcus Gabilheri
+ * @version 1.0
+ * @since May 2014.
+ */
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -37,7 +41,8 @@ public class MainActivity extends Activity {
     private TypedArray navMenuIcons;
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter navAdapter;
-
+    private Fragment activeFragment;
+    private MainActivityFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +93,6 @@ public class MainActivity extends Activity {
                 invalidateOptionsMenu();
             }
         };
-
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if(savedInstanceState == null) {
@@ -117,40 +121,35 @@ public class MainActivity extends Activity {
 
     /**
      * Displaying fragment view for selected nav drawer list item
-     * */
+     *
+     */
     private void displayView(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = null;
+        activeFragment = null;
         switch (position) {
             case 0:
-                fragment = new CalculatorFragment();
+                activeFragment = new MainActivityFragment();
+                mainFragment = (MainActivityFragment) activeFragment;
                 break;
             case 1:
-                fragment = new SettingsFragment();
+                activeFragment = new SettingsFragment();
                 break;
-            /*
             case 2:
-                fragment = new PhotosFragment();
                 break;
             case 3:
-                fragment = new CommunityFragment();
                 break;
             case 4:
-                fragment = new PagesFragment();
                 break;
             case 5:
-                fragment = new WhatsHotFragment();
                 break;
-
-            */
             default:
                 break;
         }
 
-        if (fragment != null) {
+        if (activeFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
+                    .replace(R.id.frame_container, activeFragment).commit();
 
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
@@ -187,7 +186,6 @@ public class MainActivity extends Activity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
@@ -198,7 +196,6 @@ public class MainActivity extends Activity {
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
      */
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -211,5 +208,45 @@ public class MainActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    /**
+     *
+     * @param view
+     */
+    public void handleKeypad(View view) {
+        mainFragment.handleKeypad(view);
+    }
+
+    /**
+     *
+     * @param view
+     */
+    public void evaluateExpression(View view) {
+        mainFragment.evaluateExpression(view);
+    }
+
+    /**
+     *
+     * @param view
+     */
+    public void clearDisplay(View view) {
+        mainFragment.clearDisplay();
+    }
+
+    /**
+     *
+     * @param view
+     */
+    public void deleteFromDisplay(View view) {
+        mainFragment.deleteFromDisplay();
+    }
+
+    public void showDialog(View view) {
+        mainFragment.handleKeypad(view);
+    }
+
+    public void handleVar(View view) {
+        mainFragment.handleVar(view);
     }
 }

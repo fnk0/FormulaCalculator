@@ -3,8 +3,11 @@
 
     <color name="def_back_result">#34495e</color>
     <color name="def_button">#16a085</color>
+    <color name="def_button_pressed">#1abc9c</color>
     <color name="button_2">#e74c3c</color>
+    <color name="button_2_pressed">#c0392b</color>
     <color name="awesome_blue">#34495e</color>
+    <color name="light_blue">#2980b9</color>
 
     <!-- Drawer Layout Stuff -->
     <color name="list_item_title">#34495e</color>

@@ -29,10 +29,39 @@
         <item name="icon_themes">@drawable/ic_themes</item>
         <item name="icon_info">@drawable/ic_info</item>
         <item name="icon_share">@drawable/ic_share</item>
-
     </array>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_main_activity_fragment">MainActivityFragment</string>
+    <string name="example">Example</string>
+    <string name="_0">0</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="minus_simbol">-</string>
+    <string name="exp_symbol">^</string>
+    <string name="_4">4</string>
+    <string name="_6">6</string>
+    <string name="_5">5</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="equal_sign">=</string>
+    <string name="par_left">(</string>
+    <string name="par_right">)</string>
+    <string name="del">DEL</string>
+    <string name="_c">C</string>
+    <string name="pi">π</string>
+    <string name="var_e">e</string>
+    <string name="log">log</string>
+    <string name="ln">ln</string>
+    <string name="plus">+</string>
+    <string name="dot">.</string>
+    <string name="factorial">!</string>
+    <string name="select_dialog_title">Select a spot to store the result.</string>
+    <string name="str">str</string>
+    <string name="rel">rel</string>
+    <string name="reset_vars">Reset Stored Variables</string>
 
 </resources>
