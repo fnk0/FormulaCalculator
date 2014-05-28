@@ -1,48 +1,60 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
     android:orientation="vertical"
-    >
+    android:weightSum="1">
+
     <LinearLayout
         android:id="@+id/resultLayoutKey"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:orientation="vertical"
-        android:layout_weight="0.299"
-        android:background="@color/def_back_result"
         android:layout_marginBottom="1dip"
-        android:visibility="visible"
-        >
+        android:layout_weight="0.2499"
+        android:background="@color/def_back_result"
+        android:orientation="vertical"
+        android:visibility="visible">
+
         <TextView
             android:id="@+id/inputBox1"
-            android:text="@string/_0"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
             android:padding="10dip"
-            />
+            android:text="@string/_0"
+            android:textSize="35sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/resultBox1"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:padding="10dip"
-            />
+            android:paddingRight="10dip"
+            android:paddingLeft="10dip"
+            android:paddingBottom="10dip"
+            android:text=""
+            android:textSize="35sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
     </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.7"
+        android:layout_weight="0.68"
         tools:context="com.gabilheri.formulacalculator.main.fragments.MainActivityFragment" />
+
+    <LinearLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.08"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dip"
+        android:background="@color/def_button"
+        ></LinearLayout>
 
 </LinearLayout>

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gabilheri.formulacalculator.main" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -15,11 +19,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="com.revmob.app.id" android:value="537d798281d7eed52d9822b7" />
         </activity>
-        <activity
-            android:name=".fragments.MainActivityFragment"
-            android:label="@string/title_activity_main_activity_fragment" >
-        </activity>
+        <application>
+            <activity android:name="com.revmob.ads.fullscreen.FullscreenActivity"
+                android:theme="@android:style/Theme.Translucent"
+                android:configChanges="keyboardHidden|orientation">
+            </activity>
+        </application>
     </application>
 
 </manifest>

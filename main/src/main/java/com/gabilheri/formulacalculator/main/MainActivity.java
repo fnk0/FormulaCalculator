@@ -12,12 +12,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
 import com.gabilheri.formulacalculator.main.fragments.MainActivityFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
+import com.revmob.RevMob;
+import com.revmob.RevMobTestingMode;
+import com.revmob.ads.banner.RevMobBanner;
+import com.revmob.ads.fullscreen.RevMobFullscreen;
+
 import java.util.ArrayList;
 
 /**
@@ -43,6 +49,8 @@ public class MainActivity extends FragmentActivity {
     private NavDrawerListAdapter navAdapter;
     private Fragment activeFragment;
     private MainActivityFragment mainFragment;
+    private RevMob revMob;
+    private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +106,18 @@ public class MainActivity extends FragmentActivity {
         if(savedInstanceState == null) {
             displayView(0);
         }
+
+        revMob = RevMob.start(this, APPLICATION_ID);
+        revMob.setTestingMode(RevMobTestingMode.WITH_ADS);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RevMobBanner banner = revMob.createBanner(this);
+        ViewGroup group = (ViewGroup) findViewById(R.id.banner);
+        group.addView(banner);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

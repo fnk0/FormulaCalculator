@@ -63,5 +63,7 @@
     <string name="str">str</string>
     <string name="rel">rel</string>
     <string name="reset_vars">Reset Stored Variables</string>
+    <string name="percent_symbol">%</string>
+    <string name="infinity_symbol">∞</string>
 
 </resources>

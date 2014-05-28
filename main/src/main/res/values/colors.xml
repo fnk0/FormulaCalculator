@@ -8,6 +8,8 @@
     <color name="button_2_pressed">#c0392b</color>
     <color name="awesome_blue">#34495e</color>
     <color name="light_blue">#2980b9</color>
+    <color name="dark_orange">#d35400</color>
+    <color name="light_orange">#e67e22</color>
 
     <!-- Drawer Layout Stuff -->
     <color name="list_item_title">#34495e</color>

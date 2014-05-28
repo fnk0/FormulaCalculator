@@ -47,6 +47,8 @@ public class MainActivityFragment extends Fragment {
     private int parCounter = 0;
     private String[] colors;
     private VariablesDialog varDialog;
+    private boolean clearResult = false;
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -137,7 +139,7 @@ public class MainActivityFragment extends Fragment {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -187,7 +189,7 @@ public class MainActivityFragment extends Fragment {
 
             } else if(position == 1) {
 
-            } else if(position == 2) {
+            } /*else if(position == 2) {
                 listView = (ExpandableListView) rootView.findViewById(R.id.awesomeList);
 
                 generateListData();
@@ -195,7 +197,7 @@ public class MainActivityFragment extends Fragment {
                 listAdapter = new FormulasListAdapter(this.getActivity(), formulaTitles, formulas);
                 listView.setAdapter(listAdapter);
             }
-
+            */
             return rootView;
 
         }
@@ -240,6 +242,28 @@ public class MainActivityFragment extends Fragment {
 
         int id = view.getId();
         parCounter = 0;
+
+        if(clearResult) {
+            clearDisplay();
+            clearResult = false;
+        }
+
+        int inputSize = textInputBox1.replaceAll("\\<.*?>", "").length();
+
+        if(inputSize> 15) {
+            inputBox1key.setTextSize(25);
+            Log.i("INPUT SIZE: ", "" + inputSize);
+        }
+
+        if(inputSize > 25) {
+            inputBox1key.setTextSize(20);
+            Log.i("INPUT SIZE: ", "" + inputSize);
+        }
+
+        if(inputSize > 35) {
+            inputBox1key.setTextSize(15);
+            Log.i("INPUT SIZE: ", "" + inputSize);
+        }
 
         if(textInputBox1.equals(getString(R.string._0))) {
             textInputBox1 = "";
@@ -339,6 +363,15 @@ public class MainActivityFragment extends Fragment {
             case R.id.parRight:
                 textInputBox1 += "<font color="+ colors[parCounter - 1] + ">" + getString(R.string.par_right) + "</font>";
                 break;
+            case R.id.btnPercent:
+                textInputBox1 += "%";
+                break;
+            case R.id.btnLog:
+                textInputBox1 += "log";
+                break;
+            case R.id.btnLn:
+                textInputBox1 += "ln";
+                break;
         }
 
         inputBox1key.setText(Html.fromHtml(textInputBox1));
@@ -355,7 +388,32 @@ public class MainActivityFragment extends Fragment {
         int id = view.getId();
         if(id == R.id.equal) {
             EvaluateExpression expression = new EvaluateExpression(textInputBox1, this);
-            resultBoxKey.setText(expression.evaluate());
+
+            String result = expression.evaluate();
+
+            int resultSize = result.length();
+
+            if(resultSize> 15) {
+                resultBoxKey.setTextSize(25);
+                Log.i("INPUT SIZE: ", "" + resultSize);
+            }
+
+            if(resultSize > 25) {
+                resultBoxKey.setTextSize(20);
+                Log.i("INPUT SIZE: ", "" + resultSize);
+            }
+
+            if(resultSize > 35) {
+                resultBoxKey.setTextSize(15);
+                Log.i("INPUT SIZE: ", "" + resultSize);
+            }
+
+            if(textInputBox1.equals(getString(R.string._0))) {
+                textInputBox1 = "";
+            }
+
+            resultBoxKey.setText(result);
+            clearResult = true;
         }
     }
 
@@ -365,6 +423,8 @@ public class MainActivityFragment extends Fragment {
     public void clearDisplay() {
         textInputBox1 = getString(R.string._0);
         inputBox1key.setText(textInputBox1);
+        resultBoxKey.setText("");
+        inputBox1key.setTextSize(35);
     }
 
     /**
@@ -411,7 +471,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     /**
-     * 
+     *
      * @param view
      */
     public void handleVar(View view) {

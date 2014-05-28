@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="exp4j-0.3.11">
+  <library name="revmob-6.9.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/main/libs/exp4j-0.3.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/main/libs/revmob-6.9.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

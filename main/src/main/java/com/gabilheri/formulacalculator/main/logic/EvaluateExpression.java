@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import com.gabilheri.formulacalculator.main.R;
+
 import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.CustomFunction;
+import de.congrace.exp4j.CustomOperator;
 import de.congrace.exp4j.ExpressionBuilder;
 import de.congrace.exp4j.InvalidCustomFunctionException;
 
@@ -58,7 +60,7 @@ public class EvaluateExpression {
      * @return
      */
     public String evaluate() {
-        String toReturn;
+        String toReturn = "";
 
         Log.i("FULL EXPRESSION", expression);
 
@@ -71,6 +73,7 @@ public class EvaluateExpression {
         CustomFunction sqrt = null;
         CustomFunction fact = null;
         CustomFunction release = null;
+        CustomOperator percent = null;
         double varPi = Math.PI;
         double varE = Math.E;
 
@@ -121,6 +124,16 @@ public class EvaluateExpression {
                 }
             };
 
+            percent = new CustomOperator("%", true, 4 ) {
+                @Override
+                protected double applyOperation(double[] doubles) {
+                    if (doubles[1] == 0d){
+                        throw new ArithmeticException("Division by zero!");
+                    }
+                    return ((doubles[0] / 100) * doubles[1]);
+                }
+            };
+
         } catch (InvalidCustomFunctionException e1) {
             e1.printStackTrace();
         }
@@ -158,12 +171,19 @@ public class EvaluateExpression {
                         expression = expression.substring(0, i+1) + "*" + expression.substring(i+1, expression.length());
                     }
                 }
+
+                if(expression.charAt(i) == '.' && !Character.isDigit(expression.charAt(i) - 1)) {
+                    Log.i("EVALUATE EXPRESSION!", "FOUND DOT");
+                    expression = expression.substring(0, i) + "0" + expression.substring(i, expression.length());
+                    i++;
+                }
             }
         } catch (Exception ex) {
         }
         Log.i("EXPRESSION: ", expression);
         try {
             Calculable calc = new ExpressionBuilder(expression)
+                    .withOperation(percent)
                     .withCustomFunction(cosdFunc)
                     .withCustomFunction(sindFunc)
                     .withCustomFunction(tandFunc)
@@ -176,9 +196,18 @@ public class EvaluateExpression {
                     .withVariable(fragment.getString(R.string.var_e), varE)
                     .build();
             double result = calc.calculate();
-            toReturn = "" + result;
+
+            if(result % 1 == 0) {
+                Log.i("RESULT: ", "IS INTEGER!");
+                int intResult = (int) result;
+                toReturn = "" + intResult;
+            } else {
+                toReturn = "" + result;
+            }
+
         } catch (Exception ex) {
-            toReturn = "Input Error! Please review your input!";
+            toReturn = "Input Error!";
+            ex.printStackTrace();
         }
         return toReturn;
     }
