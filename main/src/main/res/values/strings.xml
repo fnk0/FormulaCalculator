@@ -65,5 +65,6 @@
     <string name="reset_vars">Reset Stored Variables</string>
     <string name="percent_symbol">%</string>
     <string name="infinity_symbol">∞</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
