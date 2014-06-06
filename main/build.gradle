@@ -5,7 +5,7 @@ android {
     buildToolsVersion "19.0.3"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
@@ -27,4 +27,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:19.+'
     compile 'com.android.support:support-v13:19.+'
+    compile 'com.github.gabrielemariotti.cards:library:1.6.0'
+    compile 'com.github.gabrielemariotti.cards:library-extra:1.6.0'
 }

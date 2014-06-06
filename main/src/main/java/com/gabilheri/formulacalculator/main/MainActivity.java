@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
+import com.gabilheri.formulacalculator.main.fragments.CardsFormulasFragment;
 import com.gabilheri.formulacalculator.main.fragments.MainActivityFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
@@ -49,7 +50,7 @@ public class MainActivity extends FragmentActivity {
     private NavDrawerListAdapter navAdapter;
     private Fragment activeFragment;
     private MainActivityFragment mainFragment;
-    private RevMob revMob;
+    //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
 
     @Override
@@ -107,16 +108,16 @@ public class MainActivity extends FragmentActivity {
             displayView(0);
         }
 
-        revMob = RevMob.start(this, APPLICATION_ID);
-        revMob.setTestingMode(RevMobTestingMode.WITH_ADS);
+        //revMob = RevMob.start(this, APPLICATION_ID);
+        //revMob.setTestingMode(RevMobTestingMode.WITH_ADS);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        RevMobBanner banner = revMob.createBanner(this);
-        ViewGroup group = (ViewGroup) findViewById(R.id.banner);
-        group.addView(banner);
+        //RevMobBanner banner = revMob.createBanner(this);
+        //ViewGroup group = (ViewGroup) findViewById(R.id.banner);
+        //group.addView(banner);
     }
 
     @Override
@@ -153,6 +154,7 @@ public class MainActivity extends FragmentActivity {
                 activeFragment = new SettingsFragment();
                 break;
             case 2:
+                activeFragment = new CardsFormulasFragment();
                 break;
             case 3:
                 break;

@@ -56,7 +56,7 @@ public class MainActivityFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         return inflater.inflate(R.layout.fragment_calculator, container, false);
@@ -111,7 +111,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     /**
-    /**
+     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -177,7 +177,7 @@ public class MainActivityFragment extends Fragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
 
             int[] layouts = {R.layout.keypad_functions, R.layout.keypad_layout, R.layout.fragment_formulas};
             int position = getArguments().getInt(ARG_SECTION_NUMBER);

@@ -172,8 +172,13 @@ public class EvaluateExpression {
                     }
                 }
 
-                if(expression.charAt(i) == '.' && !Character.isDigit(expression.charAt(i) - 1)) {
-                    Log.i("EVALUATE EXPRESSION!", "FOUND DOT");
+                try {
+                    if (expression.charAt(i) == '.' && isNumber(expression.charAt(i - 1))) {
+                        Log.i("EVALUATE EXPRESSION!", "FOUND DOT");
+                        expression = expression.substring(0, i) + "0" + expression.substring(i, expression.length());
+                        i++;
+                    }
+                } catch (Exception e) {
                     expression = expression.substring(0, i) + "0" + expression.substring(i, expression.length());
                     i++;
                 }
@@ -239,6 +244,14 @@ public class EvaluateExpression {
             return 1;
         }
         return  num * factorial(num -1);
+    }
+
+    public boolean isNumber(char  c) {
+
+        if (!Character.isDigit(c)) {
+            return true;
+        }
+        return false;
     }
 
     /**

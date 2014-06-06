@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_marginBottom="1dip"
-        android:layout_weight="0.2499"
+        android:layout_weight="0.28"
         android:background="@color/def_back_result"
         android:orientation="vertical"
         android:visibility="visible">
@@ -44,17 +44,6 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.68"
+        android:layout_weight="0.72"
         tools:context="com.gabilheri.formulacalculator.main.fragments.MainActivityFragment" />
-
-    <LinearLayout
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.08"
-        android:orientation="horizontal"
-        android:layout_marginTop="2dip"
-        android:background="@color/def_button"
-        ></LinearLayout>
-
 </LinearLayout>
