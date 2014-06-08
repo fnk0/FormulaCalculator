@@ -8,7 +8,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class Example extends Activity {
             super.onPreExecute();
             // Do stuff here before the request such as showing progress bar, dialogs, etc.
             pDialog = new ProgressDialog(Example.this);
-            pDialog.setMessage("Loading Questions...");
+            pDialog.setMessage("Scanning ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();

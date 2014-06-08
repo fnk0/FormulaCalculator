@@ -151,10 +151,10 @@ public class MainActivity extends FragmentActivity {
                 mainFragment = (MainActivityFragment) activeFragment;
                 break;
             case 1:
-                activeFragment = new SettingsFragment();
+                activeFragment = new CardsFormulasFragment();
                 break;
             case 2:
-                activeFragment = new CardsFormulasFragment();
+                activeFragment = new SettingsFragment();
                 break;
             case 3:
                 break;

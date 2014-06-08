@@ -243,7 +243,7 @@ public class MainActivityFragment extends Fragment {
         int id = view.getId();
         parCounter = 0;
 
-        if(clearResult) {
+        if(clearResult && id != R.id.keypadStore) {
             clearDisplay();
             clearResult = false;
         }

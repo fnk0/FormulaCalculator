@@ -15,6 +15,7 @@
     <!-- Navigation Drawer Titles -->
     <array name="drawer_items">
         <item name="calculator"> Calculator</item>
+        <item name="formulas"> Formulas </item>
         <item name="settings"> Settings </item>
         <!-- <item name="unit_converter">Unit Converter</item> -->
         <item name="themes"> Themes </item>
@@ -25,11 +26,25 @@
     <!-- Navigation Drawer Resource Strings -->
     <array name="drawer_icons">
         <item name="icon_calculator">@drawable/ic_calculator</item>
+        <item name="icon_formulas">@drawable/ic_formula</item>
         <item name="icon_settings">@drawable/ic_settings</item>
         <item name="icon_themes">@drawable/ic_themes</item>
         <item name="icon_info">@drawable/ic_info</item>
         <item name="icon_share">@drawable/ic_share</item>
     </array>
+
+    <!-- Math Formulas -->
+
+    <string-array name="square">
+        <item name="title"> Square </item>
+        <item name="thumbnail">@drawable/ic_square</item>
+    </string-array>
+    <string-array name="circle">
+        <item name="title"> Circle </item>
+        <item name="thumbnail">@drawable/ic_circle</item>
+    </string-array>
+    <string name="circle"> Circle </string>
+
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -66,5 +81,15 @@
     <string name="percent_symbol">%</string>
     <string name="infinity_symbol">∞</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="evaluate">Evaluate</string>
+    <string name="area">Area</string>
+    <string name="perimeter">Perimeter</string>
 
+
+    <string name="settings_dummy">
+        <p> Here is some text! </p> \n\t
+            &#8226; item one \n \t
+             &#8226; item two \n \t
+            &#8226; item three\n \t
+    </string>
 </resources>
