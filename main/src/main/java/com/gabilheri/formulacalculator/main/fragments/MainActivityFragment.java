@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.content.SharedPreferences;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +24,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.adapters.FormulasListAdapter;
+import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
+import com.gabilheri.formulacalculator.main.database.ResultLog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 
 public class MainActivityFragment extends Fragment {
@@ -36,6 +41,7 @@ public class MainActivityFragment extends Fragment {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    private static final String LOG_TAG = "MainFragment";
     private SectionsPagerAdapter mSectionsPagerAdapter;
     protected LinearLayout resultLayoutKey;
     private static FormulasListAdapter listAdapter;
@@ -48,6 +54,7 @@ public class MainActivityFragment extends Fragment {
     private String[] colors;
     private VariablesDialog varDialog;
     private boolean clearResult = false;
+    private DatabaseHelper dbHelper;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -59,6 +66,8 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
+
         return inflater.inflate(R.layout.fragment_calculator, container, false);
 
     }
@@ -68,6 +77,9 @@ public class MainActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
+        ActionBar mActionBar = getActivity().getActionBar();
+        mActionBar.setIcon(R.drawable.ic_launcher);
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
@@ -410,6 +422,15 @@ public class MainActivityFragment extends Fragment {
 
             if(textInputBox1.equals(getString(R.string._0))) {
                 textInputBox1 = "";
+            }
+
+            ResultLog resultLog = new ResultLog(textInputBox1, result);
+            dbHelper.createResultLog(resultLog);
+
+            List<ResultLog> resultLogs = dbHelper.getAllResultLogs();
+
+            for(ResultLog r : resultLogs) {
+                Log.i(LOG_TAG, "Result: " + r.getResult());
             }
 
             resultBoxKey.setText(result);

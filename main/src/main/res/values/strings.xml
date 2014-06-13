@@ -16,6 +16,7 @@
     <array name="drawer_items">
         <item name="calculator"> Calculator</item>
         <item name="formulas"> Formulas </item>
+        <item name="logs"> Logs </item>
         <item name="settings"> Settings </item>
         <!-- <item name="unit_converter">Unit Converter</item> -->
         <item name="themes"> Themes </item>
@@ -27,6 +28,7 @@
     <array name="drawer_icons">
         <item name="icon_calculator">@drawable/ic_calculator</item>
         <item name="icon_formulas">@drawable/ic_formula</item>
+        <item name="icon_logs">@drawable/ic_log</item>
         <item name="icon_settings">@drawable/ic_settings</item>
         <item name="icon_themes">@drawable/ic_themes</item>
         <item name="icon_info">@drawable/ic_info</item>

@@ -1,5 +1,6 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Html;
@@ -15,6 +16,8 @@ import com.gabilheri.formulacalculator.main.R;
  */
 public class SettingsFragment extends Fragment{
 
+    private ActionBar mActionBar;
+
     public SettingsFragment() {}
 
     @Override
@@ -27,5 +30,19 @@ public class SettingsFragment extends Fragment{
         //myTextView.setText(Html.fromHtml(getString(R.string.settings_dummy)));
 
         return rootView;
+    }
+
+    /**
+     * @param view
+     *         The View returned by {@link #onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}.
+     * @param savedInstanceState
+     *         If non-null, this fragment is being re-constructed
+     */
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mActionBar = getActivity().getActionBar();
+        mActionBar.setIcon(R.drawable.ic_settings);
     }
 }

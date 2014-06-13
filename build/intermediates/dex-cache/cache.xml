@@ -44,6 +44,12 @@
         revision="19.1.0"
         sha1="15aa5a8609ea4667674977341ec9a3e231028e05"/>
     <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-7abc4d5e2ceb95da968264d55c854b88d4a84e9d.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/de.timroes.android/EnhancedListView/0.3.2/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3826287c453cf533f12f917c6e605000d2d88a14"/>
+    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-30e775d9ac149276d6651065a19ea1fa46dd13cd.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library-extra/1.6.0/classes.jar"
         jumboMode="false"

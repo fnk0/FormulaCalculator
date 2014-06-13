@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.CustomFunction;
@@ -138,7 +139,7 @@ public class EvaluateExpression {
             e1.printStackTrace();
         }
 
-        expression = expression.replaceAll("\\<.*?>", "");
+        expression = Utils.stripHTML(expression);
         expression = expression.replaceAll(fragment.getActivity().getString(R.string.divide), "/");
         expression = expression.replaceAll(fragment.getActivity().getString(R.string.multiply), "*");
         expression = expression.replaceAll(fragment.getActivity().getString(R.string.sqrt), "sqrt");

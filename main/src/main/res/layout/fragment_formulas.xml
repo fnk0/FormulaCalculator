@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"
         style="@style/list_card.thumbnail"
-        />
+    />
 
 
 </LinearLayout>

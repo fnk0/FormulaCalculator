@@ -46,10 +46,8 @@ public class CardsFormulasFragment extends Fragment {
         for(int i = 0; i < 5; i++) {
             CustomCard mCard = new CircleCard(getActivity());
             CustomCard sCard = new SquareCard(getActivity());
-            //CustomCard aCard = new CustomCard(getActivity());
             mCards.add(sCard);
             mCards.add(mCard);
-            //mCards.add(aCard);
 
         }
 

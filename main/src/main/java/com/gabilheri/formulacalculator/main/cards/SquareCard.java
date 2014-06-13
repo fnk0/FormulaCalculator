@@ -30,21 +30,6 @@ public class SquareCard extends CustomCard {
 
     public SquareCard(Context context, int innerLayout) {
         super(context, innerLayout);
-        this.context = context;
-        this.mTitle = context.getResources().getStringArray(R.array.square)[0];
-        this.mThumbnail = R.drawable.ic_square;
-        this.setmTitle(mTitle).setmThumbnail(mThumbnail).setInnerContentLayout(R.layout.card_square);
     }
 
-    @Override
-    public void onClick(View view) {
-        //super.onClick(card, view);
-
-        int id = view.getId();
-
-        if(id == R.id.evaluateFormula) {
-            Log.i("SQUARE CARD", "Formula Evaluated!");
-            Toast.makeText(context, "Evaluated!", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
