@@ -9,20 +9,19 @@ import com.gabilheri.formulacalculator.main.R;
  * @version 1.0
  * @since 6/5/14
  */
-public class Circle extends Formula {
+public class Circle implements Formula {
 
-    private static final int CIRCLE_AREA = 0;
-    private static final int CIRCLE_PERIMETER = 1;
-    private int mRadius;
+    public static final int CIRCLE_AREA = 0;
+    public static final int CIRCLE_PERIMETER = 1;
+    private long mRadius;
     private int mType;
     private String mTitle;
 
 
-    public Circle(Context mContext) {
-        this.mTitle = mContext.getResources().getStringArray(R.array.circle)[0];
-    }
+    public Circle() {}
 
-    public Circle(int mRadius, int mType) {
+    public Circle(Context mContext, long mRadius, int mType) {
+        this.mTitle = mContext.getResources().getStringArray(R.array.circle)[0];
         this.mRadius = mRadius;
         this.mType = mType;
     }

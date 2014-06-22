@@ -7,7 +7,7 @@ package com.gabilheri.formulacalculator.main.database;
  */
 public class ResultLog {
 
-    private int id;
+    private long id;
     private String input;
     private String result;
     private String createdAt;
@@ -19,13 +19,13 @@ public class ResultLog {
         this.result = result;
     }
 
-    public ResultLog(int id, String input, String result) {
+    public ResultLog(long id, String input, String result) {
         this.id = id;
         this.input = input;
         this.result = result;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

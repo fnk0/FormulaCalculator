@@ -5,12 +5,12 @@ package com.gabilheri.formulacalculator.main.formulas;
  * @version 1.0
  * @since 6/5/14
  */
-public abstract class Formula {
+public interface  Formula {
 
-    public abstract String getTitle();
+    public String getTitle();
 
-    public abstract double evaluate();
+    public double evaluate();
 
-    public abstract int getDrawableId();
+    public int getDrawableId();
 
 }

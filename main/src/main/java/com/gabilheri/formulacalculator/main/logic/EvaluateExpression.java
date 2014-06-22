@@ -212,7 +212,7 @@ public class EvaluateExpression {
             }
 
         } catch (Exception ex) {
-            toReturn = "Input Error!";
+            toReturn = fragment.getResources().getString(R.string.input_error);
             ex.printStackTrace();
         }
         return toReturn;

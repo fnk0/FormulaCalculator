@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gabilheri.formulacalculator.main.fragments.MainActivityFragment"
+    tools:context="com.gabilheri.formulacalculator.main.fragments.CalculatorFragment"
     >
     <LinearLayout
         android:id="@+id/rowButtons1"

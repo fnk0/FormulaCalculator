@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,12 +27,14 @@ import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.adapters.FormulasListAdapter;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.ResultLog;
+import com.gabilheri.formulacalculator.main.database.Theme;
+import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 
 
-public class MainActivityFragment extends Fragment {
+public class CalculatorFragment extends Fragment {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -65,11 +68,8 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-
         return inflater.inflate(R.layout.fragment_calculator, container, false);
-
     }
 
     @Override
@@ -92,12 +92,10 @@ public class MainActivityFragment extends Fragment {
         mViewPager.setCurrentItem(1);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
             @Override
             public void onPageSelected(int position) {
-
                 if(position == 2) {
                     resultLayoutKey.setVisibility(View.GONE);
                 } else {
@@ -106,14 +104,23 @@ public class MainActivityFragment extends Fragment {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+            public void onPageScrollStateChanged(int state) { }
         });
 
         Log.d("IM HERE!!", "CREATING TEXT VIEWS!!!");
 
-        textInputBox1 = getString(R.string._0);
+        Bundle extraBundle = null;
+
+        try {
+            extraBundle = getArguments();
+        } catch (Exception ex) {}
+
+        if(extraBundle != null) {
+            textInputBox1 = String.valueOf(extraBundle.getDouble("logResult"));
+            inputBox1key.setText(textInputBox1);
+        } else {
+            textInputBox1 = getString(R.string._0);
+        }
         instantiateColors();
     }
 
@@ -188,30 +195,11 @@ public class MainActivityFragment extends Fragment {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             int[] layouts = {R.layout.keypad_functions, R.layout.keypad_layout, R.layout.fragment_formulas};
             int position = getArguments().getInt(ARG_SECTION_NUMBER);
-
-
             View rootView = inflater.inflate(layouts[position], container, false);
-
-            if(position == 0) {
-
-            } else if(position == 1) {
-
-            } /*else if(position == 2) {
-                listView = (ExpandableListView) rootView.findViewById(R.id.awesomeList);
-
-                generateListData();
-
-                listAdapter = new FormulasListAdapter(this.getActivity(), formulaTitles, formulas);
-                listView.setAdapter(listAdapter);
-            }
-            */
             return rootView;
-
         }
     }
 
@@ -384,6 +372,10 @@ public class MainActivityFragment extends Fragment {
             case R.id.btnLn:
                 textInputBox1 += "ln";
                 break;
+            case R.id.insertedButton:
+                Log.i("I'M A BUTTON!", "That uses include!");
+                showPickerDialog();
+                break;
         }
 
         inputBox1key.setText(Html.fromHtml(textInputBox1));
@@ -424,13 +416,9 @@ public class MainActivityFragment extends Fragment {
                 textInputBox1 = "";
             }
 
-            ResultLog resultLog = new ResultLog(textInputBox1, result);
-            dbHelper.createResultLog(resultLog);
-
-            List<ResultLog> resultLogs = dbHelper.getAllResultLogs();
-
-            for(ResultLog r : resultLogs) {
-                Log.i(LOG_TAG, "Result: " + r.getResult());
+            if(!result.equals(getResources().getString(R.string.input_error))) {
+                ResultLog resultLog = new ResultLog(textInputBox1, result);
+                dbHelper.createResultLog(resultLog);
             }
 
             resultBoxKey.setText(result);
@@ -518,5 +506,10 @@ public class MainActivityFragment extends Fragment {
         dialogStuff.putInt("type", type);
         varDialog.setArguments(dialogStuff);
         varDialog.show(getFragmentManager(), "dialog");
+    }
+
+    public void showPickerDialog() {
+        ColorPickDialog pickerDialog = new ColorPickDialog();
+        pickerDialog.show(getFragmentManager(), "pickerDialog");
     }
 }

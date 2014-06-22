@@ -23,9 +23,9 @@ public class SquareCard extends CustomCard {
     public SquareCard(Context context) {
         super(context);
         this.context = context;
-        this.mTitle = context.getResources().getStringArray(R.array.circle)[0];
+        this.mTitle = context.getResources().getStringArray(R.array.square)[0];
         this.mThumbnail = R.drawable.ic_square;
-        this.setmTitle(mTitle).setmThumbnail(mThumbnail).setInnerContentLayout(R.layout.card_square);
+        this.setmTitle(mTitle).setmThumbnail(mThumbnail);
     }
 
     public SquareCard(Context context, int innerLayout) {

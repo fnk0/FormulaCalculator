@@ -213,12 +213,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update(TABLE_RESULTS, values, KEY_ID + " = ?", new String[] {String.valueOf(resultLog.getId())});
     }
 
+    /**
+     *
+     * @param logId
+     */
     public void deleteResultLog(long logId) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_RESULTS, KEY_ID + " = ?", new String[] {String.valueOf(logId)});
+        //db.delete(TABLE_RESULTS, KEY_ID + "=" + logId, null);
         this.closeDB();
     }
 
+    /**
+     *
+     */
     public void deleteAllResultLogs() {
         SQLiteDatabase db = getReadableDatabase();
         db.delete(TABLE_RESULTS, null, null);

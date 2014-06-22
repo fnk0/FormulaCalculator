@@ -97,6 +97,7 @@ public class LogFragment extends Fragment {
             LogCard mCard = new LogCard(getActivity());
             mCard.setmInput(r.getInput());
             mCard.setmResult(r.getResult());
+            mCard.setLogID(r.getId());
             mCardsList.add(mCard);
         }
 

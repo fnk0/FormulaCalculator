@@ -8,7 +8,6 @@
     android:gravity="center_vertical"
     android:background="@android:color/white"
     >
-
     <RadioGroup
         android:id="@+id/squareType"
         android:layout_width="match_parent"
@@ -16,7 +15,6 @@
         android:orientation="vertical"
         android:layout_marginBottom="10dip"
         >
-
         <RadioButton
             android:id="@+id/squareArea"
             android:paddingLeft="10dip"
@@ -26,7 +24,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginBottom="5dip"
             />
-
         <RadioButton
             android:id="@+id/squarePerimeter"
             android:paddingLeft="10dip"
@@ -36,7 +33,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
     </RadioGroup>
-
     <LinearLayout
         android:weightSum="1"
         android:orientation="horizontal"
@@ -50,7 +46,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
-
         <EditText
             android:id="@+id/sideInput"
             android:minWidth="130dip"
@@ -59,8 +54,4 @@
             android:inputType="numberDecimal"
             />
     </LinearLayout>
-
-
-
-
 </LinearLayout>

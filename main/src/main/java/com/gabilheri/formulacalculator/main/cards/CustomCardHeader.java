@@ -20,7 +20,6 @@ import it.gmariotti.cardslib.library.internal.CardHeader;
  */
 public class CustomCardHeader extends CardHeader implements View.OnClickListener {
 
-    private String mTitle;
     private Context context;
 
     /**
@@ -30,7 +29,7 @@ public class CustomCardHeader extends CardHeader implements View.OnClickListener
     public CustomCardHeader(Context context) {
         super(context, R.layout.card_header);
         this.context = context;
-        this.setButtonExpandVisible(true);
+        //this.setButtonExpandVisible(true);
     }
 
     /**
@@ -42,15 +41,6 @@ public class CustomCardHeader extends CardHeader implements View.OnClickListener
         super(context, innerLayout);
     }
 
-    /**
-     *
-     * @param mTitle
-     * @return
-     */
-    public CustomCardHeader setmTitle(String mTitle) {
-        this.mTitle = mTitle;
-        return this;
-    }
 
     /**
      *
@@ -61,15 +51,9 @@ public class CustomCardHeader extends CardHeader implements View.OnClickListener
     public void setupInnerViewElements(ViewGroup parent, View view) {
 
         RadioButton formulaFavorite = (RadioButton) parent.findViewById(R.id.formulaFavorite);
-        TextView formulaTitle = (TextView) parent.findViewById(R.id.formulaTitle);
-        ImageButton formulaOverflow = (ImageButton) parent.findViewById(R.id.formulaOverflow);
 
         formulaFavorite.setOnClickListener(this);
-        formulaOverflow.setOnClickListener(this);
 
-        if(formulaTitle != null && mTitle != null) {
-            formulaTitle.setText(mTitle);
-        }
     }
 
     /**
@@ -86,9 +70,6 @@ public class CustomCardHeader extends CardHeader implements View.OnClickListener
         if(id == R.id.formulaFavorite) {
             Toast.makeText(getContext(), "Favorite!", Toast.LENGTH_SHORT).show();
             Log.i("HEADER", "HELLO FAVORITE!");
-        } else if(id == R.id.formulaOverflow) {
-            Toast.makeText(getContext(), "Overflow!", Toast.LENGTH_SHORT).show();
-            Log.i("HEADER", "HELLO OVERFLOW!");
         }
     }
 }

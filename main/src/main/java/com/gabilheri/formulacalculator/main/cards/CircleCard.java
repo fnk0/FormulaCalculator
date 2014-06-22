@@ -33,7 +33,7 @@ public class CircleCard extends CustomCard {
         super(context);
         this.mTitle = context.getResources().getStringArray(R.array.circle)[0];
         this.mThumbnail = R.drawable.ic_circle;
-        this.setmTitle(mTitle).setmThumbnail(mThumbnail).setInnerContentLayout(R.layout.card_circle);
+        this.setmTitle(mTitle).setmThumbnail(mThumbnail);
     }
 
     /**

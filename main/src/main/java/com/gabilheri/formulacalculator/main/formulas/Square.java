@@ -9,7 +9,7 @@ import com.gabilheri.formulacalculator.main.R;
  * @version 1.0
  * @since 6/5/14
  */
-public class Square extends Formula {
+public class Square implements Formula {
 
     public static final int SQUARE_AREA = 0;
     public static final int SQUARE_PERIMETER = 1;

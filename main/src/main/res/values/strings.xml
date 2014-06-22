@@ -45,7 +45,21 @@
         <item name="title"> Circle </item>
         <item name="thumbnail">@drawable/ic_circle</item>
     </string-array>
-    <string name="circle"> Circle </string>
+    <string-array name="sphere">
+        <item name="title"> Sphere </item>
+        <item name="thumbnail"></item>
+    </string-array>
+    <string-array name="triangle">
+        <item name="title"> Triangle </item>
+        <item name="thumbnail"> </item>
+        <item name="triangle_area"></item>
+        <item name="triangle_perimeter"></item>
+        <item name="triangle_ssa"></item>
+        <item name="triangle_asa"></item>
+        <item name="triangle_sas"></item>
+        <item name="triangle_sss"></item>
+        <item name="triangle_aas"></item>
+    </string-array>
 
 
     <!-- Content Description -->
@@ -86,6 +100,9 @@
     <string name="evaluate">Evaluate</string>
     <string name="area">Area</string>
     <string name="perimeter">Perimeter</string>
+
+    <!-- Evaluate Expression Strings -->
+    <string name="input_error"> Input Error! </string>
 
 
     <string name="settings_dummy">

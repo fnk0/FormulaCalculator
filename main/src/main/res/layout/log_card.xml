@@ -4,16 +4,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="15dip"
+    >
 
     <TextView
         android:id="@+id/inputLog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+    />
 
     <TextView
         android:id="@+id/resultLog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+    />
 
 </LinearLayout>

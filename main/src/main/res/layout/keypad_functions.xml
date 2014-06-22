@@ -51,17 +51,10 @@
                 />
         </LinearLayout>
 
-        <Button
+        <include
+            layout="@layout/default_button"
             android:id="@+id/btnLog"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_marginRight="2dip"
-            android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
-            android:gravity="center_horizontal|center_vertical"
-            android:onClick="handleKeypad"
             android:text="@string/log"
-            android:textColor="@android:color/white"
             android:textSize="35sp"
             />
 
@@ -324,29 +317,13 @@
         android:orientation="horizontal"
         >
 
-        <Button
-            android:id="@+id/button26"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_marginRight="2dip"
-            android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
-            android:gravity="center_horizontal|center_vertical"
-            android:textColor="@android:color/white"
-            android:textSize="40sp"
-            />
+       <include
+           android:id="@+id/insertedButton"
+           layout="@layout/default_button" />
 
-        <Button
+        <include
             android:id="@+id/button28"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_marginRight="2dip"
-            android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
-            android:gravity="center_horizontal|top"
-            android:textColor="@android:color/white"
-            android:textSize="65sp"
-
+            layout="@layout/default_button"
             />
 
         <Button

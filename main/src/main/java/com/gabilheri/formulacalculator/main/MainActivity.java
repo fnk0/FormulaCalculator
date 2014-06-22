@@ -1,14 +1,11 @@
 package com.gabilheri.formulacalculator.main;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,15 +15,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
+import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
 import com.gabilheri.formulacalculator.main.fragments.CardsFormulasFragment;
 import com.gabilheri.formulacalculator.main.fragments.LogFragment;
-import com.gabilheri.formulacalculator.main.fragments.MainActivityFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
-import com.revmob.RevMob;
-import com.revmob.RevMobTestingMode;
-import com.revmob.ads.banner.RevMobBanner;
-import com.revmob.ads.fullscreen.RevMobFullscreen;
 
 import java.util.ArrayList;
 
@@ -46,13 +39,20 @@ public class MainActivity extends ActionBarActivity  {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
+    //Constants for the Fragments
+
+    public static final int CALCULATOR_FRAG = 0;
+    public static final int FORMULAS_FRAG = 1;
+    public static final int LOG_FRAG = 2;
+    public static final int SETTINGS_FRAG = 3;
+
     // Nav Drawer Elements
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter navAdapter;
     private Fragment activeFragment;
-    private MainActivityFragment mainFragment;
+    private CalculatorFragment mainFragment;
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
 
@@ -108,7 +108,7 @@ public class MainActivity extends ActionBarActivity  {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if(savedInstanceState == null) {
-            displayView(0);
+            displayView(0, null);
         }
 
         //revMob = RevMob.start(this, APPLICATION_ID);
@@ -137,7 +137,7 @@ public class MainActivity extends ActionBarActivity  {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            displayView(position);
+            displayView(position, null);
         }
     }
 
@@ -145,21 +145,25 @@ public class MainActivity extends ActionBarActivity  {
      * Displaying fragment view for selected nav drawer list item
      *
      */
-    private void displayView(int position) {
+    public void displayView(int position, Bundle fragBundle) {
         // update the main content by replacing fragments
         activeFragment = null;
         switch (position) {
-            case 0:
-                activeFragment = new MainActivityFragment();
-                mainFragment = (MainActivityFragment) activeFragment;
+            case CALCULATOR_FRAG:
+                activeFragment = new CalculatorFragment();
+
+                if(fragBundle != null) {
+                    activeFragment.setArguments(fragBundle);
+                }
+                mainFragment = (CalculatorFragment) activeFragment;
                 break;
-            case 1:
+            case FORMULAS_FRAG:
                 activeFragment = new CardsFormulasFragment();
                 break;
-            case 2:
+            case LOG_FRAG:
                 activeFragment = new LogFragment();
                 break;
-            case 3:
+            case SETTINGS_FRAG:
                 activeFragment = new SettingsFragment();
                 break;
             case 4:

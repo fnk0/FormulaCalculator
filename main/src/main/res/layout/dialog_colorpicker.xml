@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/list_divider"
+    >
+
+    <com.larswerkman.holocolorpicker.ColorPicker
+        android:id="@+id/colorPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+    />
+
+    <com.larswerkman.holocolorpicker.ValueBar
+        android:id="@+id/valueBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+    />
+
+    <com.larswerkman.holocolorpicker.SVBar
+        android:id="@+id/svBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+    />
+
+
+    <com.larswerkman.holocolorpicker.OpacityBar
+        android:id="@+id/opacityBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+    />
+
+
+    <com.larswerkman.holocolorpicker.SaturationBar
+        android:id="@+id/saturationBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+    />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="5dip"
+        >
+    <EditText
+        android:id="@+id/hexValue"
+        android:hint="Hex Value"
+        android:gravity="center_horizontal"
+        android:textColorHint="@android:color/white"
+        android:ems="7"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:inputType="textCapCharacters"
+    />
+
+        <Button
+            android:id="@+id/setColor"
+            android:text="set Color"
+            android:layout_marginLeft="10dip"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/keypad_button"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/selColor"
+        android:text="Select Color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dip"
+        android:paddingRight="30dip"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="5dip"
+        android:background="@drawable/keypad_button"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+    />
+
+</LinearLayout>

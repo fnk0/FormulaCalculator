@@ -31,8 +31,7 @@ import it.gmariotti.cardslib.library.internal.overflowanimation.TwoCardOverlayAn
 public class CustomCard extends Card implements Card.OnCardClickListener {
 
     private ImageView mThumbnailView;
-    private LinearLayout toAddContent;
-    private int innerContentLayout;
+    private TextView formulaTitle;
     private String mTitle;
     private Context context;
     private int mThumbnail;
@@ -59,8 +58,7 @@ public class CustomCard extends Card implements Card.OnCardClickListener {
     }
 
     private void initCard() {
-         mHeader = new CustomCardHeader(context);
-        mHeader.setTitle(mTitle);
+        mHeader = new CustomCardHeader(context);
         this.addCardHeader(mHeader);
 
         CustomExpandCard expand = new CustomExpandCard(context);
@@ -78,11 +76,6 @@ public class CustomCard extends Card implements Card.OnCardClickListener {
         return this;
     }
 
-    public CustomCard setInnerContentLayout(int innerContentLayout) {
-        this.innerContentLayout = innerContentLayout;
-        return this;
-    }
-
     @Override
     public void onClick(Card card, View view) {
         Toast.makeText(context, "Hello World", Toast.LENGTH_SHORT).show();
@@ -94,47 +87,24 @@ public class CustomCard extends Card implements Card.OnCardClickListener {
 
         //Retrieve elements
         mThumbnailView = (ImageView) parent.findViewById(R.id.thumbnailFormula);
-        toAddContent = (LinearLayout) parent.findViewById(R.id.formulaContent);
+        formulaTitle = (TextView) parent.findViewById(R.id.formulaTitle);
 
-        /*
+
         ViewToClickToExpand viewToClickToExpand =
                 ViewToClickToExpand.builder()
-                        .setupView(mStar);
+                        .setupView(parent);
         setViewToClickToExpand(viewToClickToExpand);
-        */
 
-        if (mThumbnailView != null && toAddContent != null) {
+
+        if (mThumbnailView != null && formulaTitle != null) {
             mThumbnailView.setImageResource(mThumbnail);
-            try {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                LinearLayout layout = (LinearLayout) inflater.inflate(innerContentLayout, null);
-                if (layout != null) {
-                    toAddContent.removeAllViews();
-                    toAddContent.addView(layout);
-                }
-            } catch (Exception ex) {}
-
+            formulaTitle.setText(mTitle);
         }
     }
 
-    public class SimpleStockAnimation extends TwoCardOverlayAnimation {
-
-        public SimpleStockAnimation(Context context, Card card) {
-            super(context, card);
-        }
-
-        @Override
-        protected CardInfoToAnimate setCardToAnimate(Card card) {
-            TwoCardToAnimate info = new TwoCardToAnimate() {
-                @Override
-                public int getLayoutIdToAdd() {
-                    return R.layout.overflow_layout;
-                }
-            };
-            return info;
-        }
-    }
-
+    /**
+     *
+     */
     public class CustomExpandCard extends CardExpand {
         //Use your resource ID for your inner layout
         public CustomExpandCard(Context context) {
