@@ -1,5 +1,7 @@
 package com.gabilheri.formulacalculator.main.database;
 
+import java.util.HashMap;
+
 /**
  * @author Marcus Gabilheri
  * @version 1.0
@@ -7,12 +9,10 @@ package com.gabilheri.formulacalculator.main.database;
  */
 public class Theme {
 
-
-
+    private String themeName;
     private String displayColor;
-    private String[] buttonColors;
+    private HashMap<Integer, String> buttonColors;
 
     public Theme() {
-
     }
 }

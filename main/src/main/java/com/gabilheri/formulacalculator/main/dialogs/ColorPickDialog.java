@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,7 +82,6 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
 
                 colorPicker.setColor(colorValue);
                 colorPicker.setOldCenterColor(colorPicker.getColor());
-
                 break;
         }
     }

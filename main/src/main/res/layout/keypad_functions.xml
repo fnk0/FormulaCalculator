@@ -260,7 +260,7 @@
             />
 
         <Button
-            android:id="@+id/button15"
+            android:id="@+id/keypadInfinity"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
