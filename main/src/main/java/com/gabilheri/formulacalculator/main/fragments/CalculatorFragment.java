@@ -21,6 +21,7 @@ import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.ResultLog;
 import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
+import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class CalculatorFragment extends Fragment {
+public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -53,6 +54,8 @@ public class CalculatorFragment extends Fragment {
     private VariablesDialog varDialog;
     private boolean clearResult = false;
     private DatabaseHelper dbHelper;
+
+
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -233,6 +236,7 @@ public class CalculatorFragment extends Fragment {
      * Handles the keypad press.
      * @param view
      */
+    @Override
     public void handleKeypad(View view) {
 
         int id = view.getId();
@@ -506,5 +510,10 @@ public class CalculatorFragment extends Fragment {
     public void showPickerDialog() {
         ColorPickDialog pickerDialog = new ColorPickDialog();
         pickerDialog.show(getFragmentManager(), "pickerDialog");
+    }
+
+    @Override
+    public int getType() {
+        return FragmentWithKeypad.CALCULATOR_FRAGMENT;
     }
 }

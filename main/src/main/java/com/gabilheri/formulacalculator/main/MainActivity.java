@@ -14,11 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
 import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
 import com.gabilheri.formulacalculator.main.fragments.CardsFormulasFragment;
+import com.gabilheri.formulacalculator.main.fragments.FragmentThemeCreator;
 import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
+import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -45,6 +48,7 @@ public class MainActivity extends ActionBarActivity  {
     public static final int FORMULAS_FRAG = 1;
     public static final int LOG_FRAG = 2;
     public static final int SETTINGS_FRAG = 3;
+    public static final int THEME_CREATOR = 4;
 
     // Nav Drawer Elements
     private String[] navMenuTitles;
@@ -52,7 +56,7 @@ public class MainActivity extends ActionBarActivity  {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter navAdapter;
     private Fragment activeFragment;
-    private CalculatorFragment mainFragment;
+    private FragmentWithKeypad keypadFragment;
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
 
@@ -155,7 +159,7 @@ public class MainActivity extends ActionBarActivity  {
                 if(fragBundle != null) {
                     activeFragment.setArguments(fragBundle);
                 }
-                mainFragment = (CalculatorFragment) activeFragment;
+                keypadFragment = (CalculatorFragment) activeFragment;
                 break;
             case FORMULAS_FRAG:
                 activeFragment = new CardsFormulasFragment();
@@ -166,7 +170,9 @@ public class MainActivity extends ActionBarActivity  {
             case SETTINGS_FRAG:
                 activeFragment = new SettingsFragment();
                 break;
-            case 4:
+            case THEME_CREATOR:
+                activeFragment = new FragmentThemeCreator();
+                keypadFragment = (FragmentThemeCreator) activeFragment;
                 break;
             case 5:
                 break;
@@ -245,7 +251,7 @@ public class MainActivity extends ActionBarActivity  {
      * @param view
      */
     public void handleKeypad(View view) {
-        mainFragment.handleKeypad(view);
+        keypadFragment.handleKeypad(view);
     }
 
     /**
@@ -253,7 +259,7 @@ public class MainActivity extends ActionBarActivity  {
      * @param view
      */
     public void evaluateExpression(View view) {
-        mainFragment.evaluateExpression(view);
+        ((CalculatorFragment) keypadFragment).evaluateExpression(view);
     }
 
     /**
@@ -261,7 +267,8 @@ public class MainActivity extends ActionBarActivity  {
      * @param view
      */
     public void clearDisplay(View view) {
-        mainFragment.clearDisplay();
+
+        ((CalculatorFragment) keypadFragment).clearDisplay();
     }
 
     /**
@@ -269,7 +276,7 @@ public class MainActivity extends ActionBarActivity  {
      * @param view
      */
     public void deleteFromDisplay(View view) {
-        mainFragment.deleteFromDisplay();
+        ((CalculatorFragment) keypadFragment).deleteFromDisplay();
     }
 
     /**
@@ -277,7 +284,7 @@ public class MainActivity extends ActionBarActivity  {
      * @param view
      */
     public void showDialog(View view) {
-        mainFragment.handleKeypad(view);
+        keypadFragment.handleKeypad(view);
     }
 
     /**
@@ -285,6 +292,6 @@ public class MainActivity extends ActionBarActivity  {
      * @param view
      */
     public void handleVar(View view) {
-        mainFragment.handleVar(view);
+        ((CalculatorFragment) keypadFragment).handleVar(view);
     }
 }
