@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="num1" />
+    <item type="id" name="num2" />
+    <item type="id" name="num3" />
+    <item type="id" name="num4" />
+    <item type="id" name="num5" />
+    <item type="id" name="num6" />
+    <item type="id" name="num7" />
+    <item type="id" name="num8" />
+    <item type="id" name="num9" />
+    <item type="id" name="num0" />
+    <item type="id" name="clear" />
+    <item type="id" name="del" />
+    <item type="id" name="parLeft" />
+    <item type="id" name="parRight" />
+    <item type="id" name="plus" />
+    <item type="id" name="minus" />
+    <item type="id" name="multiply" />
+    <item type="id" name="divide" />
+    <item type="id" name="equal" />
+    <item type="id" name="dot" />
+    <item type="id" name="e" />
+    <item type="id" name="pi" />
+    <item type="id" name="infinity" />
+    <item type="id" name="factorial" />
+    <item type="id" name="sin" />
+    <item type="id" name="cos" />
+    <item type="id" name="tan" />
+    <item type="id" name="in_sin" />
+    <item type="id" name="in_cos" />
+    <item type="id" name="in_tan" />
+    <item type="id" name="radians" />
+    <item type="id" name="degree" />
+    <item type="id" name="sqrt" />
+    <item type="id" name="log" />
+    <item type="id" name="ln" />
+    <item type="id" name="percent" />
+    <item type="id" name="power" />
+
+</resources>
