@@ -34,6 +34,7 @@ public class DefaultButton extends Button implements View.OnTouchListener{
         this.mContext = context;
         this.setTextColor(textColor);
         this.setBackgroundColor(backgroundColor);
+        this.setTextSize(getResources().getDimension(R.dimen.button_text_size));
         if(!this.isInEditMode()) {
             this.setOnTouchListener(this);
             this.mActivity = (MainActivity) context;

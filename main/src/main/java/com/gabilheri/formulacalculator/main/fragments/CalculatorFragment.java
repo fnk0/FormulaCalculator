@@ -21,6 +21,7 @@ import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.adapters.FormulasListAdapter;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.ResultLog;
+import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
@@ -82,6 +83,8 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         // primary sections of the activity.
         ActionBar mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_launcher);
+
+        Theme mTheme = new Theme();
 
         rootView = view;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());

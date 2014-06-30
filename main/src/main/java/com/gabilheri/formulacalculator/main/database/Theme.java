@@ -9,11 +9,15 @@ import java.util.HashMap;
  */
 public class Theme {
 
+    public static final int THEME_FULL = 0x0000;
+    public static final int THEME_BASIC = 0x0001;
+    public static final String LOG_TAG = "Theme";
+
     private String themeName;
+    private String themeType;
     private String displayColor;
-    private HashMap<Integer, String> buttonColors;
+    private HashMap<String, String> buttonColors;
 
     public Theme() {
-        
     }
 }

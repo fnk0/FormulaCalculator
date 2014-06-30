@@ -30,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Tables
     private static final String TABLE_RESULTS = "results";
     private static final String TABLE_FORMULAS = "formulas";
+    private static final String TABLE_THEMES = "themes";
 
     // Common column names
     private static final String KEY_ID = "id";
@@ -42,6 +43,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Formulas - Column Names
     private static final String KEY_FORMULA = "formula_name";
     private static final String KEY_FORMULA_DRAWABLE = "formula_image";
+
+    // Themes Column Names
+    private static final String KEY_BUTTON_ID = "button_id";
+    private static final String KEY_BUTTON_COLOR = "button_color";
 
     // Create Results Table
     private static final String CREATE_TABLE_RESULTS = "CREATE TABLE "
