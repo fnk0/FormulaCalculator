@@ -52,31 +52,25 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="5dip"
         >
-    <EditText
-        android:id="@+id/hexValue"
-        android:hint="Hex Value"
-        android:gravity="center_horizontal"
-        android:textColorHint="@android:color/white"
-        android:ems="7"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:inputType="textCapCharacters"
-    />
-
-        <Button
-            android:id="@+id/setColor"
-            android:text="set Color"
-            android:layout_marginLeft="10dip"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
+        <TextView
+            android:text="Hex Value:"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/hexValue"
+            android:gravity="center_horizontal"
+            android:textColorHint="@android:color/white"
+            android:ems="9"
+            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/keypad_button"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginLeft="10dip"
+            android:inputType="textCapCharacters"
+        />
     </LinearLayout>
     <Button
         android:id="@+id/selColor"

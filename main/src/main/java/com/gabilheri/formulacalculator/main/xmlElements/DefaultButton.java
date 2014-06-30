@@ -2,11 +2,11 @@ package com.gabilheri.formulacalculator.main.xmlElements;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 
@@ -54,10 +54,10 @@ public class DefaultButton extends Button implements View.OnTouchListener{
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_UP) {
-            this.setBackgroundColor(mContext.getResources().getColor(R.color.def_button));
+            this.setBackgroundColor(mContext.getResources().getColor(R.color.def_button_pressed));
             mActivity.handleKeypad(this);
         } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            this.setBackgroundColor(mContext.getResources().getColor(R.color.def_button_pressed));
+            this.setBackgroundColor(mContext.getResources().getColor(R.color.def_button));
         }
         return true;
     }

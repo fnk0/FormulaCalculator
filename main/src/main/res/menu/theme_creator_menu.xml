@@ -6,16 +6,16 @@
     tools:context="com.gabilheri.formulacalculator.main.MainActivity"
     >
     <item
-        android:id="@+id/delete"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:title="Delete"
+        android:id="@+id/saveTheme"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="Save"
         android:orderInCategory="10"
         android:visible="true"
         app:showAsAction="always"
-        />
+    />
 
     <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>

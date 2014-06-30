@@ -282,9 +282,12 @@
         android:orientation="horizontal"
         >
 
-       <include
+       <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
            android:id="@+id/insertedButton"
-           layout="@layout/default_button" />
+           android:layout_marginRight="2dip"
+           android:layout_width="0dip"
+           android:layout_height="match_parent"
+           android:layout_weight="0.2"/>
 
         <include
             android:id="@+id/button28"

@@ -1,8 +1,10 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
+import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +58,8 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private VariablesDialog varDialog;
     private boolean clearResult = false;
     private DatabaseHelper dbHelper;
+    private View rootView;
+    private DefaultButton mDefault;
 
 
 
@@ -78,7 +84,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         ActionBar mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_launcher);
 
+        rootView = view;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
+
+        mDefault = (DefaultButton) view.findViewById(R.id.insertedButton);
 
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
         inputBox1key = (TextView) view.findViewById(R.id.inputBox1);
@@ -373,7 +382,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 break;
             case R.id.insertedButton:
                 Log.i("I'M A BUTTON!", "That uses include!");
-                showPickerDialog();
+                showPickerDialog(view.getId(), view.getSolidColor());
                 break;
         }
 
@@ -381,6 +390,19 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         //inputBox1fun.setText(textInputBox1);
 
         Log.d("FRAGMENT MAIN: ", "Text Input: " + textInputBox1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case ColorPickDialog.COLORPICK_CODE:
+                if(resultCode == Activity.RESULT_OK) {
+                    Bundle mBundle = data.getExtras();
+                    Button mButton = (Button) rootView.findViewById(mBundle.getInt("view"));
+                    mButton.setBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
+                }
+                break;
+        }
     }
 
     /**
@@ -507,8 +529,13 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         varDialog.show(getFragmentManager(), "dialog");
     }
 
-    public void showPickerDialog() {
+    public void showPickerDialog(int viewId, int buttonColor) {
         ColorPickDialog pickerDialog = new ColorPickDialog();
+        pickerDialog.setTargetFragment(this, ColorPickDialog.COLORPICK_CODE);
+        Bundle extras = new Bundle();
+        extras.putInt("view", viewId);
+        extras.putInt("color", buttonColor);
+        pickerDialog.setArguments(extras);
         pickerDialog.show(getFragmentManager(), "pickerDialog");
     }
 

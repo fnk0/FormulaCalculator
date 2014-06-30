@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:layout_marginRight="2dip"
     android:layout_weight="0.2"
-    android:background="@drawable/keypad_button"
     android:gravity="center_horizontal|center_vertical"
     android:textColor="@android:color/white"
     android:onClick="handleKeypad"
