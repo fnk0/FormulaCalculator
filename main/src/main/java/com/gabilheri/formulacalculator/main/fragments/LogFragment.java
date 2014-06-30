@@ -91,17 +91,20 @@ public class LogFragment extends Fragment {
 
         resultLogs =  dbHelper.getAllResultLogs();
         Collections.reverse(resultLogs);
-        mAdapter = new LogsAdapter(getActivity(), resultLogs);
+        //mAdapter = new LogsAdapter(getActivity(), resultLogs);
 
         for(ResultLog r : resultLogs) {
             LogCard mCard = new LogCard(getActivity());
+            mCard.setId("" + r.getId());
             mCard.setmInput(r.getInput());
             mCard.setmResult(r.getResult());
             mCard.setLogID(r.getId());
             mCardsList.add(mCard);
         }
 
-        logsList.setAdapter(new CardArrayAdapter(getActivity(), mCardsList));
+        CardArrayAdapter mCardAdapter = new CardArrayAdapter(getActivity(), mCardsList);
+        mCardAdapter.setEnableUndo(true);
+        logsList.setAdapter(mCardAdapter);
 
         run = new Runnable() {
             @Override
@@ -127,7 +130,6 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
         inflater.inflate(R.menu.log_menu, menu);
 
     }

@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,10 +24,10 @@ import com.gabilheri.formulacalculator.main.database.ResultLog;
 import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
+import com.gabilheri.formulacalculator.main.layouts.KeypadLayout;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -88,6 +87,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
         mDefault = (DefaultButton) view.findViewById(R.id.insertedButton);
+        KeypadLayout mLayout = new KeypadLayout(view);
 
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
         inputBox1key = (TextView) view.findViewById(R.id.inputBox1);
@@ -211,37 +211,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     }
 
     /**
-     * Generates the Data for the List.
-     * Eventually will be replaced with objects
-     */
-    public static void generateListData() {
-
-        formulaTitles = new ArrayList<String>();
-        formulas = new HashMap<>();
-
-        formulaTitles.add("Math Formulas");
-        formulaTitles.add("Physics Formulas");
-        formulaTitles.add("Finance Formulas");
-
-        List<String> mathF = new ArrayList<>();
-        mathF.add("Area Square");
-        mathF.add("Area Triangle");
-        mathF.add("Circumference");
-
-        List<String> physicsF = new ArrayList<>();
-        physicsF.add("Velocity");
-        physicsF.add("Displacement");
-
-        List<String> financeF = new ArrayList<>();
-        financeF.add("Interest Ratio");
-        financeF.add("Loan Calculator");
-
-        formulas.put(formulaTitles.get(0), mathF);
-        formulas.put(formulaTitles.get(1), physicsF);
-        formulas.put(formulaTitles.get(2), financeF);
-    }
-
-    /**
      * Handles the keypad press.
      * @param view
      */
@@ -289,6 +258,15 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         //Log.i("PAR COUNTER", "" + parCounter);
         switch (id) {
+            case R.id.equal:
+                evaluateExpression();
+                break;
+            case R.id.keypadClear:
+                clearDisplay();
+                break;
+            case R.id.keypadDel:
+                deleteFromDisplay();
+                break;
             case R.id.keypad0:
                 textInputBox1 += getString(R.string._0);
                 break;
@@ -382,11 +360,12 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 break;
             case R.id.insertedButton:
                 Log.i("I'M A BUTTON!", "That uses include!");
-                showPickerDialog(view.getId(), view.getSolidColor());
+                showPickerDialog(view.getId(), ((DefaultButton) view).getCustomBackgroundColor());
                 break;
         }
 
         inputBox1key.setText(Html.fromHtml(textInputBox1));
+
         //inputBox1fun.setText(textInputBox1);
 
         Log.d("FRAGMENT MAIN: ", "Text Input: " + textInputBox1);
@@ -398,8 +377,8 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             case ColorPickDialog.COLORPICK_CODE:
                 if(resultCode == Activity.RESULT_OK) {
                     Bundle mBundle = data.getExtras();
-                    Button mButton = (Button) rootView.findViewById(mBundle.getInt("view"));
-                    mButton.setBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
+                    DefaultButton mButton = (DefaultButton) rootView.findViewById(mBundle.getInt("view"));
+                    mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
                 }
                 break;
         }
@@ -407,44 +386,40 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
     /**
      * Handles the evaluate button.
-     * @param view
      */
-    public void evaluateExpression(View view) {
-        int id = view.getId();
-        if(id == R.id.equal) {
-            EvaluateExpression expression = new EvaluateExpression(textInputBox1, this);
+    public void evaluateExpression() {
+        EvaluateExpression expression = new EvaluateExpression(textInputBox1, this);
 
-            String result = expression.evaluate();
+        String result = expression.evaluate();
 
-            int resultSize = result.length();
+        int resultSize = result.length();
 
-            if(resultSize> 15) {
-                resultBoxKey.setTextSize(25);
-                Log.i("INPUT SIZE: ", "" + resultSize);
-            }
-
-            if(resultSize > 25) {
-                resultBoxKey.setTextSize(20);
-                Log.i("INPUT SIZE: ", "" + resultSize);
-            }
-
-            if(resultSize > 35) {
-                resultBoxKey.setTextSize(15);
-                Log.i("INPUT SIZE: ", "" + resultSize);
-            }
-
-            if(textInputBox1.equals(getString(R.string._0))) {
-                textInputBox1 = "";
-            }
-
-            if(!result.equals(getResources().getString(R.string.input_error))) {
-                ResultLog resultLog = new ResultLog(textInputBox1, result);
-                dbHelper.createResultLog(resultLog);
-            }
-
-            resultBoxKey.setText(result);
-            clearResult = true;
+        if(resultSize> 15) {
+            resultBoxKey.setTextSize(25);
+            Log.i("INPUT SIZE: ", "" + resultSize);
         }
+
+        if(resultSize > 25) {
+            resultBoxKey.setTextSize(20);
+            Log.i("INPUT SIZE: ", "" + resultSize);
+        }
+
+        if(resultSize > 35) {
+            resultBoxKey.setTextSize(15);
+            Log.i("INPUT SIZE: ", "" + resultSize);
+        }
+
+        if(textInputBox1.equals(getString(R.string._0))) {
+            textInputBox1 = "";
+        }
+
+        if(!result.equals(getResources().getString(R.string.input_error))) {
+            ResultLog resultLog = new ResultLog(textInputBox1, result);
+            dbHelper.createResultLog(resultLog);
+        }
+
+        resultBoxKey.setText(result);
+        clearResult = true;
     }
 
     /**
@@ -452,9 +427,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      */
     public void clearDisplay() {
         textInputBox1 = getString(R.string._0);
-        inputBox1key.setText(textInputBox1);
         resultBoxKey.setText("");
         inputBox1key.setTextSize(35);
+        clearResult = false;
     }
 
     /**
@@ -463,12 +438,17 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     public void deleteFromDisplay() {
 
         boolean par = false;
-        //Log.i("TEXT SIZE BEFORE!", "" + textInputBox1.length());
+        Log.i("TEXT SIZE BEFORE!", "" + textInputBox1.length());
 
-        if(textInputBox1.length() == 1) {
-            inputBox1key.setText(getString(R.string._0));
+        if(clearResult) {
+            Log.i(LOG_TAG, "Here?");
+            clearDisplay();
+            return;
+        }
+
+        if(textInputBox1.length() <= 1) {
+            textInputBox1 = getString(R.string._0);
         } else {
-
             if (textInputBox1.charAt(textInputBox1.length() - 1) == '>') {
                 Log.i("INSIDE PAR", "I'M A PAR!");
                 textInputBox1 = textInputBox1.substring(0, textInputBox1.length() - 28);
@@ -478,7 +458,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 textInputBox1 = textInputBox1.substring(0, textInputBox1.length() - 1);
             }
             //Log.i("TEXT SIZE!", "" + textInputBox1.length());
-            inputBox1key.setText(Html.fromHtml(textInputBox1));
+            //inputBox1key.setText(Html.fromHtml(textInputBox1));
         }
     }
 

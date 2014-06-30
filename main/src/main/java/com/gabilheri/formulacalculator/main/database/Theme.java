@@ -14,5 +14,6 @@ public class Theme {
     private HashMap<Integer, String> buttonColors;
 
     public Theme() {
+        
     }
 }

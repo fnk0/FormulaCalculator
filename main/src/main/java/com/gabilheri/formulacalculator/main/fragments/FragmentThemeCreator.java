@@ -37,7 +37,9 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -52,8 +54,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.theme_creator_menu, menu);
+        inflater.inflate(R.menu.menu_themes, menu);
 
     }
 

@@ -15,57 +15,50 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         >
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadClear"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/button_2"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_c"
             android:layout_marginRight="2dip"
-            android:onClick="clearDisplay"
         />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadDel"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/button_2"
             android:textColor="@android:color/white"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/del"
-            android:onClick="deleteFromDisplay"
             android:layout_marginRight="2dip"
         />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/parLeft"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:text="@string/par_left"
             android:textColor="@android:color/white"
             android:textSize="50sp"
-            android:onClick="handleKeypad"
         />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/parRight"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:text="@string/par_right"
             android:textColor="@android:color/white"
             android:textSize="50sp"
-            android:onClick="handleKeypad"
+            
         />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/plus"
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -75,7 +68,7 @@
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/plus"
-            android:onClick="handleKeypad"
+            
             />
     </LinearLayout>
 
@@ -87,62 +80,62 @@
         android:layout_height="0dip"
         android:layout_marginTop="2dip"
         >
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/btnPercent"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_marginRight="2dip"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:gravity="center_horizontal|center_vertical"
-            android:onClick="handleKeypad"
+            
             android:text="@string/percent_symbol"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             />
 
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad1"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_1"
-            android:onClick="handleKeypad"
+            
             />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad2"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_2"
-            android:onClick="handleKeypad"
+            
             />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad3"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_3"
-            android:onClick="handleKeypad"
+            
             />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/minus"
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -152,7 +145,7 @@
             android:textSize="65sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/minus_simbol"
-            android:onClick="handleKeypad"
+            
             />
     </LinearLayout>
 
@@ -164,62 +157,62 @@
         android:layout_height="0dip"
         android:layout_marginTop="2dip"
         >
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadPwr"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/exp_symbol"
-            android:onClick="handleKeypad"
+            
             />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad4"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_4"
-            android:onClick="handleKeypad"
+            
             />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad5"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_5"
-            android:onClick="handleKeypad"
+            
 
             />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad6"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_6"
-            android:onClick="handleKeypad"
+            
             />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/multiply"
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -229,7 +222,7 @@
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/multiply"
-            android:onClick="handleKeypad"
+            
             />
     </LinearLayout>
 
@@ -241,62 +234,59 @@
         android:layout_height="0dip"
         android:layout_marginTop="2dip"
         >
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadStore"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
-            android:textSize="40sp"
+            android:textSize="35sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/str"
-            android:onClick="showDialog"
+
             />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad7"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_7"
-            android:onClick="handleKeypad"
+            
         />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad8"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_8"
-            android:onClick="handleKeypad"
+            
             />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad9"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
+            
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_9"
-            android:onClick="handleKeypad"
+            
             />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/divide"
             android:layout_width="0dip"
             android:layout_height="match_parent"
@@ -306,7 +296,7 @@
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/divide"
-            android:onClick="handleKeypad"
+            
             />
     </LinearLayout>
 
@@ -319,57 +309,52 @@
         android:layout_marginTop="2dip"
         >
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadRelease"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="40sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/rel"
-            android:onClick="handleKeypad"
+            
             />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadDot"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:text="@string/dot"
             android:textColor="@android:color/white"
             android:textSize="65sp"
             android:gravity="center_horizontal|top"
-            android:onClick="handleKeypad"
+            
         />
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypad0"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="@drawable/keypad_button"
             android:layout_marginRight="2dip"
             android:textColor="@android:color/white"
             android:textSize="60sp"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/_0"
-            android:onClick="handleKeypad"
+            
         />
 
-        <Button
+        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/equal"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
-            android:background="@drawable/equal_button"
             android:text="@string/equal_sign"
             android:textColor="@android:color/white"
             android:textSize="65sp"
-            android:onClick="evaluateExpression"
             android:layout_marginRight="2dip"
             />
     </LinearLayout>

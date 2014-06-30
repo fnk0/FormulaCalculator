@@ -205,7 +205,6 @@ public class MainActivity extends ActionBarActivity  {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -219,8 +218,6 @@ public class MainActivity extends ActionBarActivity  {
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
-
-
 
     @Override
     public void setTitle(CharSequence title) {
@@ -251,39 +248,6 @@ public class MainActivity extends ActionBarActivity  {
      * @param view
      */
     public void handleKeypad(View view) {
-        keypadFragment.handleKeypad(view);
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void evaluateExpression(View view) {
-        ((CalculatorFragment) keypadFragment).evaluateExpression(view);
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void clearDisplay(View view) {
-
-        ((CalculatorFragment) keypadFragment).clearDisplay();
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void deleteFromDisplay(View view) {
-        ((CalculatorFragment) keypadFragment).deleteFromDisplay();
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void showDialog(View view) {
         keypadFragment.handleKeypad(view);
     }
 

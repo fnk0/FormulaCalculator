@@ -16,5 +16,7 @@
         style="@style/list_card.thumbnail"
     />
 
+    <!-- Include undo message layout -->
+    <include layout="@layout/undo_layout"/>
 
 </LinearLayout>

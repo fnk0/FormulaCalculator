@@ -19,7 +19,7 @@ import it.gmariotti.cardslib.library.internal.Card;
  * @version 1.0
  * @since 6/12/14
  */
-public class LogCard extends Card implements Card.OnSwipeListener, Card.OnCardClickListener {
+public class LogCard extends Card implements Card.OnSwipeListener, Card.OnCardClickListener, Card.OnUndoSwipeListListener {
 
     private String mInput;
     private String mResult;
@@ -92,5 +92,10 @@ public class LogCard extends Card implements Card.OnSwipeListener, Card.OnCardCl
 
         MainActivity mActivity = (MainActivity) mContext;
         mActivity.displayView(MainActivity.CALCULATOR_FRAG, resultBundle);
+    }
+
+    @Override
+    public void onUndoSwipe(Card card) {
+
     }
 }
