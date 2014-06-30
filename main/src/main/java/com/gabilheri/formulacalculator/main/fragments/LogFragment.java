@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.adapters.LogsAdapter;
 import com.gabilheri.formulacalculator.main.cards.LogCard;
@@ -22,7 +23,6 @@ import java.util.List;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
-import de.timroes.android.listview.EnhancedListView;
 
 /**
  * @author Marcus Gabilheri
@@ -119,6 +119,7 @@ public class LogFragment extends Fragment {
      * @param menu
      *         The options menu in which you place your items.
      * @param inflater
+     *         The inflater for this menu
      * @see #setHasOptionsMenu
      * @see #onPrepareOptionsMenu
      * @see #onOptionsItemSelected
@@ -128,6 +129,7 @@ public class LogFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.log_menu, menu);
+
     }
 
     /**

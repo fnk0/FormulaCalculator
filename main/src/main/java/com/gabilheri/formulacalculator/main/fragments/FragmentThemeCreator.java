@@ -1,5 +1,6 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,16 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     }
 
     /**
+     * @param savedInstanceState
+     *         If the fragment is being re-created from
+     *         a previous saved state, this is the state.
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    /**
      * @param menu
      *         The options menu in which you place your items.
      * @param inflater
@@ -43,6 +54,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.theme_creator_menu, menu);
+
     }
 
     /**
@@ -64,6 +76,14 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * Destroys this fragment
+     */
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
 }
