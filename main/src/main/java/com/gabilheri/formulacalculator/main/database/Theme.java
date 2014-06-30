@@ -13,11 +13,16 @@ public class Theme {
     public static final int THEME_BASIC = 0x0001;
     public static final String LOG_TAG = "Theme";
 
+    private String username;
     private String themeName;
     private String themeType;
     private String displayColor;
-    private HashMap<String, String> buttonColors;
+    private HashMap<Integer, Integer> buttonBackground;
+    private HashMap<Integer, Integer> buttonHightlight;
+    private HashMap<Integer, Integer> buttonTextColor;
 
     public Theme() {
+
+
     }
 }
