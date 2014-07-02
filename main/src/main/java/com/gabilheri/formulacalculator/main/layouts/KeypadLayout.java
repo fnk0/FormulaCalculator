@@ -1,12 +1,13 @@
 package com.gabilheri.formulacalculator.main.layouts;
 
 import android.view.View;
-import android.widget.Button;
 
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com"> Marcus Gabilheri </a>
@@ -20,8 +21,10 @@ public class KeypadLayout {
     private DefaultButton btnClear, btnDel, btnParLeft, btnParRight, btnPlus, btnMinus, btnMultiply, btnDivide, btnPercent, btnPower;
     private DefaultButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnDot, btnStr, btnRel, btnEqual, btnFactorial;
     private DefaultButton btnSqrt, btnLog,  btnLn, btnSin, btnCos, btnTan, btnE, btnPi, btnInf, btnArcSin, btnArcCos, btnArcTan;
-    private HashMap<Integer, Button> mButtons;
+    private HashMap<Integer, DefaultButton> mButtons;
+    private ArrayList<DefaultButton> mButtonsArray;
     private View rootView;
+    private String LOG_TAG = "KeypadLayout";
 
     public KeypadLayout(View rootView) {
         this.rootView = rootView;
@@ -95,13 +98,28 @@ public class KeypadLayout {
         mButtons.put(R.id.varPi, btnPi);
         btnInf = (DefaultButton) rootView.findViewById(R.id.keypadInfinity);
         mButtons.put(R.id.keypadInfinity, btnInf);
+
+        //Log.i(LOG_TAG, "" + btnClear.getCustomBackgroundColor());
+
     }
 
-    public HashMap<Integer, Button> getmButtons() {
+    public HashMap<Integer, DefaultButton> getmButtons() {
         return mButtons;
     }
 
-    public void setmButtons(HashMap<Integer, Button> mButtons) {
+    public void setmButtons(HashMap<Integer, DefaultButton> mButtons) {
         this.mButtons = mButtons;
+    }
+
+    public ArrayList<DefaultButton> getmButtonsArray() {
+
+        mButtonsArray = new ArrayList<>();
+
+        for(Map.Entry<Integer, DefaultButton> entry : mButtons.entrySet()) {
+            mButtonsArray.add(entry.getValue());
+        }
+
+
+        return mButtonsArray;
     }
 }

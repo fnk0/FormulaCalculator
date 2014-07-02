@@ -25,13 +25,14 @@ import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
-import com.gabilheri.formulacalculator.main.layouts.KeypadLayout;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
@@ -60,6 +61,11 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private DatabaseHelper dbHelper;
     private View rootView;
     private DefaultButton mDefault;
+    private DefaultButton btnClear, btnDel, btnParLeft, btnParRight, btnPlus, btnMinus, btnMultiply, btnDivide, btnPercent, btnPower;
+    private DefaultButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnDot, btnStr, btnRel, btnEqual, btnFactorial;
+    private DefaultButton btnSqrt, btnLog,  btnLn, btnSin, btnCos, btnTan, btnE, btnPi, btnInf, btnArcSin, btnArcCos, btnArcTan;
+    private HashMap<Integer, DefaultButton> mButtons;
+    private ArrayList<DefaultButton> mButtonsArray;
 
 
 
@@ -89,8 +95,18 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         rootView = view;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
-        mDefault = (DefaultButton) view.findViewById(R.id.insertedButton);
-        KeypadLayout mLayout = new KeypadLayout(view);
+        //mDefault = (DefaultButton) view.findViewById(R.id.insertedButton);
+        initButtons(view);
+        ArrayList<DefaultButton> mButtonsArray = getmButtonsArray();
+        try {
+            for (DefaultButton mButton : mButtonsArray) {
+                mButton.setBackgroundColor(mButton.getCustomBackgroundColor());
+                Log.i(LOG_TAG, mButton.getText().toString());
+            }
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
+
 
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
         inputBox1key = (TextView) view.findViewById(R.id.inputBox1);
@@ -102,7 +118,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         mViewPager.setCurrentItem(1);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
 
             @Override
             public void onPageSelected(int position) {
@@ -114,10 +132,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) { }
-        });
+            public void onPageScrollStateChanged(int state) {
 
-        Log.d("IM HERE!!", "CREATING TEXT VIEWS!!!");
+            }
+        });
 
         Bundle extraBundle = null;
 
@@ -422,7 +440,11 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         }
 
         resultBoxKey.setText(result);
-        clearResult = true;
+
+        if(!result.equals(getResources().getString(R.string.input_error))) {
+            clearResult = true;
+        }
+
     }
 
     /**
@@ -525,5 +547,98 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     @Override
     public int getType() {
         return FragmentWithKeypad.CALCULATOR_FRAGMENT;
+    }
+
+
+    public void initButtons(View rootView) {
+        mButtons = new HashMap<>();
+
+        btnClear = (DefaultButton) rootView.findViewById(R.id.keypadClear);
+        mButtons.put(R.id.keypadClear, btnClear);
+        btnDel = (DefaultButton) rootView.findViewById(R.id.keypadDel);
+        mButtons.put(R.id.keypadDel, btnDel);
+        btnParLeft = (DefaultButton) rootView.findViewById(R.id.parLeft);
+        mButtons.put(R.id.parLeft, btnParLeft);
+        btnParRight = (DefaultButton) rootView.findViewById(R.id.parRight);
+        mButtons.put(R.id.parRight, btnParRight);
+        btnPlus = (DefaultButton) rootView.findViewById(R.id.plus);
+        mButtons.put(R.id.plus, btnPlus);
+        btnMinus = (DefaultButton) rootView.findViewById(R.id.minus);
+        mButtons.put(R.id.minus, btnMinus);
+        btnMultiply = (DefaultButton) rootView.findViewById(R.id.multiply);
+        mButtons.put(R.id.multiply, btnMultiply);
+        btnDivide = (DefaultButton) rootView.findViewById(R.id.divide);
+        mButtons.put(R.id.divide, btnDivide);
+        btnPercent = (DefaultButton) rootView.findViewById(R.id.btnPercent);
+        mButtons.put(R.id.btnPercent, btnPercent);
+        btnPower = (DefaultButton) rootView.findViewById(R.id.keypadPwr);
+        mButtons.put(R.id.keypadPwr, btnPower);
+        btn1 = (DefaultButton) rootView.findViewById(R.id.keypad1);
+        mButtons.put(R.id.keypad1, btn1);
+        btn2 = (DefaultButton) rootView.findViewById(R.id.keypad2);
+        mButtons.put(R.id.keypad2, btn2);
+        btn3 = (DefaultButton) rootView.findViewById(R.id.keypad3);
+        mButtons.put(R.id.keypad3, btn3);
+        btn4 = (DefaultButton) rootView.findViewById(R.id.keypad4);
+        mButtons.put(R.id.keypad4, btn4);
+        btn5 = (DefaultButton) rootView.findViewById(R.id.keypad5);
+        mButtons.put(R.id.keypad5, btn5);
+        btn6 = (DefaultButton) rootView.findViewById(R.id.keypad6);
+        mButtons.put(R.id.keypad6, btn6);
+        btn7 = (DefaultButton) rootView.findViewById(R.id.keypad7);
+        mButtons.put(R.id.keypad7, btn7);
+        btn8 = (DefaultButton) rootView.findViewById(R.id.keypad8);
+        mButtons.put(R.id.keypad8, btn8);
+        btn9 = (DefaultButton) rootView.findViewById(R.id.keypad9);
+        mButtons.put(R.id.keypad9, btn9);
+        btn0 = (DefaultButton) rootView.findViewById(R.id.keypad0);
+        mButtons.put(R.id.keypad0, btn0);
+        btnDot = (DefaultButton) rootView.findViewById(R.id.keypadDot);
+        mButtons.put(R.id.keypadDot, btnDot);
+        btnStr = (DefaultButton) rootView.findViewById(R.id.keypadStore);
+        mButtons.put(R.id.keypadStore, btnStr);
+        btnRel = (DefaultButton) rootView.findViewById(R.id.keypadRelease);
+        mButtons.put(R.id.keypadRelease, btnRel);
+        btnEqual = (DefaultButton) rootView.findViewById(R.id.equal);
+        mButtons.put(R.id.equal, btnEqual);
+        btnFactorial = (DefaultButton) rootView.findViewById(R.id.btnFact);
+        mButtons.put(R.id.btnFact, btnFactorial);
+        btnSqrt = (DefaultButton) rootView.findViewById(R.id.keypadSqrt);
+        mButtons.put(R.id.keypadSqrt, btnSqrt);
+        btnLog = (DefaultButton) rootView.findViewById(R.id.btnLog);
+        mButtons.put(R.id.btnLog, btnLog);
+        btnLn = (DefaultButton) rootView.findViewById(R.id.btnLn);
+        mButtons.put(R.id.btnLn, btnLn);
+        btnSin = (DefaultButton) rootView.findViewById(R.id.btnSin);
+        mButtons.put(R.id.btnSin, btnSin);
+        btnCos = (DefaultButton) rootView.findViewById(R.id.btnCos);
+        mButtons.put(R.id.btnCos, btnCos);
+        btnTan = (DefaultButton) rootView.findViewById(R.id.btnTan);
+        mButtons.put(R.id.btnTan, btnTan);
+        btnE = (DefaultButton) rootView.findViewById(R.id.varE);
+        mButtons.put(R.id.varE, btnE);
+        btnPi = (DefaultButton) rootView.findViewById(R.id.varPi);
+        mButtons.put(R.id.varPi, btnPi);
+        btnInf = (DefaultButton) rootView.findViewById(R.id.keypadInfinity);
+        mButtons.put(R.id.keypadInfinity, btnInf);
+    }
+
+    public HashMap<Integer, DefaultButton> getmButtons() {
+        return mButtons;
+    }
+
+    public void setmButtons(HashMap<Integer, DefaultButton> mButtons) {
+        this.mButtons = mButtons;
+    }
+
+    public ArrayList<DefaultButton> getmButtonsArray() {
+
+        mButtonsArray = new ArrayList<>();
+
+        for(Map.Entry<Integer, DefaultButton> entry : mButtons.entrySet()) {
+            mButtonsArray.add(entry.getValue());
+        }
+
+        return mButtonsArray;
     }
 }
