@@ -8,8 +8,8 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,7 +43,7 @@ import java.util.ArrayList;
  * @since May 2014.
  */
 
-public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String LOG_TAG = "MAIN-ACTIVITY";
 
@@ -217,26 +217,36 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             case 5:
                 break;
             case GOOGLE_PLUS:
-                signInWithGPlus();
+                if(mGoogleServices.isConnected()) {
+                    signOutFromGplus();
+                    //navDrawerItems.get(7).setTitle("Sign In");
+                } else {
+                    signInWithGPlus();
+                    //navDrawerItems.get(7).setTitle("Sign Out");
+                }
                 break;
             default:
                 break;
         }
 
-        if (activeFragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, activeFragment).commit();
+        if(position != GOOGLE_PLUS) {
+            if (activeFragment != null) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, activeFragment).commit();
 
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
-        } else {
-            // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
+                // update selected item and title, then close the drawer
+                mDrawerList.setItemChecked(position, true);
+                mDrawerList.setSelection(position);
+                setTitle(navMenuTitles[position]);
+
+            } else {
+                // error in creating fragment
+                Log.e("MainActivity", "Error in creating fragment");
+            }
         }
+        mDrawerLayout.closeDrawer(mDrawerList);
+
     }
 
     @Override
@@ -376,7 +386,16 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     }
 
     private void updateUI(boolean updateUI) {
-
+        Log.i(LOG_TAG, "Updating UI....");
+        if(updateUI) {
+            //navDrawerItems.get(7).setTitle("Sign Out");
+            navMenuTitles[7] = "Sign Out";
+            Log.i(LOG_TAG, "Updating UI.... TRUE");
+        } else {
+            //navDrawerItems.get(7).setTitle("Sign In");
+            navMenuTitles[7] = "Sign In";
+            Log.i(LOG_TAG, "Updating UI.... FALSE!");
+        }
     }
 
     /**
@@ -386,7 +405,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         if(!mGoogleServices.isConnecting()) {
             mSignInClicked = true;
             resolveSignInError();
-            navDrawerItems.get(7).setTitle("Sign Out");
         }
     }
 
