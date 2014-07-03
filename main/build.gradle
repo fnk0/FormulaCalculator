@@ -1,4 +1,4 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
@@ -31,4 +31,5 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:library-extra:1.6.0'
     compile 'de.timroes.android:EnhancedListView:0.3.2@aar'
     compile 'com.larswerkman:HoloColorPicker:1.4'
+    compile 'com.google.android.gms:play-services:5.0.+'
 }

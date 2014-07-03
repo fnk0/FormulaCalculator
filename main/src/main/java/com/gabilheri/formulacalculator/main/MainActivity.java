@@ -2,6 +2,8 @@ package com.gabilheri.formulacalculator.main;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -13,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
 import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
@@ -23,6 +27,13 @@ import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 
 import java.util.ArrayList;
 
@@ -32,7 +43,24 @@ import java.util.ArrayList;
  * @since May 2014.
  */
 
-public class MainActivity extends ActionBarActivity  {
+public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    public static final String LOG_TAG = "MAIN-ACTIVITY";
+
+    /**
+     * Google Plus Sign-In Variables
+     */
+    private static final int RC_SIGN_IN = 0;
+    private GoogleApiClient mGoogleServices;
+    private boolean mIntentInProgress;
+    private boolean mSignInClicked;
+    private ConnectionResult mConnectionResult;
+
+    /**
+     * Drawer G+ Signed-IN Stuff
+     */
+    private static final int PROFILE_PIC_SIZE = 250;
+    private ImageView imageProfilePic;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -49,6 +77,7 @@ public class MainActivity extends ActionBarActivity  {
     public static final int LOG_FRAG = 2;
     public static final int SETTINGS_FRAG = 3;
     public static final int THEME_CREATOR = 4;
+    public static final int GOOGLE_PLUS = 7;
 
     // Nav Drawer Elements
     private String[] navMenuTitles;
@@ -92,6 +121,9 @@ public class MainActivity extends ActionBarActivity  {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
+        /**
+         * Handles the Drawer close and drawer open.
+         */
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, // Nav drawer icon
                 R.string.app_name, // Nav Drawer open - description for accessibility
@@ -114,6 +146,14 @@ public class MainActivity extends ActionBarActivity  {
         if(savedInstanceState == null) {
             displayView(0, null);
         }
+
+        /**
+         * Builder for the Google+ Sign IN
+         */
+        mGoogleServices = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this).addApi(Plus.API)
+                .addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
         //revMob = RevMob.start(this, APPLICATION_ID);
         //revMob.setTestingMode(RevMobTestingMode.WITH_ADS);
@@ -175,6 +215,9 @@ public class MainActivity extends ActionBarActivity  {
                 keypadFragment = (FragmentThemeCreator) activeFragment;
                 break;
             case 5:
+                break;
+            case GOOGLE_PLUS:
+                signInWithGPlus();
                 break;
             default:
                 break;
@@ -257,5 +300,148 @@ public class MainActivity extends ActionBarActivity  {
      */
     public void handleVar(View view) {
         ((CalculatorFragment) keypadFragment).handleVar(view);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleServices.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mGoogleServices.isConnected()) {
+            mGoogleServices.disconnect();
+        }
+    }
+
+    private void resolveSignInError() {
+        if(mConnectionResult.hasResolution()) {
+            try {
+                mIntentInProgress = true;
+                mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
+            } catch (IntentSender.SendIntentException ex) {
+                mIntentInProgress = false;
+                mGoogleServices.connect();
+            }
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        mSignInClicked = false;
+        getProfileInformation();
+        updateUI(true);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleServices.connect();
+        updateUI(false);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if(!connectionResult.hasResolution()) {
+            GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
+            return;
+        }
+
+        if(!mIntentInProgress) {
+            // Store the result for later usage
+            mConnectionResult = connectionResult;
+
+            if(mSignInClicked) {
+                // The user has already clicked sign-in so we attempt to resolve all errors
+                // until the user is signed in, or cancel.
+                resolveSignInError();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == RC_SIGN_IN) {
+            if(resultCode != RESULT_OK) {
+                mSignInClicked = false;
+            }
+
+            mIntentInProgress = false;
+
+            if(!mGoogleServices.isConnecting()) {
+                mGoogleServices.connect();
+            }
+        }
+    }
+
+    private void updateUI(boolean updateUI) {
+
+    }
+
+    /**
+     * Sign In with G-Plus
+     */
+    private void signInWithGPlus() {
+        if(!mGoogleServices.isConnecting()) {
+            mSignInClicked = true;
+            resolveSignInError();
+            navDrawerItems.get(7).setTitle("Sign Out");
+        }
+    }
+
+    /**
+     *  Sign Out with GPLUS
+     */
+    private void signOutFromGplus() {
+        if(mGoogleServices.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleServices);
+            mGoogleServices.disconnect();
+            mGoogleServices.connect();
+            updateUI(false);
+        }
+    }
+
+    /**
+     * Revoce access from Gplus
+     */
+    private void revokeGplusAccess() {
+        if(mGoogleServices.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleServices);
+            Plus.AccountApi.revokeAccessAndDisconnect(mGoogleServices)
+                    .setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            Log.i(LOG_TAG, "User access revoked");
+                            mGoogleServices.connect();
+                            updateUI(false);
+                        }
+                    });
+        }
+    }
+
+    private void getProfileInformation() {
+        try {
+            if(Plus.PeopleApi.getCurrentPerson(mGoogleServices) != null) {
+                Person mCurrentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleServices);
+                String personName = mCurrentPerson.getDisplayName();
+                String personPhotoUrl = mCurrentPerson.getImage().getUrl();
+                String PersonGooglePlusProfile = mCurrentPerson.getUrl();
+                final String personEmail = Plus.AccountApi.getAccountName(mGoogleServices);
+
+
+                // by default the profile url gives 50x50 px image only
+                // we can replace the value with whatever dimension we 2want by
+                // replacing sz=X
+                personPhotoUrl = personPhotoUrl.substring(0, personPhotoUrl.length() -2) + PROFILE_PIC_SIZE;
+                //new LoadProfileImage(imageProfilePic).execute(personPhotoUrl);
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "Person information is null", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
     }
 }

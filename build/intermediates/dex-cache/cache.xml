@@ -8,6 +8,12 @@
         revision="19.1.0"
         sha1="dd59f15631a0446653bc4197a9afd6ee63eef42d"/>
     <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-3a2f29c0f75303ac83760907d99662e48569b46d.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
+    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-80349e2bcd591d569faefc6c3b7404918ad0839e.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.larswerkman/HoloColorPicker/1.4/classes.jar"
         jumboMode="false"

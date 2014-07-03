@@ -95,19 +95,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         rootView = view;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
-        //mDefault = (DefaultButton) view.findViewById(R.id.insertedButton);
-        initButtons(view);
-        ArrayList<DefaultButton> mButtonsArray = getmButtonsArray();
-        try {
-            for (DefaultButton mButton : mButtonsArray) {
-                mButton.setBackgroundColor(mButton.getCustomBackgroundColor());
-                Log.i(LOG_TAG, mButton.getText().toString());
-            }
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        }
-
-
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
         inputBox1key = (TextView) view.findViewById(R.id.inputBox1);
         resultBoxKey = (TextView) view.findViewById(R.id.resultBox1);
