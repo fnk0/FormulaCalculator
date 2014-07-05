@@ -37,6 +37,7 @@
         <item name="icon_gplius">@drawable/ic_google_plus</item>
     </array>
 
+
     <!-- Math Formulas -->
 
     <string-array name="square">

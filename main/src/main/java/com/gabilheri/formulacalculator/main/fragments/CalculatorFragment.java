@@ -135,6 +135,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             inputBox1key.setText(textInputBox1);
         } else {
             textInputBox1 = getString(R.string._0);
+
         }
         instantiateColors();
     }

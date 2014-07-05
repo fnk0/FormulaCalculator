@@ -23,7 +23,6 @@ public class Utils {
     }
 
     public static String rgbaToHex(String rgbaString) {
-
         String[] rgbColors = rgbaString.split(",");
         String red = pad(Integer.toHexString(Integer.parseInt(rgbColors[0])));
         String green = pad(Integer.toHexString(Integer.parseInt(rgbColors[1])));
@@ -53,5 +52,27 @@ public class Utils {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Checks if the button selected is an Operator or not
+     * @param buttonId
+     *          The ID of the pressed button
+     * @return
+     *      true if is an operator
+     */
+    public static boolean isButtonOperator(int buttonId) {
+        switch (buttonId) {
+            case R.id.plus:
+            case R.id.minus:
+            case R.id.keypadSqrt:
+            case R.id.multiply:
+            case R.id.divide:
+            case R.id.keypadPwr:
+            case R.id.btnPercent:
+                return true;
+            default:
+                return false;
+        }
     }
 }

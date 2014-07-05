@@ -103,6 +103,18 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navDrawerItems = new ArrayList<>();
 
+        /**
+         * Builder for the Google+ Sign IN
+         */
+        mGoogleServices = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this).addApi(Plus.API)
+                .addScope(Plus.SCOPE_PLUS_LOGIN).build();
+
+        if(mGoogleServices.isConnected()) {
+            navMenuTitles[7] = "Sign Out";
+        }
+
         for(int i = 0; i < navMenuTitles.length; i++) {
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
         }
@@ -125,7 +137,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
          * Handles the Drawer close and drawer open.
          */
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, // Nav drawer icon
+                R.drawable.ic_navigation_drawer, // Nav drawer icon
                 R.string.app_name, // Nav Drawer open - description for accessibility
                 R.string.app_name // Nav drawer close.
         ) {
@@ -146,14 +158,6 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         if(savedInstanceState == null) {
             displayView(0, null);
         }
-
-        /**
-         * Builder for the Google+ Sign IN
-         */
-        mGoogleServices = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this).addApi(Plus.API)
-                .addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
         //revMob = RevMob.start(this, APPLICATION_ID);
         //revMob.setTestingMode(RevMobTestingMode.WITH_ADS);
@@ -243,6 +247,14 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             } else {
                 // error in creating fragment
                 Log.e("MainActivity", "Error in creating fragment");
+            }
+        } else {
+            mDrawerList.setItemChecked(position, false);
+            //navDrawerItems.get(7).setTitle("Sign Out");
+            if(!mGoogleServices.isConnected()) {
+                navDrawerItems.get(7).setTitle("Sign In");
+            } else {
+                navDrawerItems.get(7).setTitle("Sign Out");
             }
         }
         mDrawerLayout.closeDrawer(mDrawerList);
