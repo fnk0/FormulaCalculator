@@ -3,7 +3,6 @@ package com.gabilheri.formulacalculator.main.fragments;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,11 @@ import android.widget.TextView;
 import com.gabilheri.formulacalculator.main.R;
 
 /**
- * Created by marcus on 5/7/14.
+ * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
+ *
+ * @author Marcus Gabilheri
+ * @version 1.0
+ * @since 5/7/14.
  */
 public class SettingsFragment extends Fragment{
 

@@ -61,9 +61,13 @@ public class EvaluateExpression {
      * @return
      */
     public String evaluate() {
-        String toReturn = "";
+        String toReturn;
 
         Log.i("FULL EXPRESSION", expression);
+
+        if(expression.equals("")) {
+            return null;
+        }
 
         CustomFunction cosdFunc = null;
         CustomFunction tandFunc = null;

@@ -92,6 +92,8 @@ public class DefaultButton extends Button implements View.OnTouchListener{
             mActivity.handleKeypad(this);
         } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
             this.setBackgroundColor(highlightColor);
+        } else if(event.getAction() == MotionEvent.ACTION_CANCEL) {
+            this.setBackgroundColor(backgroundColor);
         }
         return true;
     }
