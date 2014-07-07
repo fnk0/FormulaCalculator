@@ -1,10 +1,16 @@
 package com.gabilheri.formulacalculator.main.formulas;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.logic.MathUtils;
 
-import static com.gabilheri.formulacalculator.main.utils.Utils.squareNUmber;
+import java.text.DecimalFormat;
+
+import static com.gabilheri.formulacalculator.main.logic.MathUtils.sinDegrees;
+import static com.gabilheri.formulacalculator.main.utils.Utils.squareNumber;
 
 /**
  * @author Marcus Gabilheri
@@ -13,6 +19,7 @@ import static com.gabilheri.formulacalculator.main.utils.Utils.squareNUmber;
  */
 public class Triangle implements Formula {
 
+    private static final String LOG_TAG = "TRIANGLE";
     public static final int TRIANGLE_PERIMETER = 0;
     public static final int TRIANGLE_AREA = 1;
     public static final int TRIANGLE_PYTHAGOREAN = 2;
@@ -21,9 +28,13 @@ public class Triangle implements Formula {
     public static final int TRIANGLE_SAS = 5;
     public static final int TRIANGLE_SSS = 6;
     public static final int TRIANGLE_AAS = 7;
+    public static final int DEGREES = 99;
+    public static final int RADIANS = 100;
+    private int angleType;
     private String mTitle;
     private int mType = -1;
     private double sideA, sideB, sideC, angleA, angleB, angleC, mBase, mHeight;
+    private DecimalFormat df;
 
     /**
      * Default constructor
@@ -81,30 +92,12 @@ public class Triangle implements Formula {
         this.mType = mType;
     }
 
-    /**
-     *
-     * Most general constructor For all the Triangles involving Angles and Sides
-     *
-     * @param mContext
-     *               the context in which this Triangle is being instantiated
-     * @param sideA
-     * @param sideB
-     * @param sideC
-     * @param angleA
-     * @param angleB
-     * @param angleC
-     * @param mType
-     *             the type of triangle that should be evaluated.
-     */
-    public Triangle(Context mContext, double sideA, double sideB, double sideC, double angleA, double angleB, double angleC, int mType) {
-        this(mContext);
-        this.sideA = sideA;
-        this.sideB = sideB;
-        this.sideC = sideC;
-        this.angleA = angleA;
-        this.angleB = angleB;
-        this.angleC = angleC;
-        this.mType = mType;
+    public int getAngleType() {
+        return angleType;
+    }
+
+    public void setAngleType(int angleType) {
+        this.angleType = angleType;
     }
 
     @Override
@@ -141,33 +134,165 @@ public class Triangle implements Formula {
      */
     private double evaluatePythagorean() {
         if(sideC == -1) {
-            return Math.sqrt(squareNUmber(sideA) + squareNUmber(sideB));
+            return Math.sqrt(squareNumber(sideA) + squareNumber(sideB));
         } else if(sideB == -1) {
-            return Math.sqrt(squareNUmber(sideC) - squareNUmber(sideB));
+            return Math.sqrt(squareNumber(sideC) - squareNumber(sideB));
         } else if(sideA == -1) {
-            return Math.sqrt(squareNUmber(sideC) - squareNUmber(sideA));
+            return Math.sqrt(squareNumber(sideC) - squareNumber(sideA));
         }
         return 0;
     }
 
     /**
+     * Angle Angle Side
+     * AAS Triangle - 2 Angles and a side which is NOT between the angles;
      *
-     * Solves for the triangle type of Angle Angle Side - AAS
      * Necessary Input: Angle A, Angle C, Side C
      * Returns: Angle C, Side A, Side B
+     *
+     * @param sideC
+     *          The known side of this triangle
+     * @param angleA
+     *          The angle adjacent to the known side
+     * @param angleC
+     *          The opposite angle to the known side
      *
      * @return
      *      an array with the results of this triangle.
      */
-    private double[] angleAngleSide() {
+    public double[] angleAngleSide(double sideC, double angleA, double angleC) {
 
         double[] result = new double[3];
 
         angleB = 180 - angleA - angleC;
-        //sideA = (sideC * Math.sin)
+        sideA = (sideC * sinDegrees(angleA)) / sinDegrees(angleC);
+        sideB = (sideC * sinDegrees(angleB)) / sinDegrees(angleC);
+
+        result[0] = angleB;
+        result[1] = sideA;
+        result[2] = sideB;
+
+        if(MainActivity.DEBUG) {
+            Log.i(LOG_TAG, "Angle B: " + angleB);
+            Log.i(LOG_TAG, "Side A: " + sideA);
+            Log.i(LOG_TAG, "Side B: " + sideB);
+        }
 
         return result;
     }
 
+    /**
+     * Angle Side Angle
+     * ASA Triangle - 2 Angles and a side in BETWEEN the angles
+     *
+     * Necessary input: angleA, angleB, sideC
+     * Returns: angleC, sideA, sideB
+     *
+     * @param angleA
+     *          The angle on the LEFT of the known side
+     * @param angleB
+     *          The angle on the RIGHT of the known side
+     * @param sideC
+     *          The side in between the Angles
+     * @return
+     *          an array with the results for this triangle.
+     */
+    public double[] angleSideAngle(double angleA, double angleB, double sideC) {
+
+        double[] result = new double[3];
+
+        angleC = 180 - angleA - angleB;
+        sideA = (sideC * sinDegrees(angleA)) / sinDegrees(angleC);
+        sideB = (sideC * sinDegrees(angleB)) / sinDegrees(angleC);
+
+        result[0] = sideA;
+        result[1] = sideB;
+        result[2] = angleC;
+
+
+        if(MainActivity.DEBUG) {
+            Log.i(LOG_TAG, "Angle C: " + angleC);
+            Log.i(LOG_TAG, "Side A: " + sideA);
+            Log.i(LOG_TAG, "Side B: " + sideB);
+        }
+
+        return result;
+    }
+
+    /**
+     * Side Angle Side
+     * SAS Triangle - 2 Sides and a Angle in BETWEEN the sides.
+     *
+     * Necessary Input: angleA, sideB, sideC
+     * Returns: sideA, angleB, angleC
+     *
+     * @param angleA
+     *          The angle in between the sides
+     * @param sideB
+     *          The side to the LEFT of the Angle
+     * @param sideC
+     *          The side to the RIGHT of the Angle
+     * @return
+     *          An array with the results of this triangle.
+     */
+    public double[] sideAngleSide(double angleA, double sideB, double sideC) {
+
+        double[] result = new double[3];
+
+        sideA = Math.sqrt(squareNumber(sideB) + squareNumber(sideC) - (2 * sideB * sideC * MathUtils.cosDegrees(angleA)));
+        angleB = Math.toDegrees(Math.asin((sideB * sinDegrees(angleA)) / sideA));
+        angleC = 180 - angleA - angleB;
+
+        result[0] = sideA;
+        result[1] = angleB;
+        result[2] = angleC;
+
+        if(MainActivity.DEBUG) {
+            Log.i(LOG_TAG, "Side A: " + sideA);
+            Log.i(LOG_TAG, "Angle B: " + angleB);
+            Log.i(LOG_TAG, "Angle C: " + angleC);
+        }
+
+        return result;
+    }
+
+    /**
+     *
+     * Side Side Angle
+     * SSA Triangle - 2 Sides and a angle that is NOT in between the sides.
+     *
+     * Necessary Input: sideB, sideC, angleB
+     * Returns: sideA, angleA, angleC
+     *
+     * @param sideB
+     *          The side opposite to the known Angle
+     * @param sideC
+     *          The side adjacent to the known Angle
+     * @param angleB
+     *          The known Angle
+     * @return
+     *          An array with the results of this triangle
+     */
+    public double[] sideSideAngle(double sideB, double sideC, double angleB) {
+
+        double[] result = new double[3];
+
+        angleC = Math.toDegrees(Math.asin((sideC * sinDegrees(angleB)) / sideB));
+        // TODO Finish this formula
+        angleA = 180 - angleC - angleB;
+        sideA = (sideB * sinDegrees(angleA)) / sinDegrees(angleB);
+
+        result[0] = sideA;
+        result[1] = angleA;
+        result[2] = angleC;
+
+        if(MainActivity.DEBUG) {
+            Log.i(LOG_TAG, "Side A: " + sideA);
+            Log.i(LOG_TAG, "Angle A: " + angleA);
+            Log.i(LOG_TAG, "Angle C: " + angleC);
+        }
+
+        return result;
+    }
 
 }

@@ -18,7 +18,7 @@ public class Utils {
         return toStrip.replaceAll("\\<.*?>", "");
     }
 
-    public static double squareNUmber(double toSquare) {
+    public static double squareNumber(double toSquare) {
         return Math.pow(toSquare, 2);
     }
 

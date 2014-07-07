@@ -27,6 +27,7 @@ import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
+import com.gabilheri.formulacalculator.main.tests.TestFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,6 +45,11 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    /**
+     * DEBUG VARIABLE IN CONTROL OF DEBUG FOR THE ENTIRE APP
+     */
+    public static final boolean DEBUG = true;
 
     public static final String LOG_TAG = "MAIN-ACTIVITY";
 
@@ -78,6 +84,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     public static final int SETTINGS_FRAG = 3;
     public static final int THEME_CREATOR = 4;
     public static final int GOOGLE_PLUS = 7;
+    public static final int DEBUG_FRAG = 8;
 
     // Nav Drawer Elements
     private String[] navMenuTitles;
@@ -116,7 +123,13 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         }
 
         for(int i = 0; i < navMenuTitles.length; i++) {
-            navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+
+            if(i == navMenuTitles.length - 1 && !DEBUG) {
+                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+            } else {
+                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+            }
+
         }
 
         // Recycle the typed array to avoid wast resources
@@ -228,6 +241,9 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                     signInWithGPlus();
                     //navDrawerItems.get(7).setTitle("Sign Out");
                 }
+                break;
+            case DEBUG_FRAG:
+                activeFragment = new TestFragment();
                 break;
             default:
                 break;
