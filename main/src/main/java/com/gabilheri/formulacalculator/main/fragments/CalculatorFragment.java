@@ -28,7 +28,6 @@ import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,17 +51,13 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private static HashMap<String, List<String>> formulas;
     private static TextView inputBox1key, resultBoxKey;
     private String textInputBox1;
+    private int angleType;
     private int parCounter = 0;
     private String[] colors;
     private VariablesDialog varDialog;
     private boolean clearResult = false;
     private DatabaseHelper dbHelper;
     private View rootView;
-    private KeypadFunctionsFragment mFunctionsFragment;
-    private KeypadFragment mKeypadFragment;
-
-    private HashMap<Integer, DefaultButton> mKeypadButtons, mKeypadFunctionsButtons;
-    private ArrayList<DefaultButton> mButtonsArray, mFunctionsArray;
 
 
 
@@ -88,7 +83,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         mActionBar.setIcon(R.drawable.ic_launcher);
 
         Theme mTheme = new Theme();
-
+        angleType = EvaluateExpression.DEGREE;
         rootView = view;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
@@ -154,7 +149,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                mFragment = new FunctionsKeypadFragment();
+                mFragment = new KeypadFunctionsFragment();
             } else if(position == 1) {
                 mFragment = new KeypadFragment();
             }
@@ -325,6 +320,17 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 Log.i("I'M A BUTTON!", "That uses include!");
                 showPickerDialog(view.getId(), ((DefaultButton) view).getCustomBackgroundColor());
                 break;
+            case R.id.degreeRad:
+                if(angleType == EvaluateExpression.DEGREE) {
+                    angleType = EvaluateExpression.RADIANS;
+                    ((DefaultButton) view).setText("RAD");
+                    view.setSelected(true);
+                } else {
+                    angleType = EvaluateExpression.DEGREE;
+                    ((DefaultButton) view).setText("DEG");
+                    view.setSelected(false);
+                }
+                return;
         }
 
         inputBox1key.setText(Html.fromHtml(textInputBox1));
@@ -352,7 +358,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      */
     public void evaluateExpression() {
 
-        EvaluateExpression expression = new EvaluateExpression(textInputBox1, this);
+        EvaluateExpression expression = new EvaluateExpression(textInputBox1, this, angleType);
 
         String result = expression.evaluate();
 

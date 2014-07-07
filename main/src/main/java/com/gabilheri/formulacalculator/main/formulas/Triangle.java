@@ -1,9 +1,10 @@
 package com.gabilheri.formulacalculator.main.formulas;
 
 import android.content.Context;
-import static com.gabilheri.formulacalculator.main.utils.Utils.*;
+
 import com.gabilheri.formulacalculator.main.R;
-import com.gabilheri.formulacalculator.main.utils.Utils;
+
+import static com.gabilheri.formulacalculator.main.utils.Utils.squareNUmber;
 
 /**
  * @author Marcus Gabilheri
@@ -31,6 +32,11 @@ public class Triangle implements Formula {
      */
     public Triangle(Context mContext) {
         this.mTitle = mContext.getResources().getStringArray(R.array.triangle)[0];
+    }
+
+    public Triangle(Context mContext, int type) {
+        this(mContext);
+        this.mType = type;
     }
 
     /**
@@ -108,7 +114,6 @@ public class Triangle implements Formula {
 
     @Override
     public double evaluate() {
-
         if(mType != -1) {
             switch (mType) {
                 case TRIANGLE_AREA:
@@ -129,8 +134,10 @@ public class Triangle implements Formula {
     }
 
     /**
+     * Method to solve for the missing side in a right triangle.
      *
      * @return
+     *      A double with the value of the unknown side
      */
     private double evaluatePythagorean() {
         if(sideC == -1) {
@@ -142,4 +149,25 @@ public class Triangle implements Formula {
         }
         return 0;
     }
+
+    /**
+     *
+     * Solves for the triangle type of Angle Angle Side - AAS
+     * Necessary Input: Angle A, Angle C, Side C
+     * Returns: Angle C, Side A, Side B
+     *
+     * @return
+     *      an array with the results of this triangle.
+     */
+    private double[] angleAngleSide() {
+
+        double[] result = new double[3];
+
+        angleB = 180 - angleA - angleC;
+        //sideA = (sideC * Math.sin)
+
+        return result;
+    }
+
+
 }

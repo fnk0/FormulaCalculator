@@ -114,4 +114,5 @@
              &#8226; item two \n \t
             &#8226; item three\n \t
     </string>
+    <string name="deg">DEG</string>
 </resources>

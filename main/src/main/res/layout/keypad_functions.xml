@@ -15,6 +15,8 @@
         >
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/degreeRad"
+            android:text="@string/deg"
             android:layout_marginRight="2dip"
             android:layout_width="0dip"
             android:layout_height="match_parent"

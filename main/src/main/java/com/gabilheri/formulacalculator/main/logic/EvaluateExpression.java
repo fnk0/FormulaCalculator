@@ -4,8 +4,11 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.utils.Utils;
+
+import java.text.DecimalFormat;
 
 import de.congrace.exp4j.Calculable;
 import de.congrace.exp4j.CustomFunction;
@@ -22,7 +25,12 @@ import de.congrace.exp4j.InvalidCustomFunctionException;
 public class EvaluateExpression {
 
     private String expression;
+    private int angleType;
+    public static int DEGREE = 0;
+    public static int RADIANS = 1;
     private Fragment fragment;
+    private DecimalFormat df;
+    public static String LOG_TAG = "EVALUATE EXPRESSION";
 
     /**
      * Default constructor.
@@ -33,11 +41,16 @@ public class EvaluateExpression {
     /**
      * Constructor for the Evaluate Expression method.
      * @param expression
+     *          The expression to be evaluated
      * @param fragment
+     *          The fragment in which this expression is being callen
      */
-    public EvaluateExpression(String expression, Fragment fragment) {
+    public EvaluateExpression(String expression, Fragment fragment, int angleType) {
         this.expression = expression;
         this.fragment = fragment;
+        this.angleType = angleType;
+        // TODO implement this precisiona s a setting feature.
+        df = new DecimalFormat("#0.#########"); // Current precision = 9
     }
 
     /**
@@ -62,7 +75,6 @@ public class EvaluateExpression {
      */
     public String evaluate() {
         String toReturn;
-
         Log.i("FULL EXPRESSION", expression);
 
         if(expression.equals("")) {
@@ -85,17 +97,31 @@ public class EvaluateExpression {
         try {
             cosdFunc = new CustomFunction("cos") {
                 public double applyFunction(double[] values) {
-                    return Math.cos(Math.toRadians(values[0]));
+                    if(angleType == DEGREE) {
+                        return Double.parseDouble(df.format(MathUtils.cosDegrees(values[0])));
+                    } else if(angleType == RADIANS) {
+                        return Double.parseDouble(df.format(Math.cos(values[0])));
+                    } else {
+                        return 0;
+                    }
                 }
             };
             tandFunc = new CustomFunction("tan") {
                 public double applyFunction(double[] values) {
-                    return Math.tan(Math.toRadians(values[0]));
+                    if(angleType == DEGREE) {
+                        return Double.parseDouble(df.format(MathUtils.tanDegrees(values[0])));
+                    } else {
+                        return Double.parseDouble(df.format(Math.tan(values[0])));
+                    }
                 }
             };
             sindFunc = new CustomFunction("sin") {
                 public double applyFunction(double[] values) {
-                    return Math.sin(Math.toRadians(values[0]));
+                    if(angleType == DEGREE) {
+                        return Double.parseDouble(df.format(MathUtils.sinDegrees(values[0])));
+                    } else {
+                        return Double.parseDouble(df.format(Math.sin(values[0])));
+                    }
                 }
             };
             log10 = new CustomFunction("log") {
@@ -206,11 +232,11 @@ public class EvaluateExpression {
                     .withVariable(fragment.getString(R.string.var_e), varE)
                     .build();
             double result = calc.calculate();
-
+            result = Double.parseDouble(df.format(result));
             if(result % 1 == 0) {
                 Log.i("RESULT: ", "IS INTEGER!");
-                int intResult = (int) result;
-                toReturn = "" + intResult;
+                toReturn = "" + result;
+                toReturn = toReturn.substring(0, toReturn.length() - 2);
             } else {
                 toReturn = "" + result;
             }

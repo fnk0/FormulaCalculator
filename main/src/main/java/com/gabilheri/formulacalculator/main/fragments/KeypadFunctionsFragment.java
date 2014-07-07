@@ -23,6 +23,7 @@ import java.util.Map;
 public class KeypadFunctionsFragment extends Fragment {
 
     private DefaultButton btnSqrt, btnLog,  btnLn, btnSin, btnCos, btnTan, btnE, btnPi, btnInf, btnArcSin, btnArcCos, btnArcTan, btnFactorial;
+    private DefaultButton degreeRad;
     private HashMap<Integer, DefaultButton> mKeypadFunctionButtons;
     private ArrayList<DefaultButton> mButtonsArray;
 
@@ -65,6 +66,9 @@ public class KeypadFunctionsFragment extends Fragment {
         mKeypadFunctionButtons.put(R.id.varPi, btnPi);
         btnInf = (DefaultButton) view.findViewById(R.id.keypadInfinity);
         mKeypadFunctionButtons.put(R.id.keypadInfinity, btnInf);
+
+        degreeRad = (DefaultButton) view.findViewById(R.id.degreeRad);
+        mKeypadFunctionButtons.put(R.id.degreeRad, degreeRad);
 
         mButtonsArray = new ArrayList<>();
 
