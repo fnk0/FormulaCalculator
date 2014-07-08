@@ -60,20 +60,46 @@ public class DefaultButton extends Button implements View.OnClickListener {
         return this;
     }
 
+    /**
+     * This methods returns a integer representation of a Color object
+     *
+     * @return
+     *      the current background of this button
+     */
     public int getCustomBackgroundColor() {
         return backgroundColor;
     }
 
+    /**
+     * Sets the custom background of this object
+     * @param backgroundColor
+     *          a integer representing a Color object
+     * @return
+     *          this object for chainable purposes
+     */
     public DefaultButton setCustomBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
-        this.setBackgroundColor(backgroundColor);
         return this;
     }
 
+    /**
+     * getter for the highlight color of this button
+     * the highlight color is the one that will be represented whenever the button is pressed
+     *
+     * @return
+     *       a integer representing a Color object
+     *
+     *
+     */
     public int getCustomHighlightColor() {
         return highlightColor;
     }
 
+    /**
+     *
+     * @param highlightColor
+     * @return
+     */
     public DefaultButton setCustomHighlightColor(int highlightColor) {
         this.highlightColor = highlightColor;
         return this;

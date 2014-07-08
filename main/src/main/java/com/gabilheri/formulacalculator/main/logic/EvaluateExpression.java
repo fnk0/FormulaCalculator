@@ -94,6 +94,10 @@ public class EvaluateExpression {
         double varPi = Math.PI;
         double varE = Math.E;
 
+        /**
+         * The library has built in functions to handle all the trig functions
+         * Overrading is necessary to handle degrees and radians
+         */
         try {
             cosdFunc = new CustomFunction("cos") {
                 public double applyFunction(double[] values) {
@@ -155,6 +159,11 @@ public class EvaluateExpression {
                 }
             };
 
+            /**
+             * Override the normal modulus operand to handle the percentage.
+             *
+             */
+            // TODO implement settings to let the user choose between percent vs modulus
             percent = new CustomOperator("%", true, 4 ) {
                 @Override
                 protected double applyOperation(double[] doubles) {
@@ -164,7 +173,6 @@ public class EvaluateExpression {
                     return ((doubles[0] / 100) * doubles[1]);
                 }
             };
-
         } catch (InvalidCustomFunctionException e1) {
             e1.printStackTrace();
         }
@@ -233,7 +241,7 @@ public class EvaluateExpression {
                     .build();
             double result = calc.calculate();
             result = Double.parseDouble(df.format(result));
-            
+
             if(result % 1 == 0) {
                 Log.i("RESULT: ", "IS INTEGER!");
                 long mLong = (long) result;
@@ -255,7 +263,9 @@ public class EvaluateExpression {
      * Small factorial function.
      * Needs to be improved for a more sofiscated version :D
      * @param num
+     *          The number to get the factorial for
      * @return
+     *          num!
      */
     public double factorial(double num) {
         if(num == 0) {
@@ -275,7 +285,9 @@ public class EvaluateExpression {
     /**
      * Helper function to check if all the factorial functions have valid input.
      * @param exp
+     *          the expression for this evaluate
      * @return
+     *          true if this expression can be evaluated.
      */
     public boolean checkFactorial(String exp) {
         double toCheck;

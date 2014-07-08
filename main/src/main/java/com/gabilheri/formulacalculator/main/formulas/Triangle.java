@@ -45,6 +45,14 @@ public class Triangle implements Formula {
         this.mTitle = mContext.getResources().getStringArray(R.array.triangle)[0];
     }
 
+    /**
+     * Constructor for this object
+     *
+     * @param mContext
+     *          the context in which this Triangle is being instantiated
+     * @param type
+     *          the type of this triangle
+     */
     public Triangle(Context mContext, int type) {
         this(mContext);
         this.mType = type;
@@ -92,12 +100,26 @@ public class Triangle implements Formula {
         this.mType = mType;
     }
 
+    /**
+     * Returns the current angle type set for this triangle
+     *
+     * @return
+     *          degrees or radians
+     */
     public int getAngleType() {
         return angleType;
     }
 
-    public void setAngleType(int angleType) {
+    /**
+     * Setter for the angle type.
+     * @param angleType
+     *          the angle type of this triangle
+     * @return
+     *          This object for easy chain when building a object
+     */
+    public Triangle setAngleType(int angleType) {
         this.angleType = angleType;
+        return this;
     }
 
     @Override
