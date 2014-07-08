@@ -233,10 +233,11 @@ public class EvaluateExpression {
                     .build();
             double result = calc.calculate();
             result = Double.parseDouble(df.format(result));
+            
             if(result % 1 == 0) {
                 Log.i("RESULT: ", "IS INTEGER!");
-                toReturn = "" + result;
-                toReturn = toReturn.substring(0, toReturn.length() - 2);
+                long mLong = (long) result;
+                toReturn = "" + mLong;
             } else {
                 toReturn = "" + result;
             }

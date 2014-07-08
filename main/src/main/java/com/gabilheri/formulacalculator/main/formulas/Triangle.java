@@ -275,24 +275,93 @@ public class Triangle implements Formula {
      */
     public double[] sideSideAngle(double sideB, double sideC, double angleB) {
 
-        double[] result = new double[3];
+        double[] result = new double[7];
+        double numSolutions = 1;
+        double angleA2;
+        double angleC2;
+        double sideA2;
 
         angleC = Math.toDegrees(Math.asin((sideC * sinDegrees(angleB)) / sideB));
-        // TODO Finish this formula
         angleA = 180 - angleC - angleB;
         sideA = (sideB * sinDegrees(angleA)) / sinDegrees(angleB);
 
-        result[0] = sideA;
-        result[1] = angleA;
-        result[2] = angleC;
+        result[1] = sideA;
+        result[2] = angleA;
+        result[3] = angleC;
 
         if(MainActivity.DEBUG) {
             Log.i(LOG_TAG, "Side A: " + sideA);
             Log.i(LOG_TAG, "Angle A: " + angleA);
+            Log.i(LOG_TAG, "Angle B: " + angleB);
+            Log.i(LOG_TAG, "Angle C: " + angleC);
+            if(angleA + angleB + angleC == 180) {
+                Log.i(LOG_TAG, "TRUE!");
+            } else {
+                Log.i(LOG_TAG, "FALSE!");
+            }
+        }
+
+        angleC2 = 180 - angleC;
+        angleA2 = 180 - angleC2 - angleB;
+
+        if(angleA2 > 0) {
+            numSolutions = 2;
+            sideA2 = (sideB * sinDegrees(angleA2) / sinDegrees(angleB));
+            result[4] = sideA2;
+            result[5] = angleC2;
+            result[6] = angleA2;
+
+            if(MainActivity.DEBUG) {
+                Log.i(LOG_TAG, "Side A - 2: " + sideA2);
+                Log.i(LOG_TAG, "Angle A - 2: " + angleA2);
+                Log.i(LOG_TAG, "Angle B - 2: " + angleB);
+                Log.i(LOG_TAG, "Angle C - 2: " + angleC2);
+                if(angleA2 + angleB + angleC2 == 180) {
+                    Log.i(LOG_TAG, "TRUE!");
+                } else {
+                    Log.i(LOG_TAG, "FALSE!");
+                }
+            }
+        }
+
+        result[0] = numSolutions;
+
+        return result;
+    }
+
+    /**
+     * Side Side Side
+     * SSS Triangle - 3 Sides are known
+     *
+     * Input Required: sideA, sideB, sideC
+     * Returns: angleA, angleB, angleC
+     * @param sideA
+     *          an side of the triangle
+     * @param sideB
+     *          an side of the triangle
+     * @param sideC
+     *          an side of the triangle
+     * @return
+     *          The unknown angles of this triangle
+     */
+    public double[] sideSideSide(double sideA, double sideB, double sideC) {
+
+        double[] result = new double[3];
+
+        angleA = Math.toDegrees(Math.acos((squareNumber(sideB) + squareNumber(sideC) - squareNumber(sideA)) / (2 * sideB * sideC)));
+        angleB = Math.toDegrees(Math.acos((squareNumber(sideA) + squareNumber(sideC) - squareNumber(sideB)) / (2 * sideA * sideC)));
+        angleC = 180 - angleA - angleB;
+
+        result[0] = angleA;
+        result[1] = angleB;
+        result[2] = angleC;
+
+        if(MainActivity.DEBUG) {
+            Log.i(LOG_TAG, "Angle A: " + angleA);
+            Log.i(LOG_TAG, "Angle B: " + angleB);
             Log.i(LOG_TAG, "Angle C: " + angleC);
         }
 
         return result;
     }
-
 }
