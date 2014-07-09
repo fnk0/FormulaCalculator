@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
@@ -22,16 +24,20 @@ public class DefaultButton extends Button implements View.OnClickListener {
     private Context mContext;
     private MainActivity mActivity;
     private StateListDrawable statesList;
+    final Animation in = new AlphaAnimation(0.0f, 1.0f);
+    final Animation out = new AlphaAnimation(1.0f, 0.0f);
+
 
     /**
      *
      * @param context
+     *          The context in which this button is being called
      * @param attrs
+     *          Used internally by Android
      */
     public DefaultButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         statesList = new StateListDrawable();
-
         textColor = context.getResources().getColor(R.color.list_background);
         backgroundColor = context.getResources().getColor(R.color.def_button);
         highlightColor = context.getResources().getColor(R.color.def_button_pressed);
@@ -44,6 +50,9 @@ public class DefaultButton extends Button implements View.OnClickListener {
         this.setTextColor(textColor);
         this.setBackground(statesList);
 
+        /**
+         * This is necessary so the Layout editor can render this button in real time.
+         */
         if(!this.isInEditMode()) {
             this.setOnClickListener(this);
             this.mActivity = (MainActivity) context;
@@ -51,12 +60,26 @@ public class DefaultButton extends Button implements View.OnClickListener {
         }
     }
 
+    /**
+     * Getter for the custom text color.
+     *
+     * @return
+     *         The integer representation of this Color object
+     */
     public int getCustomTextColor() {
         return textColor;
     }
 
+    /**
+     * Setter for the text color of this button
+     * @param textColor
+     *          The integer representation of a hex value or rgb color.
+     * @return
+     *          This object for easy to chain builder
+     */
     public DefaultButton setCustomTextColor(int textColor) {
         this.textColor = textColor;
+        this.setTextColor(textColor);
         return this;
     }
 
@@ -79,6 +102,8 @@ public class DefaultButton extends Button implements View.OnClickListener {
      */
     public DefaultButton setCustomBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+        statesList.addState(new int[] {}, new ColorDrawable(backgroundColor));
+        this.setBackground(statesList);
         return this;
     }
 
@@ -98,10 +123,14 @@ public class DefaultButton extends Button implements View.OnClickListener {
     /**
      *
      * @param highlightColor
+     *          Integer representation of a hex value or rgb color
      * @return
+     *          This object for easy to chain build
      */
     public DefaultButton setCustomHighlightColor(int highlightColor) {
         this.highlightColor = highlightColor;
+        statesList.addState(new int[] {android.R.attr.state_pressed}, new ColorDrawable(highlightColor));
+        this.setBackground(statesList);
         return this;
     }
 
