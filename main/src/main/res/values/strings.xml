@@ -117,4 +117,6 @@
             &#8226; item three\n \t
     </string>
     <string name="deg">DEG</string>
+    <string name="radians_button">RAD</string>
+    <string name="degree_button">DEG</string>
 </resources>

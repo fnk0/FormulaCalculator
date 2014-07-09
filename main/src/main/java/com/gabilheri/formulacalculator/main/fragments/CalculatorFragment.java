@@ -26,6 +26,7 @@ import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.HashMap;
@@ -58,8 +59,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private boolean clearResult = false;
     private DatabaseHelper dbHelper;
     private View rootView;
-
-
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -171,6 +170,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     /**
      * Handles the keypad press.
      * @param view
+     *          The View being pressed.
      */
     @Override
     public void handleKeypad(View view) {
@@ -183,7 +183,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             clearResult = false;
         }
 
-        int inputSize = textInputBox1.replaceAll("\\<.*?>", "").length();
+        int inputSize = Utils.stripHTML(textInputBox1).length();
 
         if(inputSize> 15) {
             inputBox1key.setTextSize(25);
@@ -311,10 +311,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 textInputBox1 += "%";
                 break;
             case R.id.btnLog:
-                textInputBox1 += "log";
+                textInputBox1 += "log" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>" ;
                 break;
             case R.id.btnLn:
-                textInputBox1 += "ln";
+                textInputBox1 += "ln(" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
                 break;
             case R.id.insertedButton:
                 Log.i("I'M A BUTTON!", "That uses include!");
@@ -323,11 +323,11 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             case R.id.degreeRad:
                 if(angleType == EvaluateExpression.DEGREE) {
                     angleType = EvaluateExpression.RADIANS;
-                    ((DefaultButton) view).setText("RAD");
+                    ((DefaultButton) view).setText(getString(R.string.radians_button));
                     view.setSelected(true);
                 } else {
                     angleType = EvaluateExpression.DEGREE;
-                    ((DefaultButton) view).setText("DEG");
+                    ((DefaultButton) view).setText(getString(R.string.degree_button));
                     view.setSelected(false);
                 }
                 return;
@@ -400,7 +400,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         if(!result.equals(getResources().getString(R.string.input_error))) {
             clearResult = true;
         }
-
     }
 
     /**
@@ -454,7 +453,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             colors[i] = referenceColors[counter];
             //Log.i("COLORS", "" + referenceColors[counter]);
             counter++;
-
             if(counter == 6) {
                 counter = 0;
             }
