@@ -2,9 +2,10 @@
 <resources>
 
     <color name="def_back_result">#34495e</color>
-    <color name="def_button">#16a085</color>
-    <color name="def_button_pressed">#1abc9c</color>
-    <color name="button_2">#e74c3c</color>
+    <color name="display_color">#00b8d4</color>
+    <color name="def_button">#00bfa5</color>
+    <color name="def_button_pressed">#eeff41</color>
+    <color name="button_2">#e84e40</color>
     <color name="button_2_pressed">#c0392b</color>
     <color name="awesome_blue">#34495e</color>
     <color name="light_blue">#2980b9</color>
@@ -19,4 +20,5 @@
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
     <color name="card_background">#FFFFFF</color>
+    <color name="action_bar">#263238</color>
 </resources>

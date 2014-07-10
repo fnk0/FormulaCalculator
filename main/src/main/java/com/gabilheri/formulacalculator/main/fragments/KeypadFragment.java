@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
@@ -22,10 +23,12 @@ import java.util.HashMap;
  */
 public class KeypadFragment extends Fragment {
 
-    private DefaultButton btnClear, btnDel, btnParLeft, btnParRight, btnPlus, btnMinus, btnMultiply, btnDivide, btnPercent, btnPower;
+    private DefaultButton btnDel, btnParLeft, btnParRight, btnPlus, btnMinus, btnMultiply, btnDivide, btnPercent, btnPower;
     private DefaultButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnDot, btnStr, btnRel, btnEqual;
     private HashMap<Integer, DefaultButton> mKeypadButtons;
     private ArrayList<DefaultButton> mButtonsArray;
+    private ArrayList<DefaultButton> mSecondButtonsArray;
+    private static final String LOG_TAG = "Keypad Fragment";
 
     public KeypadFragment() {
 
@@ -37,16 +40,20 @@ public class KeypadFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.keypad_layout, container, false);
         mKeypadButtons = new HashMap<>();
         mButtonsArray = new ArrayList<>();
-
-        btnClear = (DefaultButton) rootView.findViewById(R.id.keypadClear);
-        btnClear.setCustomBackgroundColor(getResources().getColor(R.color.button_2));
-        btnClear.setCustomHighlightColor(getResources().getColor(R.color.button_2_pressed));
-        mKeypadButtons.put(R.id.keypadClear, btnClear);
-        mButtonsArray.add(btnClear);
+        mSecondButtonsArray = new ArrayList<>();
 
         btnDel = (DefaultButton) rootView.findViewById(R.id.keypadDel);
         mKeypadButtons.put(R.id.keypadDel, btnDel);
-        mButtonsArray.add(btnDel);
+        mSecondButtonsArray.add(btnDel);
+
+        btnDel.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ((MainActivity) getActivity()).clearDisplay();
+                Log.i(LOG_TAG, "Long Click!");
+                return false;
+            }
+        });
 
         btnParLeft = (DefaultButton) rootView.findViewById(R.id.parLeft);
         mKeypadButtons.put(R.id.parLeft, btnParLeft);
@@ -58,19 +65,19 @@ public class KeypadFragment extends Fragment {
 
         btnPlus = (DefaultButton) rootView.findViewById(R.id.plus);
         mKeypadButtons.put(R.id.plus, btnPlus);
-        mButtonsArray.add(btnPlus);
+        mSecondButtonsArray.add(btnPlus);
 
         btnMinus = (DefaultButton) rootView.findViewById(R.id.minus);
         mKeypadButtons.put(R.id.minus, btnMinus);
-        mButtonsArray.add(btnMinus);
+        mSecondButtonsArray.add(btnMinus);
 
         btnMultiply = (DefaultButton) rootView.findViewById(R.id.multiply);
         mKeypadButtons.put(R.id.multiply, btnMultiply);
-        mButtonsArray.add(btnMultiply);
+        mSecondButtonsArray.add(btnMultiply);
 
         btnDivide = (DefaultButton) rootView.findViewById(R.id.divide);
         mKeypadButtons.put(R.id.divide, btnDivide);
-        mButtonsArray.add(btnDivide);
+        mSecondButtonsArray.add(btnDivide);
 
         btnPercent = (DefaultButton) rootView.findViewById(R.id.btnPercent);
         mKeypadButtons.put(R.id.btnPercent, btnPercent);
@@ -136,8 +143,8 @@ public class KeypadFragment extends Fragment {
         mKeypadButtons.put(R.id.equal, btnEqual);
         mButtonsArray.add(btnEqual);
 
-        for(DefaultButton mButton: mButtonsArray) {
-            Log.i("BUTTONS", mButton.getText().toString());
+        for(DefaultButton mButton: mSecondButtonsArray) {
+            mButton.setCustomBackgroundColor(getResources().getColor(R.color.button_2));
         }
 
         return rootView;

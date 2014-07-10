@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_marginBottom="1dip"
-        android:layout_weight="0.28"
-        android:background="@color/def_back_result"
+        android:layout_weight="0.4"
+        android:background="@color/display_color"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -42,8 +42,9 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
+        android:background="@color/def_button"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.72"
+        android:layout_weight="0.6"
         tools:context="com.gabilheri.formulacalculator.main.fragments.CalculatorFragment" />
 </LinearLayout>

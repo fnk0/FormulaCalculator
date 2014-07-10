@@ -219,9 +219,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             case R.id.equal:
                 evaluateExpression();
                 break;
-            case R.id.keypadClear:
-                clearDisplay();
-                break;
             case R.id.keypadDel:
                 deleteFromDisplay();
                 break;
@@ -347,7 +344,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 if(resultCode == Activity.RESULT_OK) {
                     Bundle mBundle = data.getExtras();
                     DefaultButton mButton = (DefaultButton) rootView.findViewById(mBundle.getInt("view"));
-                    mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
+                    rootView.setBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
                 }
                 break;
         }

@@ -32,4 +32,6 @@ dependencies {
     compile 'de.timroes.android:EnhancedListView:0.3.2@aar'
     compile 'com.larswerkman:HoloColorPicker:1.4'
     compile 'com.google.android.gms:play-services:5.0.+'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+
 }

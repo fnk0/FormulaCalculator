@@ -328,14 +328,12 @@
             android:gravity="center_vertical|center_horizontal"
             >
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/resetStoreVar"
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:padding="10dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/keypad_button"
-                android:textColor="@android:color/white"
                 android:onClick="handleVar"
                 android:text="@string/reset_vars"
                 />

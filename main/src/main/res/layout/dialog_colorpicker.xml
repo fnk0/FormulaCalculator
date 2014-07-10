@@ -72,7 +72,7 @@
             android:inputType="textCapCharacters"
         />
     </LinearLayout>
-    <Button
+    <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
         android:id="@+id/selColor"
         android:text="Select Color"
         android:layout_width="wrap_content"
@@ -81,8 +81,6 @@
         android:paddingRight="30dip"
         android:layout_marginTop="10dip"
         android:layout_marginBottom="5dip"
-        android:background="@drawable/keypad_button"
-        android:textColor="@android:color/white"
         android:layout_gravity="center_horizontal"
     />
 

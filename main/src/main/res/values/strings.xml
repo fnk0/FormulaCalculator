@@ -14,14 +14,14 @@
 
     <!-- Navigation Drawer Titles -->
     <array name="drawer_items">
-        <item name="calculator"> Calculator</item>
-        <item name="formulas"> Formulas </item>
-        <item name="logs"> Logs </item>
-        <item name="settings"> Settings </item>
+        <item name="calculator">Calculator</item>
+        <item name="formulas">Formulas</item>
+        <item name="logs">Logs</item>
+        <item name="settings">Settings</item>
         <!-- <item name="unit_converter">Unit Converter</item> -->
-        <item name="themes"> Themes </item>
-        <item name="about"> About </item>
-        <item name="tutorial"> Share </item>
+        <item name="themes">Themes</item>
+        <item name="about">About</item>
+        <item name="tutorial">Share</item>
         <item name="sign_in">Sign In</item>
         <item name="debug">Test</item>
     </array>
@@ -57,13 +57,13 @@
     <string-array name="triangle">
         <item name="title"> Triangle </item>
         <item name="thumbnail"> </item>
-        <item name="triangle_area"></item>
-        <item name="triangle_perimeter"></item>
-        <item name="triangle_ssa"></item>
-        <item name="triangle_asa"></item>
-        <item name="triangle_sas"></item>
-        <item name="triangle_sss"></item>
-        <item name="triangle_aas"></item>
+        <item name="triangle_area">Triangle Area</item>
+        <item name="triangle_perimeter">Triangle Perimeter</item>
+        <item name="triangle_ssa">Triangle Side Side Angle</item>
+        <item name="triangle_asa">Triangle Angle Side Angle</item>
+        <item name="triangle_sas">Triangle Side Angle Side</item>
+        <item name="triangle_sss">Triangle Side Side Side</item>
+        <item name="triangle_aas">Triangle Angle Angle Side</item>
     </string-array>
 
 
@@ -71,6 +71,25 @@
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_main_activity_fragment">MainActivityFragment</string>
     <string name="example">Example</string>
+    <string name="select_dialog_title">Select a spot to store the result.</string>
+    <string name="reset_vars">Reset Stored Variables</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="evaluate">Evaluate</string>
+    <string name="area">Area</string>
+    <string name="perimeter">Perimeter</string>
+
+    <!-- Evaluate Expression Strings -->
+    <string name="input_error"> Input Error! </string>
+
+
+    <string name="settings_dummy">
+        <p> Here is some text! </p> \n\t
+            &#8226; item one \n \t
+             &#8226; item two \n \t
+            &#8226; item three\n \t
+    </string>
+
+    <!-- Button Strings -->
     <string name="_0">0</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
@@ -94,29 +113,18 @@
     <string name="ln">ln</string>
     <string name="plus">+</string>
     <string name="dot">.</string>
-    <string name="factorial">!</string>
-    <string name="select_dialog_title">Select a spot to store the result.</string>
     <string name="str">str</string>
     <string name="rel">rel</string>
-    <string name="reset_vars">Reset Stored Variables</string>
+    <string name="factorial">!</string>
     <string name="percent_symbol">%</string>
     <string name="infinity_symbol">∞</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="evaluate">Evaluate</string>
-    <string name="area">Area</string>
-    <string name="perimeter">Perimeter</string>
-
-    <!-- Evaluate Expression Strings -->
-    <string name="input_error"> Input Error! </string>
-
-
-    <string name="settings_dummy">
-        <p> Here is some text! </p> \n\t
-            &#8226; item one \n \t
-             &#8226; item two \n \t
-            &#8226; item three\n \t
-    </string>
     <string name="deg">DEG</string>
     <string name="radians_button">RAD</string>
     <string name="degree_button">DEG</string>
+<<<<<<< HEAD
+=======
+    <string name="sin">SIN</string>
+    <string name="cos">COS</string>
+    <string name="tan">TAN</string>
+>>>>>>> testingbranch
 </resources>
