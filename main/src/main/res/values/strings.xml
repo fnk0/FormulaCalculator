@@ -121,10 +121,8 @@
     <string name="deg">DEG</string>
     <string name="radians_button">RAD</string>
     <string name="degree_button">DEG</string>
-<<<<<<< HEAD
-=======
+
     <string name="sin">SIN</string>
     <string name="cos">COS</string>
     <string name="tan">TAN</string>
->>>>>>> testingbranch
 </resources>

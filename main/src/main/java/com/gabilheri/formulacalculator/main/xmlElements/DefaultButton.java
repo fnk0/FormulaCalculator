@@ -2,6 +2,8 @@ package com.gabilheri.formulacalculator.main.xmlElements;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -21,11 +23,11 @@ public class DefaultButton extends Button implements View.OnClickListener {
     private int textColor, backgroundColor, highlightColor;
     private Context mContext;
     private MainActivity mActivity;
-<<<<<<< HEAD
+
     private StateListDrawable statesList;
-=======
+
     //private StateListDrawable statesList;
->>>>>>> testingbranch
+
     final Animation in = new AlphaAnimation(0.0f, 1.0f);
     final Animation out = new AlphaAnimation(1.0f, 0.0f);
 
@@ -39,11 +41,10 @@ public class DefaultButton extends Button implements View.OnClickListener {
      */
     public DefaultButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-<<<<<<< HEAD
+
         statesList = new StateListDrawable();
-=======
+
         //statesList = new StateListDrawable();
->>>>>>> testingbranch
         textColor = context.getResources().getColor(R.color.list_background);
         backgroundColor = context.getResources().getColor(R.color.def_button);
         highlightColor = context.getResources().getColor(R.color.def_button_pressed);
@@ -109,12 +110,12 @@ public class DefaultButton extends Button implements View.OnClickListener {
      */
     public DefaultButton setCustomBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
-<<<<<<< HEAD
+
         statesList.addState(new int[] {}, new ColorDrawable(backgroundColor));
         this.setBackground(statesList);
-=======
+
         this.setBackground(new CustomStateList(mContext, backgroundColor, highlightColor));
->>>>>>> testingbranch
+
         return this;
     }
 
@@ -140,12 +141,11 @@ public class DefaultButton extends Button implements View.OnClickListener {
      */
     public DefaultButton setCustomHighlightColor(int highlightColor) {
         this.highlightColor = highlightColor;
-<<<<<<< HEAD
+
         statesList.addState(new int[] {android.R.attr.state_pressed}, new ColorDrawable(highlightColor));
         this.setBackground(statesList);
-=======
+
         this.setBackground(new CustomStateList(mContext, backgroundColor, highlightColor));
->>>>>>> testingbranch
         return this;
     }
 
