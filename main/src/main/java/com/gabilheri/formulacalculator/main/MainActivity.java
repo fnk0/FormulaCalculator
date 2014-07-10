@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -144,6 +145,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
 
         // Enabling action bar app and Icon , and behaving it as a toggle button.
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.action_bar)));
         getActionBar().setHomeButtonEnabled(true);
 
         /**
@@ -330,6 +332,10 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
      */
     public void handleKeypad(View view) {
         keypadFragment.handleKeypad(view);
+    }
+
+    public void clearDisplay() {
+        ((CalculatorFragment) activeFragment).clearDisplay();
     }
 
     /**
