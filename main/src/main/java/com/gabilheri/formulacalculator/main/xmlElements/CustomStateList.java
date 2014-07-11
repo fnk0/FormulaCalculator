@@ -1,12 +1,13 @@
 package com.gabilheri.formulacalculator.main.xmlElements;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.graphics.drawable.shapes.RoundRectShape;
+import android.graphics.drawable.shapes.RectShape;
 
 import com.gabilheri.formulacalculator.main.R;
 
@@ -24,23 +25,26 @@ public class CustomStateList extends StateListDrawable {
     private int statePressed = android.R.attr.state_pressed;
     private int stateSelected = android.R.attr.state_selected;
     private ShapeDrawable mCircleShape, mSquareShape;
+    private LayerDrawable mLayer;
 
 
     public CustomStateList(Context mContext, int backgroundColor, int highlightColor) {
         this.backgroundColor = backgroundColor;
         this.highlightColor = highlightColor;
-        float[] outR = new float[] {10,10,10,10,10,10,10,10};
+
         mCircleShape = new ShapeDrawable();
         mCircleShape.setShape(new OvalShape());
-        mCircleShape.setColorFilter(mContext.getResources().getColor(R.color.def_button), PorterDuff.Mode.CLEAR);
-        mCircleShape.getPaint().setColor(mContext.getResources().getColor(R.color.def_button_pressed));
+        mCircleShape.getPaint().setColor(highlightColor);
 
         mSquareShape = new ShapeDrawable();
-        mSquareShape.setShape(new RoundRectShape(outR, null, null));
+        mSquareShape.setShape(new RectShape());
         mSquareShape.getPaint().setColor(backgroundColor);
 
-        this.addState(new int[] {stateFocused }, mCircleShape);
-        this.addState(new int[] {statePressed }, mCircleShape);
+        Drawable[] layers = new Drawable[] {mSquareShape, mCircleShape};
+        mLayer = new LayerDrawable(layers);
+
+        this.addState(new int[] {stateFocused }, mLayer);
+        this.addState(new int[] {statePressed }, mLayer);
         this.addState(new int[] {stateSelected }, new ColorDrawable(mContext.getResources().getColor(R.color.light_orange)));
         this.addState(new int[]{}, mSquareShape);
     }
