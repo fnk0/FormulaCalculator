@@ -2,8 +2,6 @@ package com.gabilheri.formulacalculator.main.xmlElements;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.StateListDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -20,14 +18,9 @@ import com.gabilheri.formulacalculator.main.R;
  */
 public class DefaultButton extends Button implements View.OnClickListener {
 
-    private int textColor, backgroundColor, highlightColor;
+    private int textColor, backgroundColor, highlightColor, selectedColor;
     private Context mContext;
     private MainActivity mActivity;
-
-    private StateListDrawable statesList;
-
-    //private StateListDrawable statesList;
-
     final Animation in = new AlphaAnimation(0.0f, 1.0f);
     final Animation out = new AlphaAnimation(1.0f, 0.0f);
 
@@ -42,21 +35,15 @@ public class DefaultButton extends Button implements View.OnClickListener {
     public DefaultButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        statesList = new StateListDrawable();
-
-        //statesList = new StateListDrawable();
         textColor = context.getResources().getColor(R.color.list_background);
         backgroundColor = context.getResources().getColor(R.color.def_button);
         highlightColor = context.getResources().getColor(R.color.def_button_pressed);
-
-        //statesList.addState(new int[] {android.R.attr.state_pressed}, new ColorDrawable(highlightColor));
-        //statesList.addState(new int[] {android.R.attr.state_selected}, new ColorDrawable(context.getResources().getColor(R.color.light_orange)));
-        //statesList.addState(new int[] {}, new ColorDrawable(backgroundColor));
+        selectedColor = context.getResources().getColor(R.color.light_orange);
 
         this.mContext = context;
         this.setTextColor(textColor);
         this.setBackgroundColor(backgroundColor);
-        this.setBackground(new CustomStateList(context, backgroundColor, highlightColor));
+        this.setBackground(new CustomStateList(context, backgroundColor, highlightColor, selectedColor));
 
         /**
          * This is necessary so the Layout editor can render this button in real time.
@@ -111,10 +98,7 @@ public class DefaultButton extends Button implements View.OnClickListener {
     public DefaultButton setCustomBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
 
-        statesList.addState(new int[] {}, new ColorDrawable(backgroundColor));
-        this.setBackground(statesList);
-
-        this.setBackground(new CustomStateList(mContext, backgroundColor, highlightColor));
+        this.setBackground(new CustomStateList(mContext, backgroundColor, highlightColor, selectedColor));
 
         return this;
     }
@@ -142,10 +126,7 @@ public class DefaultButton extends Button implements View.OnClickListener {
     public DefaultButton setCustomHighlightColor(int highlightColor) {
         this.highlightColor = highlightColor;
 
-        statesList.addState(new int[] {android.R.attr.state_pressed}, new ColorDrawable(highlightColor));
-        this.setBackground(statesList);
-
-        this.setBackground(new CustomStateList(mContext, backgroundColor, highlightColor));
+        this.setBackground(new CustomStateList(mContext, backgroundColor, highlightColor, selectedColor));
         return this;
     }
 

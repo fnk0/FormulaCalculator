@@ -9,8 +9,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
 
-import com.gabilheri.formulacalculator.main.R;
-
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
  *
@@ -20,17 +18,31 @@ import com.gabilheri.formulacalculator.main.R;
  */
 public class CustomStateList extends StateListDrawable {
 
-    private int backgroundColor, highlightColor;
+    private int backgroundColor, highlightColor, selectedColor;
     private int stateFocused = android.R.attr.state_focused;
     private int statePressed = android.R.attr.state_pressed;
     private int stateSelected = android.R.attr.state_selected;
     private ShapeDrawable mCircleShape, mSquareShape;
     private LayerDrawable mLayer;
 
-
-    public CustomStateList(Context mContext, int backgroundColor, int highlightColor) {
+    /**
+     *
+     * A simple States List for the DefaultButton. Needs to be done programaticaly instead of XML
+     * Because the colors will come from the Themes database
+     *
+     * @param mContext
+     *          The contextin which this is being called
+     * @param backgroundColor
+     *          The background color for the Button
+     * @param highlightColor
+     *          The hightlited color for the circle drawable that will appear
+     * @param selectedColor
+     *          The color to be set whenever this button has a selected state
+     */
+    public CustomStateList(Context mContext, int backgroundColor, int highlightColor, int selectedColor) {
         this.backgroundColor = backgroundColor;
         this.highlightColor = highlightColor;
+        this.selectedColor = selectedColor;
 
         mCircleShape = new ShapeDrawable();
         mCircleShape.setShape(new OvalShape());
@@ -45,7 +57,7 @@ public class CustomStateList extends StateListDrawable {
 
         this.addState(new int[] {stateFocused }, mLayer);
         this.addState(new int[] {statePressed }, mLayer);
-        this.addState(new int[] {stateSelected }, new ColorDrawable(mContext.getResources().getColor(R.color.light_orange)));
+        this.addState(new int[] {stateSelected }, new ColorDrawable(selectedColor));
         this.addState(new int[]{}, mSquareShape);
     }
 
