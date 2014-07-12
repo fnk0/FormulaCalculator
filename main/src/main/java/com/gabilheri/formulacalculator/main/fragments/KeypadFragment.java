@@ -145,6 +145,7 @@ public class KeypadFragment extends Fragment {
 
         for(DefaultButton mButton: mSecondButtonsArray) {
             mButton.setCustomBackgroundColor(getResources().getColor(R.color.button_2));
+            mButton.setHighlightColor(getResources().getColor(R.color.display_color));
         }
 
         return rootView;

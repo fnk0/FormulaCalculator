@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
@@ -21,9 +19,6 @@ public class DefaultButton extends Button implements View.OnClickListener {
     private int textColor, backgroundColor, highlightColor, selectedColor;
     private Context mContext;
     private MainActivity mActivity;
-    final Animation in = new AlphaAnimation(0.0f, 1.0f);
-    final Animation out = new AlphaAnimation(1.0f, 0.0f);
-
 
     /**
      *
@@ -53,6 +48,8 @@ public class DefaultButton extends Button implements View.OnClickListener {
             this.mActivity = (MainActivity) context;
             this.setTextSize(getResources().getDimension(R.dimen.button_text_size));
         }
+
+
     }
 
     /**
@@ -143,4 +140,8 @@ public class DefaultButton extends Button implements View.OnClickListener {
     public void onClick(View v) {
         mActivity.handleKeypad(this);
     }
+
+
+
+
 }

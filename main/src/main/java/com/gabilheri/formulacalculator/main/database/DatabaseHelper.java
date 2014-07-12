@@ -46,7 +46,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Themes Column Names
     private static final String KEY_BUTTON_ID = "button_id";
-    private static final String KEY_BUTTON_COLOR = "button_color";
+    private static final String KEY_PRIMARY_BUTTON = "primary_button";
+    private static final String KEY_SECONDARY_BUTTON = "secondary_button";
+    private static final String KEY_DISPLAY_COLOR = "display_color";
+    private static final String KEY_DISPLAY_TEXT_COLOR = "display_text_color";
+    private static final String KEY_BUTTON_TEXT_COLOR = "button_text_color";
+
 
     // Create Results Table
     private static final String CREATE_TABLE_RESULTS = "CREATE TABLE "
@@ -57,6 +62,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_FORMULAS = "CREATE TABLE "
             + TABLE_FORMULAS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FORMULA
             + " TEXT," + KEY_FORMULA_DRAWABLE + " INTEGER," + KEY_CREATED_AT + " DATETIME" + ")";
+
+    private static final String CREATE_TABLE_THEMES = "CREATE TABLE "
+            + TABLE_THEMES + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIMARY_BUTTON
+            + " INTEGER, " +  KEY_SECONDARY_BUTTON + " INTEGER, " + KEY_DISPLAY_COLOR
+            + " INTEGER, " + KEY_DISPLAY_TEXT_COLOR + " INTEGER," + KEY_BUTTON_TEXT_COLOR
+            + " INTEGER, " + KEY_CREATED_AT + " DATETIME" + ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -108,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Creates the required tables
         db.execSQL(CREATE_TABLE_RESULTS);
         db.execSQL(CREATE_TABLE_FORMULAS);
-
+        db.execSQL(CREATE_TABLE_THEMES);
     }
 
     /**
@@ -126,6 +137,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Drops the older tables.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESULTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORMULAS );
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_THEMES);
         onCreate(db);
 
         this.closeDB();
