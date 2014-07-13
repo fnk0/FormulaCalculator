@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Common column names
     private static final String KEY_ID = "id";
     private static final String KEY_CREATED_AT = "created_at";
+    private static final String KEY_USERNAME = "username";
 
     // Result Logs - Column Names
     private static final String KEY_INPUT = "input";
@@ -45,12 +46,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_FORMULA_DRAWABLE = "formula_image";
 
     // Themes Column Names
-    private static final String KEY_BUTTON_ID = "button_id";
-    private static final String KEY_PRIMARY_BUTTON = "primary_button";
-    private static final String KEY_SECONDARY_BUTTON = "secondary_button";
-    private static final String KEY_DISPLAY_COLOR = "display_color";
-    private static final String KEY_DISPLAY_TEXT_COLOR = "display_text_color";
-    private static final String KEY_BUTTON_TEXT_COLOR = "button_text_color";
+    private static final String KEY_THEME_TYPE = "theme_type"; // Type of this Theme
+    private static final String KEY_THEME_NAME = "theme_name";
+    private static final String KEY_PRIMARY_BUTTON = "primary_button"; // Color for the Primary Buttons
+    private static final String KEY_SECONDARY_BUTTON = "secondary_button"; // Color for the Secondary Buttons
+    private static final String KEY_DISPLAY_COLOR = "display_color"; // Color for the Display Colors
+    private static final String KEY_DISPLAY_TEXT_COLOR = "display_text_color"; // Color for the Text Display Color
+    private static final String KEY_PRIMARY_BUTTON_TEXT_COLOR = "primary_button_text_color"; // Color for the Text in the Primary Buttons
+    private static final String KEY_SECONDARY_BUTTON_TEXT_COLOR = "secondary_button_text_color"; // Color for the Text in the Secondary Buttons
 
 
     // Create Results Table
@@ -63,11 +66,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + TABLE_FORMULAS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FORMULA
             + " TEXT," + KEY_FORMULA_DRAWABLE + " INTEGER," + KEY_CREATED_AT + " DATETIME" + ")";
 
-    private static final String CREATE_TABLE_THEMES = "CREATE TABLE "
-            + TABLE_THEMES + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIMARY_BUTTON
-            + " INTEGER, " +  KEY_SECONDARY_BUTTON + " INTEGER, " + KEY_DISPLAY_COLOR
-            + " INTEGER, " + KEY_DISPLAY_TEXT_COLOR + " INTEGER," + KEY_BUTTON_TEXT_COLOR
-            + " INTEGER, " + KEY_CREATED_AT + " DATETIME" + ")";
+    private static final String CREATE_TABLE_THEMES = "CREATE TABLE " + TABLE_THEMES + "(" +
+            KEY_USERNAME + " TEXT, " + KEY_THEME_TYPE + " INTEGER, " + KEY_THEME_NAME + " TEXT," +
+            KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIMARY_BUTTON + " TEXT, " +
+            KEY_SECONDARY_BUTTON + " TEXT, " + KEY_DISPLAY_COLOR + " TEXT, " +
+            KEY_DISPLAY_TEXT_COLOR + " TEXT," + KEY_PRIMARY_BUTTON_TEXT_COLOR + " TEXT, " +
+            KEY_SECONDARY_BUTTON_TEXT_COLOR + " TEXT, " + KEY_CREATED_AT + " DATETIME" + ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -146,7 +150,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      *
      * @param resultLog
+     *          The Result log to be inserted into the Database
      * @return
+     *          The inserted statement for the Database - Used internally by Android
      */
     public long createResultLog(ResultLog resultLog) {
 
@@ -160,8 +166,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      *
-     * @param logId
+     * @param theme
+     *          The Theme to be inserted in the Database
      * @return
+     *          The inserted statement for the Database - Used internally by Android
+     */
+    public long createTheme(Theme theme) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, theme.getUsername());
+        values.put(KEY_THEME_TYPE, theme.getThemeType());
+        values.put(KEY_THEME_NAME, theme.getThemeName());
+        values.put(KEY_PRIMARY_BUTTON, theme.getPrimaryColor());
+        values.put(KEY_PRIMARY_BUTTON_TEXT_COLOR, theme.getPrimaryButtonTextColor());
+        values.put(KEY_DISPLAY_COLOR, theme.getDisplayColor());
+        values.put(KEY_DISPLAY_TEXT_COLOR, theme.getDisplayTextColor());
+        values.put(KEY_SECONDARY_BUTTON, theme.getSecondaryColor());
+        values.put(KEY_SECONDARY_BUTTON_TEXT_COLOR, theme.getSecondaryButtonTextColor());
+
+        return db.insert(TABLE_THEMES, null, values);
+    }
+
+    /**
+     *
+     * @param logId
+     *          The ID for the Result Log
+     * @return
+     *          The Result Log
      */
     public ResultLog getResultLog(long logId) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -183,7 +215,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      *
+     * @param themeID
+     *          The ID for this theme
+     * @param username
+     *          The username for this theme
      * @return
+     *          A Theme object.
+     */
+    public Theme getTheme(long themeID, String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_THEMES + " WHERE " + KEY_ID + " = " + themeID +
+                " AND " + KEY_USERNAME + " = " + username;
+        Log.i(LOG_TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        Theme selectedTheme = new Theme();
+        selectedTheme.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USERNAME)))
+                .setThemeName(cursor.getString(cursor.getColumnIndex(KEY_THEME_NAME)))
+                .setPrimaryColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON)))
+                .setSecondaryColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON)))
+                .setDisplayColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_COLOR)))
+                .setPrimaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON_TEXT_COLOR)))
+                .setSecondaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON_TEXT_COLOR)))
+                .setDisplayTextColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_TEXT_COLOR)))
+                .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
+
+        this.closeDB();
+        return selectedTheme;
+    }
+
+    /**
+     *
+     * @return
+     *      All the logs from the Logs Database
      */
     public List<ResultLog> getAllResultLogs() {
 
@@ -206,7 +273,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 resultLogs.add(resultLog);
             } while (cursor.moveToNext());
         }
-
         cursor.close();
         this.closeDB();
 
@@ -214,9 +280,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Returns all the Themes for the Database
+     *
+     * @param username
+     *      The username to get the Themes
+     * @return
+     *      All the Themes for the specified Username
+     *
+     */
+    public List<Theme> getAllThemesForUser(String username) {
+
+        List<Theme> themesResult = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_THEMES + " WHERE " + KEY_USERNAME + " = " + username;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                Theme selectedTheme = new Theme();
+                selectedTheme.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USERNAME)))
+                        .setThemeName(cursor.getString(cursor.getColumnIndex(KEY_THEME_NAME)))
+                        .setId(cursor.getLong(cursor.getColumnIndex(KEY_ID)))
+                        .setPrimaryColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON)))
+                        .setSecondaryColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON)))
+                        .setDisplayColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_COLOR)))
+                        .setPrimaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON_TEXT_COLOR)))
+                        .setSecondaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON_TEXT_COLOR)))
+                        .setDisplayTextColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_TEXT_COLOR)))
+                        .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
+                themesResult.add(selectedTheme);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        this.closeDB();
+        return themesResult;
+    }
+
+    /**
+     *
+     * @param theme
+     *          The Theme to be updated
+     * @return
+     *          The inserted statement for the Database - Used internally by Android
+     */
+    public int updateTheme(Theme theme) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, theme.getUsername());
+        values.put(KEY_THEME_TYPE, theme.getThemeType());
+        values.put(KEY_THEME_NAME, theme.getThemeName());
+        values.put(KEY_PRIMARY_BUTTON, theme.getPrimaryColor());
+        values.put(KEY_PRIMARY_BUTTON_TEXT_COLOR, theme.getPrimaryButtonTextColor());
+        values.put(KEY_DISPLAY_COLOR, theme.getDisplayColor());
+        values.put(KEY_DISPLAY_TEXT_COLOR, theme.getDisplayTextColor());
+        values.put(KEY_SECONDARY_BUTTON, theme.getSecondaryColor());
+        values.put(KEY_SECONDARY_BUTTON_TEXT_COLOR, theme.getSecondaryButtonTextColor());
+
+        return db.update(TABLE_THEMES, values, KEY_ID + " = ?", new String[] {String.valueOf(theme.getId())});
+    }
+
+    /**
      *
      * @param resultLog
+     *      The Result log to be updated into the Database
      * @return
+     *      The inserted statement for the Database - Used internally by Android
      */
     public int updateResultLog(ResultLog resultLog) {
 
@@ -233,16 +362,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      *
      * @param logId
+     *          The Id for the Log to be deleted
      */
     public void deleteResultLog(long logId) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_RESULTS, KEY_ID + " = ?", new String[] {String.valueOf(logId)});
-        //db.delete(TABLE_RESULTS, KEY_ID + "=" + logId, null);
         this.closeDB();
     }
 
     /**
+     * Deletes a Theme from the Database
      *
+     * @param themeId
+     *      The ID for the theme to be deleted
+     */
+    public void deleteTheme(long themeId, String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Theme mTheme = getTheme(themeId, username);
+
+        if(mTheme.getThemeType() == Theme.THEME_SYSTEM) {
+            return;
+        }
+
+        db.delete(TABLE_THEMES, KEY_ID + " = ?", new String[]{String.valueOf(themeId)});
+        this.closeDB();
+    }
+
+    /**
+     * Deletes all the Result Logs for this Database
      */
     public void deleteAllResultLogs() {
         SQLiteDatabase db = getReadableDatabase();

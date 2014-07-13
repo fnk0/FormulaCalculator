@@ -344,7 +344,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 if(resultCode == Activity.RESULT_OK) {
                     Bundle mBundle = data.getExtras();
                     DefaultButton mButton = (DefaultButton) rootView.findViewById(mBundle.getInt("view"));
-                    rootView.setBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
+                    mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
                 }
                 break;
         }

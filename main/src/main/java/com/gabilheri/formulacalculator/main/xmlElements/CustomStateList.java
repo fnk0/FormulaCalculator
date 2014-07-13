@@ -1,5 +1,7 @@
 package com.gabilheri.formulacalculator.main.xmlElements;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -28,7 +30,9 @@ public class CustomStateList extends StateListDrawable {
     private int stateSelected = android.R.attr.state_selected;
     private ShapeDrawable mCircleShape, mSquareShape;
     private LayerDrawable mLayer;
+    private ObjectAnimator fadeIn, fadeOut;
     private AnimationDrawable mAnimation;
+    private AnimatorSet mAnimatorSet;
     final Animation in = new AlphaAnimation(0.0f, 1.0f);
     final Animation out = new AlphaAnimation(1.0f, 0.0f);
 
@@ -52,6 +56,7 @@ public class CustomStateList extends StateListDrawable {
         this.selectedColor = selectedColor;
 
         mAnimation = new AnimationDrawable();
+        mAnimatorSet = new AnimatorSet();
 
         mCircleShape = new ShapeDrawable();
         mCircleShape.setShape(new OvalShape());
@@ -64,13 +69,14 @@ public class CustomStateList extends StateListDrawable {
         Drawable[] layers = new Drawable[] {mSquareShape, mCircleShape};
         mLayer = new LayerDrawable(layers);
 
-        mAnimation.setOneShot(true);
-        mAnimation.addFrame(mLayer, 1000);
-        mAnimation.addFrame(mSquareShape, 1);
-        mAnimation.setVisible(true, true);
+        fadeIn = ObjectAnimator.ofFloat(mLayer, "alpha", 0f, 1f);
+        fadeIn.setDuration(1000);
 
-        this.addState(new int[] {stateFocused }, mAnimation);
-        this.addState(new int[] {statePressed }, mAnimation);
+        fadeOut = ObjectAnimator.ofFloat(mLayer, "alpha", 1f, 0f);
+        fadeOut.setDuration(1000);
+
+        this.addState(new int[] {stateFocused }, mLayer);
+        this.addState(new int[] {statePressed }, mLayer);
         this.addState(new int[] {stateSelected }, new ColorDrawable(selectedColor));
         this.addState(new int[]{}, mSquareShape);
     }
@@ -93,11 +99,6 @@ public class CustomStateList extends StateListDrawable {
 
     @Override
     protected boolean onStateChange(int[] stateSet) {
-        for(int state : stateSet) {
-            if(state == statePressed) {
-                mAnimation.start();
-            }
-        }
         return super.onStateChange(stateSet);
     }
 }

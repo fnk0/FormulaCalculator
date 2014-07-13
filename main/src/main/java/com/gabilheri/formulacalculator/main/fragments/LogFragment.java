@@ -110,7 +110,7 @@ public class LogFragment extends Fragment {
             @Override
             public void run() {
                 dbHelper.deleteAllResultLogs();
-                mAdapter.notifyDataSetChanged();
+                //mAdapter.notifyDataSetChanged();
                 resultLogs.clear();
                 logsList.invalidateViews();
                 logsList.refreshDrawableState();
