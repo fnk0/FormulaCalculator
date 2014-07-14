@@ -72,6 +72,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
+        mKeypadFragment = new KeypadFragment();
+        mKeypadFunctionsFragment = new KeypadFunctionsFragment();
+
         return inflater.inflate(R.layout.fragment_calculator, container, false);
     }
 
@@ -82,7 +85,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         // primary sections of the activity.
         ActionBar mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_launcher);
-
 
         SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
@@ -96,9 +98,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         resultLayoutKey.setBackgroundColor(currentTheme.getDisplayColor());
         inputBox1key = (TextView) view.findViewById(R.id.inputBox1);
         resultBoxKey = (TextView) view.findViewById(R.id.resultBox1);
-
-        mKeypadFragment = new KeypadFragment();
-        mKeypadFunctionsFragment = new KeypadFunctionsFragment();
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
@@ -488,7 +487,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      * @return
      *      The Functions Keypad of this Fragment
      */
-    public KeypadFunctionsFragment getmKeypadFunctionsFragment() {
+    public KeypadFunctionsFragment getKeypadFunctionsFragment() {
         return mKeypadFunctionsFragment;
     }
 
@@ -497,7 +496,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      * @return
      *      The Keypad of this Fragment
      */
-    public KeypadFragment getmKeypadFragment() {
+    public KeypadFragment getKeypadFragment() {
         return mKeypadFragment;
     }
 

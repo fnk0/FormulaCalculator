@@ -35,30 +35,21 @@ public class KeypadFunctionsFragment extends Fragment {
 
 
     public KeypadFunctionsFragment() {
-
+        mButtonsArray = new ArrayList<>();
+        mSecondaryButtonsArray = new ArrayList<>();
+        mKeypadFunctionButtons = new HashMap<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.keypad_functions, container, false);
-
         SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
         currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
 
-        return rootView;
-    }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mButtonsArray = new ArrayList<>();
-        mSecondaryButtonsArray = new ArrayList<>();
-        mKeypadFunctionButtons = new HashMap<>();
-
-        btnDel = (DefaultButton) view.findViewById(R.id.keypadDel);
+        btnDel = (DefaultButton) rootView.findViewById(R.id.keypadDel);
         mKeypadFunctionButtons.put(R.id.keypadDel, btnDel);
         mSecondaryButtonsArray.add(btnDel);
 
@@ -70,47 +61,47 @@ public class KeypadFunctionsFragment extends Fragment {
             }
         });
 
-        btnFactorial = (DefaultButton) view.findViewById(R.id.btnFact);
+        btnFactorial = (DefaultButton) rootView.findViewById(R.id.btnFact);
         mKeypadFunctionButtons.put(R.id.btnFact, btnFactorial);
         mSecondaryButtonsArray.add(btnFactorial);
 
-        btnSqrt = (DefaultButton) view.findViewById(R.id.keypadSqrt);
+        btnSqrt = (DefaultButton) rootView.findViewById(R.id.keypadSqrt);
         mKeypadFunctionButtons.put(R.id.keypadSqrt, btnSqrt);
         mButtonsArray.add(btnSqrt);
 
-        btnLog = (DefaultButton) view.findViewById(R.id.btnLog);
+        btnLog = (DefaultButton) rootView.findViewById(R.id.btnLog);
         mKeypadFunctionButtons.put(R.id.btnLog, btnLog);
         mButtonsArray.add(btnLog);
 
-        btnLn = (DefaultButton) view.findViewById(R.id.btnLn);
+        btnLn = (DefaultButton) rootView.findViewById(R.id.btnLn);
         mKeypadFunctionButtons.put(R.id.btnLn, btnLn);
         mButtonsArray.add(btnLn);
 
-        btnSin = (DefaultButton) view.findViewById(R.id.btnSin);
+        btnSin = (DefaultButton) rootView.findViewById(R.id.btnSin);
         mKeypadFunctionButtons.put(R.id.btnSin, btnSin);
         mButtonsArray.add(btnSin);
 
-        btnCos = (DefaultButton) view.findViewById(R.id.btnCos);
+        btnCos = (DefaultButton) rootView.findViewById(R.id.btnCos);
         mKeypadFunctionButtons.put(R.id.btnCos, btnCos);
         mButtonsArray.add(btnCos);
 
-        btnTan = (DefaultButton) view.findViewById(R.id.btnTan);
+        btnTan = (DefaultButton) rootView.findViewById(R.id.btnTan);
         mKeypadFunctionButtons.put(R.id.btnTan, btnTan);
         mButtonsArray.add(btnTan);
 
-        btnE = (DefaultButton) view.findViewById(R.id.varE);
+        btnE = (DefaultButton) rootView.findViewById(R.id.varE);
         mKeypadFunctionButtons.put(R.id.varE, btnE);
         mSecondaryButtonsArray.add(btnE);
 
-        btnPi = (DefaultButton) view.findViewById(R.id.varPi);
+        btnPi = (DefaultButton) rootView.findViewById(R.id.varPi);
         mKeypadFunctionButtons.put(R.id.varPi, btnPi);
         mSecondaryButtonsArray.add(btnPi);
 
-        btnInf = (DefaultButton) view.findViewById(R.id.keypadInfinity);
+        btnInf = (DefaultButton) rootView.findViewById(R.id.keypadInfinity);
         mKeypadFunctionButtons.put(R.id.keypadInfinity, btnInf);
         mSecondaryButtonsArray.add(btnInf);
 
-        degreeRad = (DefaultButton) view.findViewById(R.id.degreeRad);
+        degreeRad = (DefaultButton) rootView.findViewById(R.id.degreeRad);
         mKeypadFunctionButtons.put(R.id.degreeRad, degreeRad);
         mButtonsArray.add(degreeRad);
 
@@ -125,6 +116,13 @@ public class KeypadFunctionsFragment extends Fragment {
             mButton.setCustomBackgroundColor(currentTheme.getSecondaryColor());
             mButton.setHighlightColor(currentTheme.getSecondaryHighlightColor());
         }
+
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     public ArrayList<DefaultButton> getPrimaryButtonsArray() {

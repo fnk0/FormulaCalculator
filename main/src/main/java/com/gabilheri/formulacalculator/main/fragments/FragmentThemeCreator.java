@@ -26,6 +26,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     private String LOG_TAG = "ThemeCreator";
     public static final String VIEW = "view";
     public static final String COLOR = "color";
+    public static final String BUTTON_TYPE = "buttonType";
     public static final int PRIMARY_KEYPAD = 0;
     public static final int SECONDARY_KEYPAD = 1;
     public static final int PRIMARY_FUNCTIONS = 2;
@@ -38,12 +39,9 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      *
      */
     public FragmentThemeCreator() {
-        mKeypad = this.getmKeypadFragment();
-        mFunctionsKeypad = this.getmKeypadFunctionsFragment();
-        primaryKeypadButtons = mKeypad.getPrimaryButtonsArray();
-        secondaryKeypadButtons = mKeypad.getSecondButtonsArray();
-        primaryFunctionButtons = mFunctionsKeypad.getPrimaryButtonsArray();
-        secondaryKeypadButtons = mFunctionsKeypad.getSecondaryButtonsArray();
+        super();
+        mKeypad = super.getKeypadFragment();
+        mFunctionsKeypad = super.getKeypadFunctionsFragment();
     }
 
     @Override
@@ -54,26 +52,46 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                     Bundle mBundle = data.getExtras();
                     DefaultButton mButton = (DefaultButton) getRootView().findViewById(mBundle.getInt(VIEW));
                     mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
+
+                    //Log.i(LOG_TAG, "Group: " + mBundle.getInt(BUTTON_TYPE));
                 }
                 break;
         }
     }
 
+    /**
+     * Helper method to show a dialog with a colorPicker
+     *
+     * @param viewID
+     *          The ID of the selected view
+     * @param buttonColor
+     *          The color of the selected Button
+     */
     public void showPickerDialog(int viewID, int buttonColor) {
-
         ColorPickDialog pickerDialog = new ColorPickDialog();
         pickerDialog.setTargetFragment(this, ColorPickDialog.COLORPICK_CODE);
         Bundle extras = new Bundle();
         extras.putInt(VIEW, viewID);
         extras.putInt(COLOR, buttonColor);
+        //extras.putInt(BUTTON_TYPE, getButtonType(viewID));
         pickerDialog.setArguments(extras);
         pickerDialog.show(getFragmentManager(), "pickerDialog");
     }
 
+    /**
+     * Returns the group to which the pressed button belongs
+     *
+     * @param viewID
+     *      The ID of the selected view
+     * @return
+     *      The group to which the selected view belongs to
+     */
     public int getButtonType(int viewID) {
-
+        primaryKeypadButtons = mKeypad.getPrimaryButtonsArray();
+        secondaryKeypadButtons = mKeypad.getSecondButtonsArray();
+        primaryFunctionButtons = mFunctionsKeypad.getPrimaryButtonsArray();
+        secondaryKeypadButtons = mFunctionsKeypad.getSecondaryButtonsArray();
         DefaultButton mButton = (DefaultButton) getRootView().findViewById(viewID);
-
         if(primaryKeypadButtons.contains(mButton)) {
             return PRIMARY_KEYPAD;
         } else if(secondaryKeypadButtons.contains(mButton)) {

@@ -35,7 +35,9 @@ public class KeypadFragment extends Fragment {
     private static final String LOG_TAG = "Keypad Fragment";
 
     public KeypadFragment() {
-
+        mKeypadButtons = new HashMap<>();
+        mButtonsArray = new ArrayList<>();
+        mSecondButtonsArray = new ArrayList<>();
     }
 
     @Override
@@ -48,9 +50,6 @@ public class KeypadFragment extends Fragment {
         Log.i(LOG_TAG, "Current Theme: " + currentTheme.getThemeName());
 
         View rootView = inflater.inflate(R.layout.keypad_layout, container, false);
-        mKeypadButtons = new HashMap<>();
-        mButtonsArray = new ArrayList<>();
-        mSecondButtonsArray = new ArrayList<>();
 
         btnDel = (DefaultButton) rootView.findViewById(R.id.keypadDel);
         mKeypadButtons.put(R.id.keypadDel, btnDel);
