@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.cards.AddThemeCard;
 import com.gabilheri.formulacalculator.main.cards.ThemeCard;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
@@ -77,6 +78,8 @@ public class ThemesFragment extends Fragment {
         mCardList = new ArrayList<>();
 
         themesList = dbHelper.getAllThemesForUser("marcus");
+
+        mCardList.add(new AddThemeCard(getActivity()));
 
         if(themesList != null) {
             for(Theme mTheme : themesList) {

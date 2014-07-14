@@ -1,12 +1,16 @@
 package com.gabilheri.formulacalculator.main.cards;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
+import com.gabilheri.formulacalculator.main.database.Theme;
 
 import it.gmariotti.cardslib.library.internal.Card;
 
@@ -23,10 +27,17 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
     private long themeID;
     private int primaryColor, secondaryColor, selectedColor, displayColor;
     private Context mContext;
+    private DatabaseHelper dbHelper;
+    private Theme currentTheme;
+    private SharedPreferences mPreferences;
 
     public ThemeCard(Context context) {
         super(context, R.layout.theme_card);
         this.mContext = context;
+        dbHelper = new DatabaseHelper(context);
+        mPreferences = context.getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
+        currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+        setOnClickListener(this);
     }
 
     public ThemeCard(Context context, int innerLayout) {
@@ -35,6 +46,10 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
+
+        if(themeName.equals(currentTheme.getThemeName())) {
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.theme_selected));
+        }
 
         TextView textThemeName = (TextView) view.findViewById(R.id.themeName);
         TextView textPrimaryColor = (TextView) view.findViewById(R.id.primaryColor);
@@ -51,7 +66,12 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
 
     @Override
     public void onClick(Card card, View view) {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(MainActivity.CURRENT_THEME, themeName);
+        editor.apply();
 
+        MainActivity mActivity = (MainActivity) mContext;
+        mActivity.displayView(MainActivity.CALCULATOR_FRAG, null);
     }
 
     @Override

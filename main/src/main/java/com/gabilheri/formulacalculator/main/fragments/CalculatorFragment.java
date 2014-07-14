@@ -1,10 +1,10 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -17,12 +17,12 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.adapters.FormulasListAdapter;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.ResultLog;
 import com.gabilheri.formulacalculator.main.database.Theme;
-import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
@@ -58,6 +58,8 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private VariablesDialog varDialog;
     private boolean clearResult = false;
     private DatabaseHelper dbHelper;
+    private KeypadFragment mKeypadFragment;
+    private KeypadFunctionsFragment mKeypadFunctionsFragment;
     private View rootView;
 
     /**
@@ -81,14 +83,22 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         ActionBar mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_launcher);
 
-        Theme mTheme = new Theme();
+
+        SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
+        DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
+        Theme currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+
         angleType = EvaluateExpression.DEGREE;
         rootView = view;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
+        resultLayoutKey.setBackgroundColor(currentTheme.getDisplayColor());
         inputBox1key = (TextView) view.findViewById(R.id.inputBox1);
         resultBoxKey = (TextView) view.findViewById(R.id.resultBox1);
+
+        mKeypadFragment = new KeypadFragment();
+        mKeypadFunctionsFragment = new KeypadFunctionsFragment();
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
@@ -148,11 +158,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         @Override
         public Fragment getItem(int position) {
             if(position == 0) {
-                mFragment = new KeypadFunctionsFragment();
+                mFragment = mKeypadFunctionsFragment;
             } else if(position == 1) {
-                mFragment = new KeypadFragment();
+                mFragment = mKeypadFragment;
             }
-
             return mFragment;
         }
 
@@ -315,7 +324,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 break;
             case R.id.insertedButton:
                 Log.i("I'M A BUTTON!", "That uses include!");
-                showPickerDialog(view.getId(), ((DefaultButton) view).getCustomBackgroundColor());
                 break;
             case R.id.degreeRad:
                 if(angleType == EvaluateExpression.DEGREE) {
@@ -332,22 +340,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         inputBox1key.setText(Html.fromHtml(textInputBox1));
 
-        //inputBox1fun.setText(textInputBox1);
-
         Log.d("FRAGMENT MAIN: ", "Text Input: " + textInputBox1);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case ColorPickDialog.COLORPICK_CODE:
-                if(resultCode == Activity.RESULT_OK) {
-                    Bundle mBundle = data.getExtras();
-                    DefaultButton mButton = (DefaultButton) rootView.findViewById(mBundle.getInt("view"));
-                    mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
-                }
-                break;
-        }
     }
 
     /**
@@ -485,19 +478,35 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         varDialog.show(getFragmentManager(), "dialog");
     }
 
-    public void showPickerDialog(int viewId, int buttonColor) {
-        ColorPickDialog pickerDialog = new ColorPickDialog();
-        pickerDialog.setTargetFragment(this, ColorPickDialog.COLORPICK_CODE);
-        Bundle extras = new Bundle();
-        extras.putInt("view", viewId);
-        extras.putInt("color", buttonColor);
-        pickerDialog.setArguments(extras);
-        pickerDialog.show(getFragmentManager(), "pickerDialog");
-    }
-
     @Override
     public int getType() {
         return FragmentWithKeypad.CALCULATOR_FRAGMENT;
     }
 
+    /**
+     *
+     * @return
+     *      The Functions Keypad of this Fragment
+     */
+    public KeypadFunctionsFragment getmKeypadFunctionsFragment() {
+        return mKeypadFunctionsFragment;
+    }
+
+    /**
+     *
+     * @return
+     *      The Keypad of this Fragment
+     */
+    public KeypadFragment getmKeypadFragment() {
+        return mKeypadFragment;
+    }
+
+    /**
+     *
+     * @return
+     *      the active rootView of this Fragment
+     */
+    public View getRootView() {
+        return rootView;
+    }
 }

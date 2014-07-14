@@ -12,7 +12,6 @@
     <LinearLayout
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical"
-        android:background="@drawable/round_corners"
         android:layout_weight="3"
         android:weightSum="2"
         android:layout_width="0dip"
@@ -27,14 +26,12 @@
 
             <TextView
                 android:id="@+id/primaryColor"
-                android:background="@color/def_button"
                 android:layout_weight="1"
                 android:layout_width="0dip"
                 android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/secondaryColor"
-                android:background="@color/button_2"
                 android:layout_weight="1"
                 android:layout_width="0dip"
                 android:layout_height="match_parent" />
@@ -47,14 +44,12 @@
 
             <TextView
                 android:id="@+id/selectedColor"
-                android:background="@color/dark_orange"
                 android:layout_weight="1"
                 android:layout_width="0dip"
                 android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/displayColor"
-                android:background="@color/display_color"
                 android:layout_weight="1"
                 android:layout_width="0dip"
                 android:layout_height="match_parent" />

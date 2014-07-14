@@ -12,6 +12,15 @@
     <color name="dark_orange">#d35400</color>
     <color name="light_orange">#e67e22</color>
     <color name="def_button_text">#eceff1</color>
+    <color name="green">#72d572</color>
+    <color name="green_highlight">#009688</color>
+    <color name="display_color2">#ec407a</color>
+    <color name="themes_background">#e0e0e0</color>
+    <color name="theme_selected">#81d4fa</color>
+
+    <!-- Add Button Colors -->
+    <color name="add_orange">#ffb74d</color>
+    <color name="add_green">#2baf2b</color>
 
     <!-- Drawer Layout Stuff -->
     <color name="list_item_title">#34495e</color>

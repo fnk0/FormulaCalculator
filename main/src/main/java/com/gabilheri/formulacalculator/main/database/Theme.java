@@ -1,11 +1,14 @@
 package com.gabilheri.formulacalculator.main.database;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author Marcus Gabilheri
  * @version 1.0
  * @since 6/15/14
  */
-public class Theme {
+public class Theme implements Parcelable{
 
     public static final String LOG_TAG = "Theme";
     /**
@@ -21,6 +24,16 @@ public class Theme {
      * Constant to set this Theme to be a System Theme
      */
     public static final int THEME_SYSTEM = 2;
+
+    /**
+     * Name of the Default Theme for this Application
+     */
+    public static final String DEFAULT_THEME = "Default Theme";
+
+    /**
+     * Name of the Secondary Theme for this Application
+     */
+    public static final String SECONDARY_THEME = "Secondary Theme";
 
     /**
      * Variables for this Theme
@@ -356,4 +369,56 @@ public class Theme {
         this.secondaryHighlightColor = secondaryHighlightColor;
         return this;
     }
+
+    protected Theme(Parcel in) {
+        username = in.readString();
+        themeName = in.readString();
+        themeType = in.readInt();
+        primaryColor = in.readInt();
+        secondaryColor = in.readInt();
+        displayColor = in.readInt();
+        displayTextColor = in.readInt();
+        primaryButtonTextColor = in.readInt();
+        secondaryButtonTextColor = in.readInt();
+        primaryHighlightColor = in.readInt();
+        secondaryHighlightColor = in.readInt();
+        selectedColor = in.readInt();
+        id = in.readLong();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(username);
+        dest.writeString(themeName);
+        dest.writeInt(themeType);
+        dest.writeInt(primaryColor);
+        dest.writeInt(secondaryColor);
+        dest.writeInt(displayColor);
+        dest.writeInt(displayTextColor);
+        dest.writeInt(primaryButtonTextColor);
+        dest.writeInt(secondaryButtonTextColor);
+        dest.writeInt(primaryHighlightColor);
+        dest.writeInt(secondaryHighlightColor);
+        dest.writeInt(selectedColor);
+        dest.writeLong(id);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Theme> CREATOR = new Parcelable.Creator<Theme>() {
+        @Override
+        public Theme createFromParcel(Parcel in) {
+            return new Theme(in);
+        }
+
+        @Override
+        public Theme[] newArray(int size) {
+            return new Theme[size];
+        }
+    };
+
 }

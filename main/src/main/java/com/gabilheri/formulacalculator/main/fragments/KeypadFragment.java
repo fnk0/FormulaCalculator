@@ -1,6 +1,8 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
+import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
@@ -37,6 +41,12 @@ public class KeypadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
+        DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
+        Theme currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+
+        Log.i(LOG_TAG, "Current Theme: " + currentTheme.getThemeName());
+
         View rootView = inflater.inflate(R.layout.keypad_layout, container, false);
         mKeypadButtons = new HashMap<>();
         mButtonsArray = new ArrayList<>();
@@ -50,7 +60,6 @@ public class KeypadFragment extends Fragment {
             @Override
             public boolean onLongClick(View v) {
                 ((MainActivity) getActivity()).clearDisplay();
-                Log.i(LOG_TAG, "Long Click!");
                 return false;
             }
         });
@@ -143,9 +152,16 @@ public class KeypadFragment extends Fragment {
         mKeypadButtons.put(R.id.equal, btnEqual);
         mButtonsArray.add(btnEqual);
 
+        for(DefaultButton mButton : mButtonsArray) {
+            mButton.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());
+            mButton.setCustomBackgroundColor(currentTheme.getPrimaryColor());
+            mButton.setCustomHighlightColor(currentTheme.getPrimaryHighlightColor());
+        }
+
         for(DefaultButton mButton: mSecondButtonsArray) {
-            mButton.setCustomBackgroundColor(getResources().getColor(R.color.button_2));
-            mButton.setHighlightColor(getResources().getColor(R.color.display_color));
+            mButton.setCustomTextColor(currentTheme.getSecondaryButtonTextColor());
+            mButton.setCustomBackgroundColor(currentTheme.getSecondaryColor());
+            mButton.setHighlightColor(currentTheme.getSecondaryHighlightColor());
         }
 
         return rootView;
@@ -160,7 +176,11 @@ public class KeypadFragment extends Fragment {
         return mKeypadButtons;
     }
 
-    public ArrayList<DefaultButton> getmButtonsArray() {
+    public ArrayList<DefaultButton> getPrimaryButtonsArray() {
         return mButtonsArray;
+    }
+
+    public ArrayList<DefaultButton> getSecondButtonsArray() {
+        return mSecondButtonsArray;
     }
 }

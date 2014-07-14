@@ -298,7 +298,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .setPrimaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_HIGHLIGHT)))
                 .setSecondaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_HIGHLIGHT)))
                 .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
-
         this.closeDB();
         return selectedTheme;
     }

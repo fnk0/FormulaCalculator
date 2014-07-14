@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +26,7 @@ import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
 import com.gabilheri.formulacalculator.main.fragments.CardsFormulasFragment;
+import com.gabilheri.formulacalculator.main.fragments.FragmentThemeCreator;
 import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.fragments.ThemesFragment;
@@ -81,14 +83,19 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     private CharSequence mTitle;
 
     //Constants for the Fragments
-
     public static final int CALCULATOR_FRAG = 0;
     public static final int FORMULAS_FRAG = 1;
     public static final int LOG_FRAG = 2;
     public static final int SETTINGS_FRAG = 3;
-    public static final int THEME_CREATOR = 4;
+    public static final int THEMES = 4;
     public static final int GOOGLE_PLUS = 7;
     public static final int DEBUG_FRAG = 8;
+    public static final int THEME_CREATOR = 15;
+
+    // Shared Pref stuff
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor mEditor;
+    public static final String CURRENT_THEME = "current_theme";
 
     // Nav Drawer Elements
     private String[] navMenuTitles;
@@ -97,6 +104,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     private NavDrawerListAdapter navAdapter;
     private Fragment activeFragment;
     private FragmentWithKeypad keypadFragment;
+
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
 
@@ -104,12 +112,15 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mPreferences = getSharedPreferences(CURRENT_THEME, MODE_PRIVATE);
+        mEditor = mPreferences.edit();
+
         DatabaseHelper mHelper = new DatabaseHelper(this.getApplicationContext());
 
         if(mHelper.getAllThemesForUser(null).size() == 0) {
             Theme defaultTheme = new Theme();
             defaultTheme.setUsername(null);
-            defaultTheme.setThemeName("Default Theme");
+            defaultTheme.setThemeName(Theme.DEFAULT_THEME);
             defaultTheme.setThemeType(Theme.THEME_SYSTEM);
             defaultTheme.setPrimaryColor(getResources().getColor(R.color.def_button));
             defaultTheme.setPrimaryHighlightColor(getResources().getColor(R.color.def_button_pressed));
@@ -121,6 +132,24 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             defaultTheme.setDisplayTextColor(getResources().getColor(R.color.def_button_text));
             defaultTheme.setSelectedColor(getResources().getColor(R.color.light_orange));
             mHelper.createTheme(defaultTheme);
+
+            Theme secondaryTheme = new Theme();
+            secondaryTheme.setUsername(null);
+            secondaryTheme.setThemeName(Theme.SECONDARY_THEME);
+            secondaryTheme.setThemeType(Theme.THEME_SYSTEM);
+            secondaryTheme.setPrimaryColor(getResources().getColor(R.color.green));
+            secondaryTheme.setPrimaryHighlightColor(getResources().getColor(R.color.green_highlight));
+            secondaryTheme.setPrimaryButtonTextColor(getResources().getColor(R.color.def_button_text));
+            secondaryTheme.setSecondaryColor(getResources().getColor(R.color.button_2));
+            secondaryTheme.setSecondaryHighlightColor(getResources().getColor(R.color.green_highlight));
+            secondaryTheme.setSecondaryButtonTextColor(getResources().getColor(R.color.def_button_text));
+            secondaryTheme.setDisplayColor(getResources().getColor(R.color.display_color2));
+            secondaryTheme.setDisplayTextColor(getResources().getColor(R.color.def_button_text));
+            secondaryTheme.setSelectedColor(getResources().getColor(R.color.def_button));
+            mHelper.createTheme(secondaryTheme);
+
+            mEditor.putString(CURRENT_THEME, Theme.DEFAULT_THEME);
+            mEditor.apply();
         }
 
         setContentView(R.layout.activity_main);
@@ -252,9 +281,8 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             case SETTINGS_FRAG:
                 activeFragment = new SettingsFragment();
                 break;
-            case THEME_CREATOR:
+            case THEMES:
                 activeFragment = new ThemesFragment();
-                //keypadFragment = (FragmentThemeCreator) activeFragment;
                 break;
             case 5:
                 break;
@@ -270,6 +298,10 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             case DEBUG_FRAG:
                 activeFragment = new TestFragment();
                 break;
+            case THEME_CREATOR:
+                activeFragment = new FragmentThemeCreator();
+                keypadFragment = (FragmentThemeCreator) activeFragment;
+                break;
             default:
                 break;
         }
@@ -283,8 +315,11 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 // update selected item and title, then close the drawer
                 mDrawerList.setItemChecked(position, true);
                 mDrawerList.setSelection(position);
-                setTitle(navMenuTitles[position]);
-
+                if(position == THEME_CREATOR) {
+                    setTitle("Theme Creator");
+                } else {
+                    setTitle(navMenuTitles[position]);
+                }
             } else {
                 // error in creating fragment
                 Log.e("MainActivity", "Error in creating fragment");

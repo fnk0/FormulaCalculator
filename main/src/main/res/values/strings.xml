@@ -121,8 +121,8 @@
     <string name="deg">DEG</string>
     <string name="radians_button">RAD</string>
     <string name="degree_button">DEG</string>
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
 
-    <string name="sin">SIN</string>
-    <string name="cos">COS</string>
-    <string name="tan">TAN</string>
 </resources>
