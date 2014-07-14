@@ -81,13 +81,10 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         } else if(primaryFunctionButtons.contains(mButton)) {
             return PRIMARY_FUNCTIONS;
         } else if(secondaryFunctionButtons.contains(mButton)) {
-            
+            return SECONDARY_FUNCTIONS;
         }
 
-
-
         return -1;
-
     }
 
 
