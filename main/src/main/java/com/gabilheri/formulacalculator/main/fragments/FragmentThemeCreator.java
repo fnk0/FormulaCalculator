@@ -73,7 +73,16 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     public int getButtonType(int viewID) {
 
         DefaultButton mButton = (DefaultButton) getRootView().findViewById(viewID);
-        
+
+        if(primaryKeypadButtons.contains(mButton)) {
+            return PRIMARY_KEYPAD;
+        } else if(secondaryKeypadButtons.contains(mButton)) {
+            return SECONDARY_KEYPAD;
+        } else if(primaryFunctionButtons.contains(mButton)) {
+            return PRIMARY_FUNCTIONS;
+        } else if(secondaryFunctionButtons.contains(mButton)) {
+            
+        }
 
 
 
