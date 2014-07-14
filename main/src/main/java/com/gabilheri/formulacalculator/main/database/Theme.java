@@ -34,6 +34,9 @@ public class Theme {
     private int displayTextColor;
     private int primaryButtonTextColor;
     private int secondaryButtonTextColor;
+    private int primaryHighlightColor;
+    private int secondaryHighlightColor;
+    private int selectedColor;
     private long id;
 
     /**
@@ -62,9 +65,11 @@ public class Theme {
      *          The TextColor for the secondary buttons for this theme
      * @param displayTextColor
      *          THe TextColor for the Display of this Theme
+     * @param selectedColor
+     *          The Selected Color for this Theme
      *
      */
-    public Theme(String username, String themeName, int themeType, int primaryColor, int secondaryColor, long id,
+    public Theme(String username, String themeName, int themeType, int primaryColor, int secondaryColor, long id, int selectedColor,
                  int displayColor, int primaryButtonTextColor, int secondaryButtonTextColor, int displayTextColor) {
         this.username = username;
         this.themeName = themeName;
@@ -73,6 +78,7 @@ public class Theme {
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.displayColor = displayColor;
+        this.selectedColor = selectedColor;
         this.primaryButtonTextColor = primaryButtonTextColor;
         this.secondaryButtonTextColor = secondaryButtonTextColor;
         this.displayTextColor = displayTextColor;
@@ -285,6 +291,69 @@ public class Theme {
      */
     public Theme setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    /**
+     *
+     * @return
+     *        The color for the Buttons when they are in Selected state
+     */
+    public int getSelectedColor() {
+        return selectedColor;
+    }
+
+    /**
+     *
+     * @param selectedColor
+     *      The Selected Color for this Theme
+     * @return
+     *      This object for a easy chain
+     */
+    public Theme setSelectedColor(int selectedColor) {
+        this.selectedColor = selectedColor;
+        return this;
+    }
+
+    /**
+     *
+     * @return
+     *      The Highlight color of the Primary Button of this Theme
+     */
+    public int getPrimaryHighlightColor() {
+        return primaryHighlightColor;
+    }
+
+    /**
+     *
+     * @param primaryHighlightColor
+     *          The Highlight color for this Theme
+     * @return
+     *          This object for a easy chain
+     */
+    public Theme setPrimaryHighlightColor(int primaryHighlightColor) {
+        this.primaryHighlightColor = primaryHighlightColor;
+        return this;
+    }
+
+    /**
+     *
+     * @return
+     *      The Highlight color of the Secondary Button of this Theme
+     */
+    public int getSecondaryHighlightColor() {
+        return secondaryHighlightColor;
+    }
+
+    /**
+     *
+     * @param secondaryHighlightColor
+     *      The Highlight color for the Secondary Button of this Theme
+     * @return
+     *       This object for a easy chain
+     */
+    public Theme setSecondaryHighlightColor(int secondaryHighlightColor) {
+        this.secondaryHighlightColor = secondaryHighlightColor;
         return this;
     }
 }

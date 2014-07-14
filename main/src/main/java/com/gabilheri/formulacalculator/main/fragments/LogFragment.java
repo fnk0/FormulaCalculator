@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gabilheri.formulacalculator.main.R;
-import com.gabilheri.formulacalculator.main.adapters.LogsAdapter;
 import com.gabilheri.formulacalculator.main.cards.LogCard;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.ResultLog;
@@ -34,9 +33,9 @@ public class LogFragment extends Fragment {
     private List<Card> mCardsList;
     private DatabaseHelper dbHelper;
     private CardListView logsList;
-    private LogsAdapter mAdapter;
     private List<ResultLog> resultLogs;
     private Runnable run;
+    private CardArrayAdapter mCardAdapter;
 
     /**
      *
@@ -91,7 +90,6 @@ public class LogFragment extends Fragment {
 
         resultLogs =  dbHelper.getAllResultLogs();
         Collections.reverse(resultLogs);
-        //mAdapter = new LogsAdapter(getActivity(), resultLogs);
 
         for(ResultLog r : resultLogs) {
             LogCard mCard = new LogCard(getActivity());
@@ -102,16 +100,22 @@ public class LogFragment extends Fragment {
             mCardsList.add(mCard);
         }
 
-        CardArrayAdapter mCardAdapter = new CardArrayAdapter(getActivity(), mCardsList);
+        mCardAdapter = new CardArrayAdapter(getActivity(), mCardsList);
         mCardAdapter.setEnableUndo(true);
+
         logsList.setAdapter(mCardAdapter);
 
+        /**
+         * Deletes all logs in another Thread to not freeze the UI
+         */
         run = new Runnable() {
             @Override
             public void run() {
-                dbHelper.deleteAllResultLogs();
-                //mAdapter.notifyDataSetChanged();
                 resultLogs.clear();
+                dbHelper.deleteAllResultLogs();
+                mCardsList.clear();
+                mCardAdapter.notifyDataSetChanged();
+                mCardAdapter.notifyDataSetInvalidated();
                 logsList.invalidateViews();
                 logsList.refreshDrawableState();
             }

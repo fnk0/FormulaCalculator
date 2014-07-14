@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:padding="10dip"
+    android:weightSum="10"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:background="@drawable/round_corners"
+        android:layout_weight="3"
+        android:weightSum="2"
+        android:layout_width="0dip"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dip">
+
+            <TextView
+                android:id="@+id/primaryColor"
+                android:background="@color/def_button"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/secondaryColor"
+                android:background="@color/button_2"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dip">
+
+            <TextView
+                android:id="@+id/selectedColor"
+                android:background="@color/dark_orange"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/displayColor"
+                android:background="@color/display_color"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+
+        android:id="@+id/themeName"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Test"
+        android:layout_weight="7"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

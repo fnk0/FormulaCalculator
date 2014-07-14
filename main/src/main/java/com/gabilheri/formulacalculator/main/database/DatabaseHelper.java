@@ -54,24 +54,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_DISPLAY_TEXT_COLOR = "display_text_color"; // Color for the Text Display Color
     private static final String KEY_PRIMARY_BUTTON_TEXT_COLOR = "primary_button_text_color"; // Color for the Text in the Primary Buttons
     private static final String KEY_SECONDARY_BUTTON_TEXT_COLOR = "secondary_button_text_color"; // Color for the Text in the Secondary Buttons
+    private static final String KEY_SELECTED_COLOR = "selected_color";
+    private static final String KEY_PRIMARY_HIGHLIGHT = "primary_highlight";
+    private static final String KEY_SECONDARY_HIGHLIGHT = "secondary_highlight";
 
 
     // Create Results Table
-    private static final String CREATE_TABLE_RESULTS = "CREATE TABLE "
-            + TABLE_RESULTS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_INPUT
-            + " TEXT," + KEY_RESULT + " TEXT," + KEY_CREATED_AT + " DATETIME" + ")";
+    private static final String CREATE_TABLE_RESULTS = "CREATE TABLE "+ TABLE_RESULTS + "(" +
+            KEY_ID + " INTEGER PRIMARY KEY," +
+            KEY_INPUT + " TEXT," +
+            KEY_RESULT + " TEXT," +
+            KEY_CREATED_AT + " DATETIME" +
+            ")";
 
     // Create Formulas Table
-    private static final String CREATE_TABLE_FORMULAS = "CREATE TABLE "
-            + TABLE_FORMULAS + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FORMULA
-            + " TEXT," + KEY_FORMULA_DRAWABLE + " INTEGER," + KEY_CREATED_AT + " DATETIME" + ")";
+    private static final String CREATE_TABLE_FORMULAS = "CREATE TABLE " + TABLE_FORMULAS + "(" +
+            KEY_ID + " INTEGER PRIMARY KEY," +
+            KEY_FORMULA + " TEXT," +
+            KEY_FORMULA_DRAWABLE + " INTEGER," +
+            KEY_CREATED_AT + " DATETIME" +
+            ")";
 
     private static final String CREATE_TABLE_THEMES = "CREATE TABLE " + TABLE_THEMES + "(" +
-            KEY_USERNAME + " TEXT, " + KEY_THEME_TYPE + " INTEGER, " + KEY_THEME_NAME + " TEXT," +
-            KEY_ID + " INTEGER PRIMARY KEY," + KEY_PRIMARY_BUTTON + " TEXT, " +
-            KEY_SECONDARY_BUTTON + " TEXT, " + KEY_DISPLAY_COLOR + " TEXT, " +
-            KEY_DISPLAY_TEXT_COLOR + " TEXT," + KEY_PRIMARY_BUTTON_TEXT_COLOR + " TEXT, " +
-            KEY_SECONDARY_BUTTON_TEXT_COLOR + " TEXT, " + KEY_CREATED_AT + " DATETIME" + ")";
+            KEY_ID + " INTEGER PRIMARY KEY," +
+            KEY_USERNAME + " TEXT," +
+            KEY_THEME_NAME + " TEXT," +
+            KEY_THEME_TYPE + " TEXT," +
+            KEY_PRIMARY_BUTTON + " TEXT," +
+            KEY_PRIMARY_HIGHLIGHT + " TEXT," +
+            KEY_PRIMARY_BUTTON_TEXT_COLOR + " TEXT," +
+            KEY_SECONDARY_BUTTON + " TEXT," +
+            KEY_SECONDARY_HIGHLIGHT + " TEXT," +
+            KEY_SECONDARY_BUTTON_TEXT_COLOR + " TEXT," +
+            KEY_DISPLAY_COLOR + " TEXT," +
+            KEY_DISPLAY_TEXT_COLOR + " TEXT," +
+            KEY_SELECTED_COLOR + " TEXT," +
+            KEY_CREATED_AT + " DATETIME" +
+            ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -120,10 +139,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        Log.i(LOG_TAG, CREATE_TABLE_THEMES);
         // Creates the required tables
+        db.execSQL(CREATE_TABLE_THEMES);
         db.execSQL(CREATE_TABLE_RESULTS);
         db.execSQL(CREATE_TABLE_FORMULAS);
-        db.execSQL(CREATE_TABLE_THEMES);
+
     }
 
     /**
@@ -137,7 +159,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         // Drops the older tables.
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESULTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FORMULAS );
@@ -155,7 +176,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *          The inserted statement for the Database - Used internally by Android
      */
     public long createResultLog(ResultLog resultLog) {
-
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_INPUT, resultLog.getInput());
@@ -172,18 +192,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *          The inserted statement for the Database - Used internally by Android
      */
     public long createTheme(Theme theme) {
-
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME, theme.getUsername());
+        if(theme.getUsername() == null) {
+            values.put(KEY_USERNAME, "default");
+        } else {
+            values.put(KEY_USERNAME, theme.getUsername());
+        }
         values.put(KEY_THEME_TYPE, theme.getThemeType());
         values.put(KEY_THEME_NAME, theme.getThemeName());
         values.put(KEY_PRIMARY_BUTTON, theme.getPrimaryColor());
+        values.put(KEY_PRIMARY_HIGHLIGHT, theme.getPrimaryHighlightColor());
         values.put(KEY_PRIMARY_BUTTON_TEXT_COLOR, theme.getPrimaryButtonTextColor());
         values.put(KEY_DISPLAY_COLOR, theme.getDisplayColor());
         values.put(KEY_DISPLAY_TEXT_COLOR, theme.getDisplayTextColor());
         values.put(KEY_SECONDARY_BUTTON, theme.getSecondaryColor());
+        values.put(KEY_SECONDARY_HIGHLIGHT, theme.getSecondaryHighlightColor());
         values.put(KEY_SECONDARY_BUTTON_TEXT_COLOR, theme.getSecondaryButtonTextColor());
+        values.put(KEY_SELECTED_COLOR, theme.getSelectedColor());
 
         return db.insert(TABLE_THEMES, null, values);
     }
@@ -241,6 +267,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .setPrimaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON_TEXT_COLOR)))
                 .setSecondaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON_TEXT_COLOR)))
                 .setDisplayTextColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_TEXT_COLOR)))
+                .setSelectedColor(cursor.getInt(cursor.getColumnIndex(KEY_SELECTED_COLOR)))
+                .setPrimaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_HIGHLIGHT)))
+                .setSecondaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_HIGHLIGHT)))
+                .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
+
+        this.closeDB();
+        return selectedTheme;
+    }
+
+    public Theme getThemeByName(String themeName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_THEMES + " WHERE " + KEY_THEME_NAME + " = '" + themeName + "'";
+        Log.i(LOG_TAG, selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        Theme selectedTheme = new Theme();
+        selectedTheme.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USERNAME)))
+                .setThemeName(cursor.getString(cursor.getColumnIndex(KEY_THEME_NAME)))
+                .setPrimaryColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON)))
+                .setSecondaryColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON)))
+                .setDisplayColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_COLOR)))
+                .setPrimaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON_TEXT_COLOR)))
+                .setSecondaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON_TEXT_COLOR)))
+                .setDisplayTextColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_TEXT_COLOR)))
+                .setSelectedColor(cursor.getInt(cursor.getColumnIndex(KEY_SELECTED_COLOR)))
+                .setPrimaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_HIGHLIGHT)))
+                .setSecondaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_HIGHLIGHT)))
                 .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
 
         this.closeDB();
@@ -291,7 +347,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Theme> getAllThemesForUser(String username) {
 
         List<Theme> themesResult = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_THEMES + " WHERE " + KEY_USERNAME + " = " + username;
+        String selectQuery = "SELECT * FROM " + TABLE_THEMES + " WHERE " + KEY_USERNAME + " = '" + username + "' OR " + KEY_THEME_TYPE + " = " + Theme.THEME_SYSTEM;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -308,6 +364,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         .setPrimaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_BUTTON_TEXT_COLOR)))
                         .setSecondaryButtonTextColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_BUTTON_TEXT_COLOR)))
                         .setDisplayTextColor(cursor.getInt(cursor.getColumnIndex(KEY_DISPLAY_TEXT_COLOR)))
+                        .setSelectedColor(cursor.getInt(cursor.getColumnIndex(KEY_SELECTED_COLOR)))
+                        .setPrimaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_HIGHLIGHT)))
+                        .setSecondaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_HIGHLIGHT)))
                         .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
                 themesResult.add(selectedTheme);
             } while (cursor.moveToNext());
@@ -331,11 +390,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_THEME_TYPE, theme.getThemeType());
         values.put(KEY_THEME_NAME, theme.getThemeName());
         values.put(KEY_PRIMARY_BUTTON, theme.getPrimaryColor());
+        values.put(KEY_PRIMARY_HIGHLIGHT, theme.getPrimaryHighlightColor());
         values.put(KEY_PRIMARY_BUTTON_TEXT_COLOR, theme.getPrimaryButtonTextColor());
         values.put(KEY_DISPLAY_COLOR, theme.getDisplayColor());
         values.put(KEY_DISPLAY_TEXT_COLOR, theme.getDisplayTextColor());
         values.put(KEY_SECONDARY_BUTTON, theme.getSecondaryColor());
+        values.put(KEY_SECONDARY_HIGHLIGHT, theme.getSecondaryHighlightColor());
         values.put(KEY_SECONDARY_BUTTON_TEXT_COLOR, theme.getSecondaryButtonTextColor());
+        values.put(KEY_SELECTED_COLOR, theme.getSelectedColor());
 
         return db.update(TABLE_THEMES, values, KEY_ID + " = ?", new String[] {String.valueOf(theme.getId())});
     }

@@ -21,11 +21,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
+import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
+import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
 import com.gabilheri.formulacalculator.main.fragments.CardsFormulasFragment;
-import com.gabilheri.formulacalculator.main.fragments.FragmentThemeCreator;
 import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
+import com.gabilheri.formulacalculator.main.fragments.ThemesFragment;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
 import com.gabilheri.formulacalculator.main.tests.TestFragment;
@@ -38,6 +40,7 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Marcus Gabilheri
@@ -100,6 +103,26 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DatabaseHelper mHelper = new DatabaseHelper(this.getApplicationContext());
+
+        if(mHelper.getAllThemesForUser(null).size() == 0) {
+            Theme defaultTheme = new Theme();
+            defaultTheme.setUsername(null);
+            defaultTheme.setThemeName("Default Theme");
+            defaultTheme.setThemeType(Theme.THEME_SYSTEM);
+            defaultTheme.setPrimaryColor(getResources().getColor(R.color.def_button));
+            defaultTheme.setPrimaryHighlightColor(getResources().getColor(R.color.def_button_pressed));
+            defaultTheme.setPrimaryButtonTextColor(getResources().getColor(R.color.def_button_text));
+            defaultTheme.setSecondaryColor(getResources().getColor(R.color.button_2));
+            defaultTheme.setSecondaryHighlightColor(getResources().getColor(R.color.def_button_pressed));
+            defaultTheme.setSecondaryButtonTextColor(getResources().getColor(R.color.def_button_text));
+            defaultTheme.setDisplayColor(getResources().getColor(R.color.display_color));
+            defaultTheme.setDisplayTextColor(getResources().getColor(R.color.def_button_text));
+            defaultTheme.setSelectedColor(getResources().getColor(R.color.light_orange));
+            mHelper.createTheme(defaultTheme);
+        }
+
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
@@ -230,8 +253,8 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 activeFragment = new SettingsFragment();
                 break;
             case THEME_CREATOR:
-                activeFragment = new FragmentThemeCreator();
-                keypadFragment = (FragmentThemeCreator) activeFragment;
+                activeFragment = new ThemesFragment();
+                //keypadFragment = (FragmentThemeCreator) activeFragment;
                 break;
             case 5:
                 break;
@@ -472,20 +495,36 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         }
     }
 
-    private void getProfileInformation() {
+    /**
+     * Gets the information for the current signed in User.
+     *
+     * @return
+     *      A HasHMap with the information for the signed in user
+     */
+    public HashMap<String, Object> getProfileInformation() {
+        HashMap<String, Object> userProfile = new HashMap<>();
         try {
             if(Plus.PeopleApi.getCurrentPerson(mGoogleServices) != null) {
                 Person mCurrentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleServices);
                 String personName = mCurrentPerson.getDisplayName();
                 String personPhotoUrl = mCurrentPerson.getImage().getUrl();
-                String PersonGooglePlusProfile = mCurrentPerson.getUrl();
+                String personGooglePlusProfile = mCurrentPerson.getUrl();
                 final String personEmail = Plus.AccountApi.getAccountName(mGoogleServices);
 
+                Log.i(LOG_TAG, "Person Name: " + personName);
+                Log.i(LOG_TAG, "Person Photo URL: " + personPhotoUrl);
+                Log.i(LOG_TAG, "Person G+ Profile: " + personGooglePlusProfile);
+                Log.i(LOG_TAG, "Person E-Mail: " + personEmail);
+
+                userProfile.put("personName", personName);
+                userProfile.put("personPhotoUrl", personPhotoUrl);
+                userProfile.put("personG+", personGooglePlusProfile);
+                userProfile.put("personEmail", personEmail);
 
                 // by default the profile url gives 50x50 px image only
                 // we can replace the value with whatever dimension we 2want by
                 // replacing sz=X
-                personPhotoUrl = personPhotoUrl.substring(0, personPhotoUrl.length() -2) + PROFILE_PIC_SIZE;
+                //personPhotoUrl = personPhotoUrl.substring(0, personPhotoUrl.length() -2) + PROFILE_PIC_SIZE;
                 //new LoadProfileImage(imageProfilePic).execute(personPhotoUrl);
             } else {
                 Toast.makeText(getApplicationContext(),
@@ -495,5 +534,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             ex.printStackTrace();
 
         }
+
+        return userProfile;
     }
 }
