@@ -523,4 +523,13 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     public View getRootView() {
         return rootView;
     }
+
+    /**
+     *
+     * @return
+     *          the LinearLayout that holds the display
+     */
+    public LinearLayout getDisplay() {
+        return resultLayoutKey;
+    }
 }

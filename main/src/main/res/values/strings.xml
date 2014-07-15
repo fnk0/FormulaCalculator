@@ -126,5 +126,7 @@
     <string name="tan">tan</string>
     <string name="ans">Ans</string>
     <string name="frac">Frac</string>
+    <string name="save_theme">Save Theme</string>
+    <string name="delete">Delete</string>
 
 </resources>

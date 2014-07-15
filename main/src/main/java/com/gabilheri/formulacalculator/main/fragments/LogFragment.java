@@ -134,8 +134,9 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.log_menu, menu);
-
+        MenuItem deleteItem = menu.add(Menu.NONE, R.id.delete, 10, R.string.save_theme);
+        deleteItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        deleteItem.setIcon(android.R.drawable.ic_menu_delete);
     }
 
     /**

@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.Theme;
@@ -36,6 +38,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     public static final int BACKGROUND_EDIT = 100;
     public static final int HIGHLIGHT_EDIT = 101;
     public static final int TEXT_EDIT = 102;
+    public static final int DISPLAY_EDIT = 103;
     public int editMode = 0;
     private int buttonGroup = -1;
     private Theme newTheme;
@@ -154,10 +157,29 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
 
     @Override
     public void handleKeypad(View view) {
+        if(view == getDisplay()) {
+
+        }
         editMode = BACKGROUND_EDIT;
         showPickerDialog(view.getId(), ((DefaultButton) view).getCustomBackgroundColor());
     }
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getDisplay().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG_TAG, "Clicked Display!");
+            }
+        });
+    }
 
     /**
      * @param savedInstanceState
@@ -182,7 +204,10 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_themes, menu);
+        //inflater.inflate(R.menu.theme_creator, menu);
+        MenuItem menuItem = menu.add(Menu.NONE, R.id.saveTheme, 10, R.string.save_theme);
+        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menuItem.setIcon(android.R.drawable.ic_menu_save);
     }
 
     /**
