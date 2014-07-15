@@ -36,7 +36,9 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
     private EditText hexValue;
     private String toDisplay;
     private int selectedView;
-    public static final String SELECTED_COLOR = "selectedColor";
+    public static final String VIEW = "view";
+    public static final String COLOR = "color";
+    public static final String BUTTON_TYPE = "buttonType";
     public static final int COLORPICK_CODE = 999;
     public static final String LOG_TAG = "ColorPicker";
 
@@ -79,11 +81,10 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
             case R.id.selColor:
                 Log.i(LOG_TAG, "" + colorPicker.getColor());
                 colorPicker.setOldCenterColor(colorPicker.getColor());
-                //v.setBackgroundColor(colorPicker.getColor());
                 Intent intent = new Intent();
                 Bundle extras = new Bundle();
-                extras.putInt(SELECTED_COLOR, colorPicker.getColor());
-                extras.putInt("view", selectedView);
+                extras.putInt(COLOR, colorPicker.getColor());
+                extras.putInt(VIEW, selectedView);
                 intent.putExtras(extras);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                 dismiss();

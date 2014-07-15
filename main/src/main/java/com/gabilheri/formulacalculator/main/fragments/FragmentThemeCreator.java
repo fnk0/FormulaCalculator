@@ -3,12 +3,14 @@ package com.gabilheri.formulacalculator.main.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since May 2014
  */
-public class FragmentThemeCreator extends CalculatorFragment implements FragmentWithKeypad, View.OnLongClickListener{
+public class FragmentThemeCreator extends CalculatorFragment implements FragmentWithKeypad {
 
     private String LOG_TAG = "ThemeCreator";
     public static final String VIEW = "view";
@@ -31,6 +33,12 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     public static final int SECONDARY_KEYPAD = 1;
     public static final int PRIMARY_FUNCTIONS = 2;
     public static final int SECONDARY_FUNCTIONS = 3;
+    public static final int BACKGROUND_EDIT = 100;
+    public static final int HIGHLIGHT_EDIT = 101;
+    public static final int TEXT_EDIT = 102;
+    public int editMode = 0;
+    private int buttonGroup = -1;
+    private Theme newTheme;
     private KeypadFragment mKeypad;
     private KeypadFunctionsFragment mFunctionsKeypad;
     private ArrayList<DefaultButton> primaryKeypadButtons, secondaryKeypadButtons, primaryFunctionButtons, secondaryFunctionButtons;
@@ -40,8 +48,13 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      */
     public FragmentThemeCreator() {
         super();
-        mKeypad = super.getKeypadFragment();
-        mFunctionsKeypad = super.getKeypadFunctionsFragment();
+        newTheme = new Theme();
+        mKeypad = getKeypadFragment();
+        mFunctionsKeypad = getKeypadFunctionsFragment();
+        primaryKeypadButtons = mKeypad.getPrimaryButtonsArray();
+        secondaryKeypadButtons = mKeypad.getSecondButtonsArray();
+        primaryFunctionButtons = mFunctionsKeypad.getPrimaryButtonsArray();
+        secondaryFunctionButtons = mFunctionsKeypad.getSecondaryButtonsArray();
     }
 
     @Override
@@ -50,10 +63,15 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
             case ColorPickDialog.COLORPICK_CODE:
                 if(resultCode == Activity.RESULT_OK) {
                     Bundle mBundle = data.getExtras();
-                    DefaultButton mButton = (DefaultButton) getRootView().findViewById(mBundle.getInt(VIEW));
-                    mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.SELECTED_COLOR));
-
-                    //Log.i(LOG_TAG, "Group: " + mBundle.getInt(BUTTON_TYPE));
+                    if(editMode == BACKGROUND_EDIT) {
+                        for(DefaultButton mButton : getArrayForType(buttonGroup)) {
+                            mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
+                        }
+                    } else if(editMode == HIGHLIGHT_EDIT) {
+                        for(DefaultButton mButton : getArrayForType(buttonGroup)) {
+                            mButton.setCustomHighlightColor(mBundle.getInt(ColorPickDialog.COLOR));
+                        }
+                    }
                 }
                 break;
         }
@@ -73,7 +91,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         Bundle extras = new Bundle();
         extras.putInt(VIEW, viewID);
         extras.putInt(COLOR, buttonColor);
-        //extras.putInt(BUTTON_TYPE, getButtonType(viewID));
+        buttonGroup = getButtonType(viewID);
         pickerDialog.setArguments(extras);
         pickerDialog.show(getFragmentManager(), "pickerDialog");
     }
@@ -87,22 +105,45 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      *      The group to which the selected view belongs to
      */
     public int getButtonType(int viewID) {
-        primaryKeypadButtons = mKeypad.getPrimaryButtonsArray();
-        secondaryKeypadButtons = mKeypad.getSecondButtonsArray();
-        primaryFunctionButtons = mFunctionsKeypad.getPrimaryButtonsArray();
-        secondaryKeypadButtons = mFunctionsKeypad.getSecondaryButtonsArray();
         DefaultButton mButton = (DefaultButton) getRootView().findViewById(viewID);
+        Log.i(LOG_TAG, "Button: " + mButton.getText().toString());
         if(primaryKeypadButtons.contains(mButton)) {
+            Log.i(LOG_TAG, "Group: " + PRIMARY_KEYPAD);
             return PRIMARY_KEYPAD;
         } else if(secondaryKeypadButtons.contains(mButton)) {
+            Log.i(LOG_TAG, "Group: " + SECONDARY_KEYPAD);
             return SECONDARY_KEYPAD;
         } else if(primaryFunctionButtons.contains(mButton)) {
+            Log.i(LOG_TAG, "Group: " + PRIMARY_FUNCTIONS);
             return PRIMARY_FUNCTIONS;
         } else if(secondaryFunctionButtons.contains(mButton)) {
+            Log.i(LOG_TAG, "Group: " + SECONDARY_FUNCTIONS);
             return SECONDARY_FUNCTIONS;
         }
-
         return -1;
+    }
+
+    public ArrayList<DefaultButton> getArrayForType(int buttonType) {
+        ArrayList mButtons = new ArrayList();
+
+        switch (buttonType) {
+            case PRIMARY_KEYPAD:
+                mButtons = primaryKeypadButtons;
+                break;
+            case SECONDARY_KEYPAD:
+                mButtons = secondaryKeypadButtons;
+                break;
+            case PRIMARY_FUNCTIONS:
+                mButtons = primaryFunctionButtons;
+                break;
+            case SECONDARY_FUNCTIONS:
+                mButtons = secondaryFunctionButtons;
+                break;
+            default:
+                mButtons = new ArrayList();
+                break;
+        }
+        return mButtons;
     }
 
 
@@ -113,15 +154,10 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
 
     @Override
     public void handleKeypad(View view) {
+        editMode = BACKGROUND_EDIT;
         showPickerDialog(view.getId(), ((DefaultButton) view).getCustomBackgroundColor());
-
     }
 
-
-    @Override
-    public boolean onLongClick(View view) {
-        return true;
-    }
 
     /**
      * @param savedInstanceState
@@ -130,7 +166,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -148,7 +183,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_themes, menu);
-
     }
 
     /**
@@ -162,7 +196,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.saveTheme:
                 //getActivity().runOnUiThread(run);

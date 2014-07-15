@@ -24,7 +24,7 @@ import de.congrace.exp4j.InvalidCustomFunctionException;
  */
 public class EvaluateExpression {
 
-    private String expression;
+    private String expression, previousResult;
     private int angleType;
     public static int DEGREE = 0;
     public static int RADIANS = 1;
@@ -49,7 +49,7 @@ public class EvaluateExpression {
         this.expression = expression;
         this.fragment = fragment;
         this.angleType = angleType;
-        // TODO implement this precisiona s a setting feature.
+        // TODO implement this precision as a setting feature.
         df = new DecimalFormat("#0.#########"); // Current precision = 9
     }
 
@@ -225,6 +225,10 @@ public class EvaluateExpression {
         } catch (Exception ex) {
         }
         Log.i("EXPRESSION: ", expression);
+
+        if(previousResult == null) {
+            previousResult = "0.0";
+        }
         try {
             Calculable calc = new ExpressionBuilder(expression)
                     .withOperation(percent)
@@ -238,6 +242,7 @@ public class EvaluateExpression {
                     .withCustomFunction(release)
                     .withVariable(fragment.getString(R.string.pi), varPi)
                     .withVariable(fragment.getString(R.string.var_e), varE)
+                    .withVariable(fragment.getString(R.string.ans), Double.parseDouble(previousResult))
                     .build();
             double result = calc.calculate();
             result = Double.parseDouble(df.format(result));
@@ -317,5 +322,27 @@ public class EvaluateExpression {
         }
         //Log.i("INSIDE CHECK FACTORIAL!", "NO FACTORIAL!");
         return true;
+    }
+
+    /**
+     *
+     * @return
+     *      The current Previous Answer that is being used by this expression
+     */
+    public String getPreviousResult() {
+        return previousResult;
+    }
+
+    /**
+     * Setter to the Previous Answer
+     *
+     * @param previousResult
+     *          The previous Answer to be used by this Expression
+     * @return
+     *          This Object for a Easy Chain build
+     */
+    public EvaluateExpression setPreviousResult(String previousResult) {
+        this.previousResult = previousResult;
+        return this;
     }
 }

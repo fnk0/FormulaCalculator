@@ -51,7 +51,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private static List<String> formulaTitles;
     private static HashMap<String, List<String>> formulas;
     private static TextView inputBox1key, resultBoxKey;
-    private String textInputBox1;
+    private String textInputBox1, previousResult;
     private int angleType;
     private int parCounter = 0;
     private String[] colors;
@@ -67,13 +67,16 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      */
     private ViewPager mViewPager;
 
+    public CalculatorFragment() {
+        mKeypadFragment = new KeypadFragment();
+        mKeypadFunctionsFragment = new KeypadFunctionsFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        mKeypadFragment = new KeypadFragment();
-        mKeypadFunctionsFragment = new KeypadFunctionsFragment();
 
         return inflater.inflate(R.layout.fragment_calculator, container, false);
     }
@@ -335,6 +338,17 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                     view.setSelected(false);
                 }
                 return;
+            case R.id.answer:
+                if(previousResult != null) {
+                    textInputBox1 += getResources().getString(R.string.ans);
+                }
+                break;
+            case R.id.fraction:
+                if(previousResult != null) {
+                    Log.i(LOG_TAG, "Fraction: " + Utils.doubleToFraction(Double.parseDouble(previousResult)));
+                    resultBoxKey.setText(Utils.doubleToFraction(Double.parseDouble(previousResult)));
+                }
+                break;
         }
 
         inputBox1key.setText(Html.fromHtml(textInputBox1));
@@ -348,7 +362,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     public void evaluateExpression() {
 
         EvaluateExpression expression = new EvaluateExpression(textInputBox1, this, angleType);
-
+        expression.setPreviousResult(previousResult);
         String result = expression.evaluate();
 
         if(result == null) {
@@ -384,6 +398,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             dbHelper.createResultLog(resultLog);
         }
 
+        previousResult = result;
         resultBoxKey.setText(result);
 
         if(!result.equals(getResources().getString(R.string.input_error))) {

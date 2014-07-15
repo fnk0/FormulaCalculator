@@ -31,4 +31,5 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:library-extra:1.6.0'
     compile 'com.larswerkman:HoloColorPicker:1.4'
     compile 'com.google.android.gms:play-services:5.0.+'
+    //compile 'org.jscience:jscience:4.3.1'
 }

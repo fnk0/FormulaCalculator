@@ -28,7 +28,7 @@ import java.util.HashMap;
 public class KeypadFragment extends Fragment {
 
     private DefaultButton btnDel, btnParLeft, btnParRight, btnPlus, btnMinus, btnMultiply, btnDivide, btnPercent, btnPower;
-    private DefaultButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnDot, btnStr, btnRel, btnEqual;
+    private DefaultButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnDot, btnStr, btnRel, btnEqual, btnAns, btnFrac;
     private HashMap<Integer, DefaultButton> mKeypadButtons;
     private ArrayList<DefaultButton> mButtonsArray;
     private ArrayList<DefaultButton> mSecondButtonsArray;
@@ -62,6 +62,14 @@ public class KeypadFragment extends Fragment {
                 return false;
             }
         });
+
+        btnAns = (DefaultButton) rootView.findViewById(R.id.answer);
+        mKeypadButtons.put(R.id.answer, btnAns);
+        mButtonsArray.add(btnAns);
+
+        btnFrac = (DefaultButton) rootView.findViewById(R.id.fraction);
+        mKeypadButtons.put(R.id.fraction, btnFrac);
+        mButtonsArray.add(btnFrac);
 
         btnParLeft = (DefaultButton) rootView.findViewById(R.id.parLeft);
         mKeypadButtons.put(R.id.parLeft, btnParLeft);
