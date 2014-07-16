@@ -1,0 +1,4 @@
+<!-- From: file:/home/main/Projects/shamanland/ok/fonticon/lib/src/main/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.shamanland.fonticon">
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="19"/>
+    <application/>
+</manifest>

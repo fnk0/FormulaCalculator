@@ -3,6 +3,7 @@ package com.gabilheri.formulacalculator.main.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public class KeypadFunctionsFragment extends Fragment {
 
     private DefaultButton btnSqrt, btnLog,  btnLn, btnSin, btnCos, btnTan, btnE, btnPi, btnInf, btnArcSin, btnArcCos, btnArcTan, btnFactorial;
     private DefaultButton degreeRad, btnDel;
+    private DefaultButton empty1, empty2, empty3, empty4, empty5, empty6, empty7, empty8, empty9, empty10, empty11, empty12, empty13;
     private HashMap<Integer, DefaultButton> mKeypadFunctionButtons;
     private ArrayList<DefaultButton> mButtonsArray;
     private ArrayList<DefaultButton> mSecondaryButtonsArray;
@@ -52,6 +54,10 @@ public class KeypadFunctionsFragment extends Fragment {
         btnDel = (DefaultButton) rootView.findViewById(R.id.keypadDel);
         mKeypadFunctionButtons.put(R.id.keypadDel, btnDel);
         mSecondaryButtonsArray.add(btnDel);
+
+        Typeface mFont = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(), "icons.ttf");
+        btnDel.setTypeface(mFont);
+        btnDel.setTextSize(35);
 
         btnDel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -104,6 +110,58 @@ public class KeypadFunctionsFragment extends Fragment {
         degreeRad = (DefaultButton) rootView.findViewById(R.id.degreeRad);
         mKeypadFunctionButtons.put(R.id.degreeRad, degreeRad);
         mButtonsArray.add(degreeRad);
+
+        empty1 = (DefaultButton) rootView.findViewById(R.id.emptyBtn1);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty1);
+        mButtonsArray.add(empty1);
+
+        empty2 = (DefaultButton) rootView.findViewById(R.id.emptyBtn2);
+        mKeypadFunctionButtons.put(R.id.emptyBtn2, empty2);
+        mButtonsArray.add(empty2);
+
+        empty3 = (DefaultButton) rootView.findViewById(R.id.emptyBtn3);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty3);
+        mButtonsArray.add(empty3);
+
+        empty4 = (DefaultButton) rootView.findViewById(R.id.emptyBtn4);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty4);
+        mButtonsArray.add(empty4);
+
+        empty5 = (DefaultButton) rootView.findViewById(R.id.emptyBtn5);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty5);
+        mButtonsArray.add(empty5);
+
+        empty6 = (DefaultButton) rootView.findViewById(R.id.emptyBtn6);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty6);
+        mButtonsArray.add(empty6);
+
+        empty7 = (DefaultButton) rootView.findViewById(R.id.emptyBtn7);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty7);
+        mButtonsArray.add(empty7);
+
+        empty8 = (DefaultButton) rootView.findViewById(R.id.emptyBtn8);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty8);
+        mButtonsArray.add(empty8);
+
+        empty9 = (DefaultButton) rootView.findViewById(R.id.emptyBtn9);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty9);
+        mButtonsArray.add(empty9);
+
+        empty10 = (DefaultButton) rootView.findViewById(R.id.emptyBtn10);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty10);
+        mButtonsArray.add(empty10);
+
+        empty11 = (DefaultButton) rootView.findViewById(R.id.emptyBtn11);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty11);
+        mButtonsArray.add(empty11);
+
+        empty12 = (DefaultButton) rootView.findViewById(R.id.emptyBtn12);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty12);
+        mButtonsArray.add(empty12);
+
+        empty13 = (DefaultButton) rootView.findViewById(R.id.emptyBtn13);
+        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty13);
+        mButtonsArray.add(empty13);
 
         for(DefaultButton mButton : mButtonsArray) {
             mButton.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());

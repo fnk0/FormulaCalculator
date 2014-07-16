@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dip</dimen>
     <dimen name="button_padding">2dip</dimen>
     <dimen name="button_text_size">7sp</dimen>
+    <dimen name="delete_button_text_size">10sp</dimen>
 </resources>

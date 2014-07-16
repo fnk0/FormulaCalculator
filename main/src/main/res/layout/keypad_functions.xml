@@ -52,8 +52,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center_horizontal|center_vertical"
-            android:drawableLeft="@android:drawable/ic_input_delete"
-            android:paddingLeft="20dip"
+            android:text="R"
             />
 
     </LinearLayout>
@@ -237,7 +236,7 @@
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
-            android:id="@+id/emptyBtn713"
+            android:id="@+id/emptyBtn13"
             android:text=""
             android:layout_width="0dip"
             android:layout_height="match_parent"

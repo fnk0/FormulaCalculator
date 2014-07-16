@@ -2,36 +2,6 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/picasso-2.3.2-ee4f5928144aaac8d79a2f15d5a16adfc694f83c.jar"
-        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27"/>
-    <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-eeec11e4515496d05393cacc10f9705426055e75.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.etsy.android.grid/library/1.0.4/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="589fdaab008936a7b90e8332bbd49b4c010b8c0c"/>
-    <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/support-v13-19.1.0-432d29bb26d6067815408d15c09d69cadf2dd68d.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v13/19.1.0/support-v13-19.1.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="6b852a232f642c75a7fdfc7212b841b8c8f8959c"/>
-    <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/revmob-6.9.1-8f776dffcf7fece0cecb05d5889fc1d184c4611d.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/main/libs/revmob-6.9.1.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="15aa5a8609ea4667674977341ec9a3e231028e05"/>
-    <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-30e775d9ac149276d6651065a19ea1fa46dd13cd.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library-extra/1.6.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="a4596e7120d868856e75d96a74acf7f633775060"/>
-    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-da02ea23021cb2bcd71383fea9bdb530e71e7d67.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.6.0/classes.jar"
         jumboMode="false"
@@ -62,12 +32,6 @@
         revision="19.1.0"
         sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb"/>
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-7abc4d5e2ceb95da968264d55c854b88d4a84e9d.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/de.timroes.android/EnhancedListView/0.3.2/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="3826287c453cf533f12f917c6e605000d2d88a14"/>
-    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-764aa36738de2d4ddc84400c821fd2b0a80c4297.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
         jumboMode="false"
@@ -80,10 +44,40 @@
         revision="19.1.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
     <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/android-iconify-1.0.6-6edfd0ebefacda864e95d560e851d2a2579fca2c.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.joanzapata.android/android-iconify/1.0.6/f9ee1a18c922b05fa5b48d9ff0a5ca4fccbf5b35/android-iconify-1.0.6.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="f9ee1a18c922b05fa5b48d9ff0a5ca4fccbf5b35"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-eeec11e4515496d05393cacc10f9705426055e75.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.etsy.android.grid/library/1.0.4/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="589fdaab008936a7b90e8332bbd49b4c010b8c0c"/>
+    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/exp4j-0.3.12-SNAPSHOT-a3bda51ad83f1ba18cfa4103e23aadeb45c1fdb7.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/main/libs/exp4j-0.3.12-SNAPSHOT.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="3c090acb7f134979389677c39684b0e8849a07ab"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/support-v13-19.1.0-432d29bb26d6067815408d15c09d69cadf2dd68d.jar"
+        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v13/19.1.0/support-v13-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="6b852a232f642c75a7fdfc7212b841b8c8f8959c"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/revmob-6.9.1-8f776dffcf7fece0cecb05d5889fc1d184c4611d.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/libs/revmob-6.9.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="15aa5a8609ea4667674977341ec9a3e231028e05"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-30e775d9ac149276d6651065a19ea1fa46dd13cd.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library-extra/1.6.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="a4596e7120d868856e75d96a74acf7f633775060"/>
 
 </pre-dex-items>

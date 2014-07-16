@@ -11,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.ThemePartDialog;
@@ -58,11 +60,15 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         super();
         newTheme = new Theme();
         mKeypad = getKeypadFragment();
+
         mFunctionsKeypad = getKeypadFunctionsFragment();
         primaryKeypadButtons = mKeypad.getPrimaryButtonsArray();
         secondaryKeypadButtons = mKeypad.getSecondButtonsArray();
         primaryFunctionButtons = mFunctionsKeypad.getPrimaryButtonsArray();
         secondaryFunctionButtons = mFunctionsKeypad.getSecondaryButtonsArray();
+
+        primaryKeypadButtons.addAll(primaryFunctionButtons);
+        secondaryKeypadButtons.addAll(secondaryFunctionButtons);
     }
 
     @Override
@@ -84,10 +90,17 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                             mButton.setCustomHighlightColor(mBundle.getInt(ColorPickDialog.COLOR));
                         }
                     } else if(editMode == TEXT_EDIT) {
-                        for(DefaultButton mButton : getArrayForType(buttonGroup)) {
-                            mButton.setCustomTextColor(mBundle.getInt(ColorPickDialog.COLOR));
+                        if(editView == DISPLAY_EDIT) {
+                            getInputBoxKey().setTextColor(mBundle.getInt(ColorPickDialog.COLOR));
+                            getResultBoxKey().setTextColor(mBundle.getInt(ColorPickDialog.COLOR));
+                        } else {
+                            for(DefaultButton mButton : getArrayForType(buttonGroup)) {
+                                mButton.setCustomTextColor(mBundle.getInt(ColorPickDialog.COLOR));
+                            }
                         }
+
                     }
+                    setThemeColorForType(buttonGroup, mBundle.getInt(ColorPickDialog.COLOR));
                 }
                 break;
             case ThemePartDialog.THEME_PART_DIALOG_CODE:
@@ -150,21 +163,26 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         return -1;
     }
 
+    /**
+     *
+     * @param buttonType
+     *          The type of Button that needs to be get
+     * @return
+     *     The ArrayList for the type of buttons that needs to be changed
+     */
     public ArrayList<DefaultButton> getArrayForType(int buttonType) {
         ArrayList mButtons;
 
         switch (buttonType) {
             case PRIMARY_KEYPAD:
+            case PRIMARY_FUNCTIONS:
                 mButtons = primaryKeypadButtons;
+                mButtons.addAll(primaryFunctionButtons);
                 break;
             case SECONDARY_KEYPAD:
-                mButtons = secondaryKeypadButtons;
-                break;
-            case PRIMARY_FUNCTIONS:
-                mButtons = primaryFunctionButtons;
-                break;
             case SECONDARY_FUNCTIONS:
-                mButtons = secondaryFunctionButtons;
+                mButtons = secondaryKeypadButtons;
+                mButtons.addAll(secondaryFunctionButtons);
                 break;
             default:
                 mButtons = new ArrayList();
@@ -173,6 +191,46 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         return mButtons;
     }
 
+    /**
+     * Sets the selected element to the new Theme to be saved
+     * @param buttonType
+     *          The type/group of the Button or text to be added
+     * @param color
+     *          The color to  be set to this element
+     */
+    private void setThemeColorForType(int buttonType, int color) {
+        switch (buttonType) {
+            case PRIMARY_KEYPAD:
+            case PRIMARY_FUNCTIONS:
+                if(editMode == BACKGROUND_EDIT) {
+                    newTheme.setPrimaryColor(color);
+                } else if(editMode == HIGHLIGHT_EDIT) {
+                    newTheme.setPrimaryHighlightColor(color);
+                } else if(editMode == TEXT_EDIT) {
+                    newTheme.setPrimaryButtonTextColor(color);
+                }
+                break;
+            case SECONDARY_KEYPAD:
+            case SECONDARY_FUNCTIONS:
+                if(editMode == BACKGROUND_EDIT) {
+                    newTheme.setSecondaryColor(color);
+                } else if(editMode == HIGHLIGHT_EDIT) {
+                    newTheme.setSecondaryHighlightColor(color);
+                } else if(editMode == TEXT_EDIT) {
+                    newTheme.setSecondaryButtonTextColor(color);
+                }
+                break;
+            case DISPLAY_EDIT:
+                if(editMode == BACKGROUND_EDIT) {
+                    newTheme.setDisplayColor(color);
+                } else if (editMode == TEXT_EDIT) {
+                    newTheme.setDisplayTextColor(color);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public int getType() {
@@ -183,6 +241,13 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     public void handleKeypad(View view) {
         selectedView = view;
         ThemePartDialog mDialog = new ThemePartDialog();
+        Bundle mBundle = new Bundle();
+        if(view.getId() == getDisplay().getId()) {
+            mBundle.putBoolean(ThemePartDialog.DISPLAY, true);
+        } else {
+            mBundle.putBoolean(ThemePartDialog.DISPLAY, false);
+        }
+        mDialog.setArguments(mBundle);
         mDialog.setTargetFragment(this, ThemePartDialog.THEME_PART_DIALOG_CODE);
         mDialog.show(getFragmentManager(), "Theme Part Dialog");
 
@@ -220,6 +285,8 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                 handleKeypad(getDisplay());
             }
         });
+
+        newTheme = getCurrentTheme();
     }
 
     /**
@@ -245,7 +312,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        //inflater.inflate(R.menu.theme_creator, menu);
         MenuItem menuItem = menu.add(Menu.NONE, R.id.saveTheme, 10, R.string.save_theme);
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menuItem.setIcon(android.R.drawable.ic_menu_save);
@@ -264,7 +330,13 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.saveTheme:
-                //getActivity().runOnUiThread(run);
+                newTheme.setThemeName("New Custom Theme");
+                DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
+                db.createTheme(newTheme);
+
+                MainActivity mainActivity = (MainActivity) getActivity();
+                mainActivity.displayView(MainActivity.THEMES, null);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

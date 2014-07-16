@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.gabilheri.formulacalculator.main.R;
@@ -27,6 +28,7 @@ public class ThemePartDialog extends DialogFragment implements View.OnClickListe
     private static final String LOG_TAG = "Theme Part Dialog";
     public static final String EDIT_TYPE = "EditType";
     public static final int THEME_PART_DIALOG_CODE = 1000;
+    public static final String DISPLAY = "display";
 
     private RadioGroup mGroup;
 
@@ -42,6 +44,12 @@ public class ThemePartDialog extends DialogFragment implements View.OnClickListe
 
         Button mButton = (Button) layout.findViewById(R.id.selectPart);
         mButton.setOnClickListener(this);
+
+        RadioButton mRadio = (RadioButton) layout.findViewById(R.id.highLightEdit);
+
+        if(extras.getBoolean(DISPLAY)) {
+            mRadio.setVisibility(RadioButton.GONE);
+        }
 
         mGroup = (RadioGroup) layout.findViewById(R.id.themePartGroup);
 

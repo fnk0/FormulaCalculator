@@ -53,9 +53,9 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:paddingLeft="20dip"
-            android:drawableLeft="@android:drawable/ic_input_delete"
+            android:text="R"
         />
+
     </LinearLayout>
 
     <LinearLayout

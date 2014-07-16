@@ -3,6 +3,7 @@ package com.gabilheri.formulacalculator.main.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +56,9 @@ public class KeypadFragment extends Fragment {
         mKeypadButtons.put(R.id.keypadDel, btnDel);
         mSecondButtonsArray.add(btnDel);
 
+        Typeface mFont = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(), "icons.ttf");
+        btnDel.setTypeface(mFont);
+        btnDel.setTextSize(35);
         btnDel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

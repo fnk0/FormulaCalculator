@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/home/main/Projects/shamanland/ok/fonticon/lib/src/main/res/values/styleable.xml -->
+    <eat-comment />
+
+    <declare-styleable name="CompoundDrawables">
+        <attr name="iconLeft" format="reference" />
+        <attr name="iconTop" format="reference" />
+        <attr name="iconRight" format="reference" />
+        <attr name="iconBottom" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="FontIconDrawable">
+        <attr name="text" format="string|reference" />
+        <attr name="textColor" format="color|reference" />
+        <attr name="textSize" format="dimension|reference" />
+    </declare-styleable>
+    <declare-styleable name="FontIconView">
+        <attr name="overridePressed" format="boolean" />
+        <attr name="pressedGlowColor" format="color|reference" />
+        <attr name="pressedGlowRadius" format="dimension|reference" />
+    </declare-styleable>
+
+</resources>

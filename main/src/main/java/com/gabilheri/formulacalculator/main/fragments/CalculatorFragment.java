@@ -50,7 +50,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private static ExpandableListView listView;
     private static List<String> formulaTitles;
     private static HashMap<String, List<String>> formulas;
-    private static TextView inputBox1key, resultBoxKey;
+    private static TextView inputBoxKey, resultBoxKey;
     private String textInputBox1, previousResult;
     private int angleType;
     private int parCounter = 0;
@@ -61,6 +61,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private KeypadFragment mKeypadFragment;
     private KeypadFunctionsFragment mKeypadFunctionsFragment;
     private View rootView;
+    private Theme currentTheme;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -91,7 +92,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        Theme currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+        currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
 
         angleType = EvaluateExpression.DEGREE;
         rootView = view;
@@ -99,7 +100,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
         resultLayoutKey.setBackgroundColor(currentTheme.getDisplayColor());
-        inputBox1key = (TextView) view.findViewById(R.id.inputBox1);
+        inputBoxKey = (TextView) view.findViewById(R.id.inputBox1);
         resultBoxKey = (TextView) view.findViewById(R.id.resultBox1);
 
         // Set up the ViewPager with the sections adapter.
@@ -131,7 +132,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         if(extraBundle != null) {
             textInputBox1 = String.valueOf(extraBundle.getDouble("logResult"));
-            inputBox1key.setText(textInputBox1);
+            inputBoxKey.setText(textInputBox1);
         } else {
             textInputBox1 = getString(R.string._0);
 
@@ -197,17 +198,17 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         int inputSize = Utils.stripHTML(textInputBox1).length();
 
         if(inputSize> 15) {
-            inputBox1key.setTextSize(25);
+            inputBoxKey.setTextSize(25);
             Log.i("INPUT SIZE: ", "" + inputSize);
         }
 
         if(inputSize > 25) {
-            inputBox1key.setTextSize(20);
+            inputBoxKey.setTextSize(20);
             Log.i("INPUT SIZE: ", "" + inputSize);
         }
 
         if(inputSize > 35) {
-            inputBox1key.setTextSize(15);
+            inputBoxKey.setTextSize(15);
             Log.i("INPUT SIZE: ", "" + inputSize);
         }
 
@@ -348,7 +349,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 break;
         }
 
-        inputBox1key.setText(Html.fromHtml(textInputBox1));
+        inputBoxKey.setText(Html.fromHtml(textInputBox1));
 
         Log.d("FRAGMENT MAIN: ", "Text Input: " + textInputBox1);
     }
@@ -364,7 +365,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         if(result == null) {
             Log.i(LOG_TAG, "Empty Input");
-            inputBox1key.setText(getString(R.string._0));
+            inputBoxKey.setText(getString(R.string._0));
             resultBoxKey.setText("");
             return;
         }
@@ -409,7 +410,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     public void clearDisplay() {
         textInputBox1 = getString(R.string._0);
         resultBoxKey.setText("");
-        inputBox1key.setTextSize(35);
+        inputBoxKey.setTextSize(35);
         clearResult = false;
     }
 
@@ -439,7 +440,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 textInputBox1 = textInputBox1.substring(0, textInputBox1.length() - 1);
             }
             //Log.i("TEXT SIZE!", "" + textInputBox1.length());
-            //inputBox1key.setText(Html.fromHtml(textInputBox1));
+            //inputBoxKey.setText(Html.fromHtml(textInputBox1));
         }
     }
 
@@ -472,7 +473,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 textInputBox1 = "";
             }
             textInputBox1 += result;
-            inputBox1key.setText(Html.fromHtml(textInputBox1));
+            inputBoxKey.setText(Html.fromHtml(textInputBox1));
         }
     }
 
@@ -528,5 +529,32 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      */
     public LinearLayout getDisplay() {
         return resultLayoutKey;
+    }
+
+    /**
+     *
+     * @return
+     *      gets the inputBox for this fragment
+     */
+    public static TextView getInputBoxKey() {
+        return inputBoxKey;
+    }
+
+    /**
+     *
+     * @return
+     *      gets the result box for this fragment
+     */
+    public static TextView getResultBoxKey() {
+        return resultBoxKey;
+    }
+
+    /**
+     *
+     * @return
+     *      Returns the current theme used by this fragment
+     */
+    public Theme getCurrentTheme() {
+        return currentTheme;
     }
 }
