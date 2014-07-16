@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="10">
 
     <LinearLayout
         android:id="@+id/resultLayoutKey"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_marginBottom="1dip"
-        android:layout_weight="0.4"
+        android:layout_weight="3.96"
         android:background="@color/display_color"
         android:orientation="vertical"
         android:visibility="visible">
@@ -40,11 +39,20 @@
             android:textColor="@android:color/white" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/shadowOne"
+        android:background="@drawable/shadow"
+        android:layout_weight="0.04"
+        android:layout_width="match_parent"
+        android:layout_height="0dip" />
+
+
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
-        android:background="@color/def_button"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.6"
+        android:layout_weight="6"
         tools:context="com.gabilheri.formulacalculator.main.fragments.CalculatorFragment" />
 </LinearLayout>

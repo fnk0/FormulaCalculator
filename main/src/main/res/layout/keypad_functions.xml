@@ -2,6 +2,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,53 +11,49 @@
         android:id="@+id/rowButtons1"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.14"
+        android:weightSum="10"
+        android:layout_weight="2"
         android:orientation="horizontal"
         >
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/degreeRad"
             android:text="@string/deg"
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
-            
+            android:id="@+id/emptyBtn1"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/btnLog"
             android:text="@string/log"
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/btnLn"
             android:text="@string/ln"
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadDel"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:background="@drawable/button_2"
+            android:layout_weight="2"
             android:gravity="center_horizontal|center_vertical"
             android:drawableLeft="@android:drawable/ic_input_delete"
             android:paddingLeft="20dip"
-            android:textColor="@android:color/white"
             />
 
     </LinearLayout>
@@ -65,8 +62,8 @@
         android:id="@+id/rowButtons2"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        
-        android:layout_weight="0.14"
+        android:weightSum="10"
+        android:layout_weight="2"
         android:orientation="horizontal"
         >
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
@@ -74,34 +71,31 @@
             android:text="@string/sin"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
         />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/btnCos"
             android:text="@string/cos"
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/btnTan"
             android:text="@string/tan"
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadSqrt"
             android:text="@string/sqrt"
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
@@ -109,7 +103,7 @@
             android:text="@string/var_e"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
     </LinearLayout>
 
@@ -117,47 +111,47 @@
         android:id="@+id/rowButtons3"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        
-        android:layout_weight="0.14"
+        android:weightSum="10"
+        android:layout_weight="2"
         android:orientation="horizontal"
         >
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn2"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
         />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn3"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn4"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn5"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/varPi"
             android:text="@string/pi"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
     </LinearLayout>
 
@@ -165,48 +159,48 @@
         android:id="@+id/rowButtons4"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        
-        android:layout_weight="0.14"
+        android:weightSum="10"
+        android:layout_weight="2"
         android:orientation="horizontal"
         >
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn6"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn7"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn8"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+            android:id="@+id/emptyBtn9"
             android:text=""
-            
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/keypadInfinity"
             android:text="@string/infinity_symbol"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
         />
     </LinearLayout>
 
@@ -214,50 +208,50 @@
         android:id="@+id/rowButtons5"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        
-        android:layout_weight="0.14"
+        android:weightSum="10"
+        android:layout_weight="2"
         android:orientation="horizontal"
         >
 
        <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
-           android:id="@+id/insertedButton"
-           
+           android:id="@+id/emptyBtn10"
+           android:text=""
            android:layout_width="0dip"
            android:layout_height="match_parent"
-           android:layout_weight="0.2" />
+           android:layout_weight="2" />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
-            android:id="@+id/button28"
-            
+            android:id="@+id/emptyBtn11"
+            android:text=""
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
-            
+            android:id="@+id/emptyBtn12"
+            android:text=""
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
-            
+            android:id="@+id/emptyBtn713"
+            android:text=""
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="2"
             />
 
         <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
             android:id="@+id/btnFact"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:background="@drawable/button_2"
+            android:layout_weight="2"
             android:gravity="center_horizontal|center_vertical"
             android:onClick="handleKeypad"
             android:text="@string/factorial"
-            android:textColor="@android:color/white"
             />
     </LinearLayout>
 

@@ -36,9 +36,6 @@ public class DefaultButton extends Button implements View.OnClickListener {
         selectedColor = context.getResources().getColor(R.color.light_orange);
 
         this.mContext = context;
-        this.setTextColor(textColor);
-        this.setBackgroundColor(backgroundColor);
-        this.setBackground(new CustomStateList(context, backgroundColor, highlightColor, selectedColor));
 
         /**
          * This is necessary so the Layout editor can render this button in real time.
@@ -47,6 +44,8 @@ public class DefaultButton extends Button implements View.OnClickListener {
             this.setOnClickListener(this);
             this.mActivity = (MainActivity) context;
             this.setTextSize(getResources().getDimension(R.dimen.button_text_size));
+            this.setTextColor(textColor);
+            this.setBackground(new CustomStateList(context, backgroundColor, highlightColor, selectedColor));
         }
 
 

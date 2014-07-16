@@ -51,6 +51,7 @@ public class CustomStateList extends StateListDrawable {
      *          The color to be set whenever this button has a selected state
      */
     public CustomStateList(Context mContext, int backgroundColor, int highlightColor, int selectedColor) {
+
         this.backgroundColor = backgroundColor;
         this.highlightColor = highlightColor;
         this.selectedColor = selectedColor;

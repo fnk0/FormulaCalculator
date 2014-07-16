@@ -324,9 +324,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             case R.id.btnLn:
                 textInputBox1 += "ln(" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
                 break;
-            case R.id.insertedButton:
-                Log.i("I'M A BUTTON!", "That uses include!");
-                break;
             case R.id.degreeRad:
                 if(angleType == EvaluateExpression.DEGREE) {
                     angleType = EvaluateExpression.RADIANS;

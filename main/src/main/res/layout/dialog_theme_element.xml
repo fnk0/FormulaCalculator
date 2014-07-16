@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/list_background_pressed"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <RadioGroup
+        android:id="@+id/themePartGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/backgroundEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Background Color Edit"
+            android:textColor="@color/action_bar" />
+
+        <RadioButton
+            android:id="@+id/highLightEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Highlight Color Edit"
+            android:textColor="@color/action_bar" />
+
+        <RadioButton
+            android:id="@+id/textColorEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextColor Edit"
+            android:textColor="@color/action_bar" />
+        <!--
+        <RadioButton
+            android:id="@+id/copyValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Copy Hex Value Color to Clipboard"
+            android:textColor="@color/action_bar" />
+            -->
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/selectPart"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_gravity="center"
+        android:text="@string/select"
+        android:textColor="@android:color/white"
+        android:background="@drawable/def_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        />
+
+</LinearLayout>
