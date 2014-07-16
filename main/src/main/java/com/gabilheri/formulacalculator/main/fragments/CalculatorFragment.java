@@ -103,6 +103,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         inputBoxKey = (TextView) view.findViewById(R.id.inputBox1);
         resultBoxKey = (TextView) view.findViewById(R.id.resultBox1);
 
+        inputBoxKey.setTextColor(currentTheme.getDisplayTextColor());
+        resultBoxKey.setTextColor(currentTheme.getDisplayTextColor());
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -226,7 +229,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             }
         }
 
-        //Log.i("PAR COUNTER", "" + parCounter);
         switch (id) {
             case R.id.equal:
                 evaluateExpression();
@@ -314,7 +316,11 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 textInputBox1 += "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
                 break;
             case R.id.parRight:
-                textInputBox1 += "<font color="+ colors[parCounter - 1] + ">" + getString(R.string.par_right) + "</font>";
+                if(parCounter > 0) {
+                    textInputBox1 += "<font color="+ colors[parCounter - 1] + ">" + getString(R.string.par_right) + "</font>";
+                } else {
+                    return;
+                }
                 break;
             case R.id.btnPercent:
                 textInputBox1 += "%";

@@ -129,5 +129,6 @@
     <string name="save_theme">Save Theme</string>
     <string name="delete">Delete</string>
     <string name="select">Select</string>
+    <string name="create_theme">Create New Theme</string>
 
 </resources>

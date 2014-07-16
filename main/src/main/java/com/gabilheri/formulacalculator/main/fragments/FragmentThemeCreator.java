@@ -93,6 +93,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                         }
                     } else if(editMode == TEXT_EDIT) {
                         if(editView == DISPLAY_EDIT) {
+                            buttonGroup = DISPLAY_EDIT;
                             getInputBoxKey().setTextColor(mBundle.getInt(ColorPickDialog.COLOR));
                             getResultBoxKey().setTextColor(mBundle.getInt(ColorPickDialog.COLOR));
                         } else {
@@ -244,6 +245,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                 if(editMode == BACKGROUND_EDIT) {
                     newTheme.setDisplayColor(color);
                 } else if (editMode == TEXT_EDIT) {
+                    Log.i(LOG_TAG, "Text editing...!!");
                     newTheme.setDisplayTextColor(color);
                 }
                 break;
