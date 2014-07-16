@@ -16,6 +16,7 @@ import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
+import com.gabilheri.formulacalculator.main.dialogs.SaveDialog;
 import com.gabilheri.formulacalculator.main.dialogs.ThemePartDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
@@ -80,6 +81,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                     if(editMode == BACKGROUND_EDIT) {
                         if(editView == DISPLAY_EDIT) {
                             getDisplay().setBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
+                            buttonGroup = DISPLAY_EDIT;
                         } else {
                             for(DefaultButton mButton : getArrayForType(buttonGroup)) {
                                 mButton.setCustomBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
@@ -110,6 +112,18 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                     getPickerDialog(selectedView);
                 }
                 break;
+            case SaveDialog.SAVE_DIALOG_CODE:
+                if(resultCode == Activity.RESULT_OK) {
+                    Bundle mBundle = data.getExtras();
+                    newTheme.setThemeName(mBundle.getString(SaveDialog.THEME_NAME));
+                    DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
+                    db.createTheme(newTheme);
+
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.displayView(MainActivity.THEMES, null);
+                }
+
+                break;
         }
     }
 
@@ -121,7 +135,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      * @param buttonColor
      *          The color of the selected Button
      */
-    public void showPickerDialog(int viewID, int buttonColor) {
+    private void showPickerDialog(int viewID, int buttonColor) {
         ColorPickDialog pickerDialog = new ColorPickDialog();
         pickerDialog.setTargetFragment(this, ColorPickDialog.COLORPICK_CODE);
         Bundle extras = new Bundle();
@@ -130,6 +144,12 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         buttonGroup = getButtonType(viewID);
         pickerDialog.setArguments(extras);
         pickerDialog.show(getFragmentManager(), "pickerDialog");
+    }
+
+    private void showSaveDialog() {
+        SaveDialog mSave = new SaveDialog();
+        mSave.setTargetFragment(this, SaveDialog.SAVE_DIALOG_CODE);
+        mSave.show(getFragmentManager(), "saveDialog");
     }
 
     /**
@@ -330,13 +350,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.saveTheme:
-                newTheme.setThemeName("New Custom Theme");
-                DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
-                db.createTheme(newTheme);
-
-                MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.displayView(MainActivity.THEMES, null);
-
+                showSaveDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

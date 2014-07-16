@@ -172,7 +172,7 @@ public class KeypadFunctionsFragment extends Fragment {
         for(DefaultButton mButton: mSecondaryButtonsArray) {
             mButton.setCustomTextColor(currentTheme.getSecondaryButtonTextColor());
             mButton.setCustomBackgroundColor(currentTheme.getSecondaryColor());
-            mButton.setHighlightColor(currentTheme.getSecondaryHighlightColor());
+            mButton.setCustomHighlightColor(currentTheme.getSecondaryHighlightColor());
         }
 
         return rootView;

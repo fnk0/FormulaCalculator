@@ -18,6 +18,8 @@
     <color name="themes_background">#e0e0e0</color>
     <color name="theme_selected">#81d4fa</color>
 
+    <color name="dialog_background">#cfd8dc</color>
+
     <!-- Add Button Colors -->
     <color name="add_orange">#ffb74d</color>
     <color name="add_green">#2baf2b</color>
