@@ -89,6 +89,7 @@ public class Utils {
             case R.id.plus:
             case R.id.minus:
             case R.id.keypadSqrt:
+            case R.id.fraction:
             case R.id.multiply:
             case R.id.divide:
             case R.id.keypadPwr:
@@ -97,71 +98,5 @@ public class Utils {
             default:
                 return false;
         }
-    }
-
-    /**
-     * Method to find if a double can be represented as a integer
-     * @param number
-     *      The double number
-     * @return
-     *      True if can be represented as a integer
-     */
-    public static boolean isInt(double number) {
-        return number % 2 == 0 || (number + 1) % 2 == 0;
-    }
-
-    /**
-     * Method to convert a double number to a Fraction representantion
-     *
-     * @param doub The double number to be converted
-     * @return A String with a Fraction Representantion
-     */
-    public static String doubleToFraction(double doub) {
-        //we get the whole part
-        int whole = (int) doub;
-        //we get the rest
-        double rest = doub - (double) whole;
-        int numerator = 1, denominator = 1;
-        //if the whole part of the number is greater than 0
-        //we'll try to transform the rest of the number to an Integer
-        //by multiplying the number until it become an integer
-        if (whole >= 1) {
-            for (int i = 2; ; i++) {
-            /*when we find the "Integer" number(it'll be the numerator)
-             * we also found the denominator(i,which is the number that transforms the number to integer)
-             * For example if we have the number = 2.5 when it is multiplied by 2
-             * now it's 5 and it's integer, now we have the numerator(the number (2.5)*i(2) = 5)
-             * and the denominator i = 2
-             */
-                if (isInt(rest * (double) i)) {
-                    numerator = (int) (rest * (double) i);
-                    denominator = i;
-                    break;
-                }
-                if (i > 10000) {
-                    //if i is greater than 10000 it's posible that the number is irrational
-                    //and it can't be represented as a fractional number
-                    return doub + "";
-                }
-            }
-            //if we have the number 3.5 the whole part is 3 then we have the rest represented in fraction 0.5 = 1/2
-            //so we have a mixed fraction 3+1/2 = 7/2
-            numerator = (whole * denominator) + numerator;
-        } else {
-            //If not we'll try to transform the original number to an integer
-            //with the same process
-            for (int i = 2; ; i++) {
-                if (isInt(doub * (double) i)) {
-                    numerator = (int) (doub * (double) i);
-                    denominator = i;
-                    break;
-                }
-                if (i > 10000) {
-                    return doub + "";
-                }
-            }
-        }
-
-        return numerator + "/" + denominator;
     }
 }

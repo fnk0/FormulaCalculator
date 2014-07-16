@@ -28,6 +28,8 @@ import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
+import com.ryanddawkins.whole_fractions.FractionBuilder;
+import com.ryanddawkins.whole_fractions.IrrationalNumberException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -131,9 +133,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         try {
             extraBundle = getArguments();
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
 
-        if(extraBundle != null) {
+        if (extraBundle != null) {
             textInputBox1 = String.valueOf(extraBundle.getDouble("logResult"));
             inputBoxKey.setText(textInputBox1);
         } else {
@@ -149,7 +152,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     }
 
     /**
-     /**
+     * /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -163,9 +166,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         @Override
         public Fragment getItem(int position) {
-            if(position == 0) {
+            if (position == 0) {
                 mFragment = mKeypadFunctionsFragment;
-            } else if(position == 1) {
+            } else if (position == 1) {
                 mFragment = mKeypadFragment;
             }
             return mFragment;
@@ -184,175 +187,207 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
     /**
      * Handles the keypad press.
-     * @param view
-     *          The View being pressed.
+     *
+     * @param view The View being pressed.
      */
     @Override
     public void handleKeypad(View view) {
 
         int id = view.getId();
         parCounter = 0;
+        boolean isAnswerInserted = false;
 
-        if(clearResult && id != R.id.keypadStore) {
+        if (clearResult && Utils.isButtonOperator(id)) {
+            Log.i(LOG_TAG, "Here Inside Operators!!");
+            switch (id) {
+                case R.id.plus:
+                    textInputBox1 = getString(R.string.ans) + getString(R.string.plus);
+                    break;
+                case R.id.minus:
+                    textInputBox1 = getString(R.string.ans) + getString(R.string.minus_simbol);
+                    break;
+                case R.id.multiply:
+                    textInputBox1 = getString(R.string.ans) + getString(R.string.multiply);
+                    break;
+                case R.id.divide:
+                    textInputBox1 = getString(R.string.ans) + getString(R.string.divide);
+                    break;
+                case R.id.keypadPwr:
+                    textInputBox1 = getString(R.string.ans) + getString(R.string.exp_symbol);
+                    break;
+                case R.id.keypadSqrt:
+                    textInputBox1 = getString(R.string.sqrt) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>" + getString(R.string.ans);
+                    break;
+            }
+            isAnswerInserted = true;
+            clearResult = false;
+        } else if (clearResult && id != R.id.keypadStore) {
             clearDisplay();
             clearResult = false;
         }
 
         int inputSize = Utils.stripHTML(textInputBox1).length();
 
-        if(inputSize> 15) {
+        if (inputSize > 15) {
             inputBoxKey.setTextSize(25);
             Log.i("INPUT SIZE: ", "" + inputSize);
         }
 
-        if(inputSize > 25) {
+        if (inputSize > 25) {
             inputBoxKey.setTextSize(20);
             Log.i("INPUT SIZE: ", "" + inputSize);
         }
 
-        if(inputSize > 35) {
+        if (inputSize > 35) {
             inputBoxKey.setTextSize(15);
             Log.i("INPUT SIZE: ", "" + inputSize);
         }
 
-        if(textInputBox1.equals(getString(R.string._0))) {
+        if (textInputBox1.equals(getString(R.string._0))) {
             textInputBox1 = "";
         }
 
-        for(int i = 0; i < textInputBox1.length(); i++) {
-            if(textInputBox1.charAt(i) == '(') {
+        for (int i = 0; i < textInputBox1.length(); i++) {
+            if (textInputBox1.charAt(i) == '(') {
                 parCounter++;
             }
 
-            if(textInputBox1.charAt(i) == ')') {
+            if (textInputBox1.charAt(i) == ')') {
                 parCounter--;
             }
         }
 
-        switch (id) {
-            case R.id.equal:
-                evaluateExpression();
-                break;
-            case R.id.keypadDel:
-                deleteFromDisplay();
-                break;
-            case R.id.keypad0:
-                textInputBox1 += getString(R.string._0);
-                break;
-            case R.id.keypad1:
-                textInputBox1 += getString(R.string._1);
-                break;
-            case R.id.keypad2:
-                textInputBox1 += getString(R.string._2);
-                break;
-            case R.id.keypad3:
-                textInputBox1 += getString(R.string._3);
-                break;
-            case R.id.keypad4:
-                textInputBox1 += getString(R.string._4);
-                break;
-            case R.id.keypad5:
-                textInputBox1 += getString(R.string._5);
-                break;
-            case R.id.keypad6:
-                textInputBox1 += getString(R.string._6);
-                break;
-            case R.id.keypad7:
-                textInputBox1 += getString(R.string._7);
-                break;
-            case R.id.keypad8:
-                textInputBox1 += getString(R.string._8);
-                break;
-            case R.id.keypad9:
-                textInputBox1 += getString(R.string._9);
-                break;
-            case R.id.plus:
-                textInputBox1 += getString(R.string.plus);
-                break;
-            case R.id.minus:
-                textInputBox1 += getString(R.string.minus_simbol);
-                break;
-            case R.id.multiply:
-                textInputBox1 += getString(R.string.multiply);
-                break;
-            case R.id.divide:
-                textInputBox1 += getString(R.string.divide);
-                break;
-            case R.id.varE:
-                textInputBox1 += getString(R.string.var_e);
-                break;
-            case R.id.varPi:
-                textInputBox1 += getString(R.string.pi);
-                break;
-            case R.id.keypadDot:
-                textInputBox1 += getString(R.string.dot);
-                break;
-            case R.id.keypadStore:
-                startDialog(VariablesDialog.STORE_DIALOG);
-                break;
-            case R.id.keypadRelease:
-                startDialog(VariablesDialog.RELEASE_DIALOG);
-                break;
-            case R.id.keypadSqrt:
-                textInputBox1 += getString(R.string.sqrt) + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
-                break;
-            case R.id.btnCos:
-                textInputBox1 += "cos" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
-                break;
-            case R.id.btnSin:
-                textInputBox1 += "sin" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
-                break;
-            case R.id.btnTan:
-                textInputBox1 += "tan" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
-                break;
-            case R.id.btnFact:
-                textInputBox1 += getString(R.string.factorial) + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
-                break;
-            case R.id.keypadPwr:
-                textInputBox1 += getString(R.string.exp_symbol);
-                break;
-            case R.id.parLeft:
-                //Log.i("PARSIZE", "" + ("<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>").length());
-                textInputBox1 += "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
-                break;
-            case R.id.parRight:
-                if(parCounter > 0) {
-                    textInputBox1 += "<font color="+ colors[parCounter - 1] + ">" + getString(R.string.par_right) + "</font>";
-                } else {
+        if (!isAnswerInserted) {
+            switch (id) {
+                case R.id.equal:
+                    evaluateExpression();
+                    break;
+                case R.id.keypadDel:
+                    deleteFromDisplay();
+                    break;
+                case R.id.keypad0:
+                    textInputBox1 += getString(R.string._0);
+                    break;
+                case R.id.keypad1:
+                    textInputBox1 += getString(R.string._1);
+                    break;
+                case R.id.keypad2:
+                    textInputBox1 += getString(R.string._2);
+                    break;
+                case R.id.keypad3:
+                    textInputBox1 += getString(R.string._3);
+                    break;
+                case R.id.keypad4:
+                    textInputBox1 += getString(R.string._4);
+                    break;
+                case R.id.keypad5:
+                    textInputBox1 += getString(R.string._5);
+                    break;
+                case R.id.keypad6:
+                    textInputBox1 += getString(R.string._6);
+                    break;
+                case R.id.keypad7:
+                    textInputBox1 += getString(R.string._7);
+                    break;
+                case R.id.keypad8:
+                    textInputBox1 += getString(R.string._8);
+                    break;
+                case R.id.keypad9:
+                    textInputBox1 += getString(R.string._9);
+                    break;
+                case R.id.plus:
+                    textInputBox1 += getString(R.string.plus);
+                    break;
+                case R.id.minus:
+                    textInputBox1 += getString(R.string.minus_simbol);
+                    break;
+                case R.id.multiply:
+                    textInputBox1 += getString(R.string.multiply);
+                    break;
+                case R.id.divide:
+                    textInputBox1 += getString(R.string.divide);
+                    break;
+                case R.id.varE:
+                    textInputBox1 += getString(R.string.var_e);
+                    break;
+                case R.id.varPi:
+                    textInputBox1 += getString(R.string.pi);
+                    break;
+                case R.id.keypadDot:
+                    textInputBox1 += getString(R.string.dot);
+                    break;
+                case R.id.keypadStore:
+                    startDialog(VariablesDialog.STORE_DIALOG);
+                    break;
+                case R.id.keypadRelease:
+                    startDialog(VariablesDialog.RELEASE_DIALOG);
+                    break;
+                case R.id.keypadSqrt:
+                    textInputBox1 += getString(R.string.sqrt) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnCos:
+                    textInputBox1 += "cos" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnSin:
+                    textInputBox1 += "sin" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnTan:
+                    textInputBox1 += "tan" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnFact:
+                    textInputBox1 += getString(R.string.factorial) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.keypadPwr:
+                    textInputBox1 += getString(R.string.exp_symbol);
+                    break;
+                case R.id.parLeft:
+                    //Log.i("PARSIZE", "" + ("<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>").length());
+                    textInputBox1 += "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.parRight:
+                    if (parCounter > 0) {
+                        textInputBox1 += "<font color=" + colors[parCounter - 1] + ">" + getString(R.string.par_right) + "</font>";
+                    } else {
+                        return;
+                    }
+                    break;
+                case R.id.btnPercent:
+                    textInputBox1 += "%";
+                    break;
+                case R.id.btnLog:
+                    textInputBox1 += "log" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnLn:
+                    textInputBox1 += "ln(" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.degreeRad:
+                    if (angleType == EvaluateExpression.DEGREE) {
+                        angleType = EvaluateExpression.RADIANS;
+                        ((DefaultButton) view).setText(getString(R.string.radians_button));
+                        view.setSelected(true);
+                    } else {
+                        angleType = EvaluateExpression.DEGREE;
+                        ((DefaultButton) view).setText(getString(R.string.degree_button));
+                        view.setSelected(false);
+                    }
                     return;
-                }
-                break;
-            case R.id.btnPercent:
-                textInputBox1 += "%";
-                break;
-            case R.id.btnLog:
-                textInputBox1 += "log" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>" ;
-                break;
-            case R.id.btnLn:
-                textInputBox1 += "ln(" + "<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
-                break;
-            case R.id.degreeRad:
-                if(angleType == EvaluateExpression.DEGREE) {
-                    angleType = EvaluateExpression.RADIANS;
-                    ((DefaultButton) view).setText(getString(R.string.radians_button));
-                    view.setSelected(true);
-                } else {
-                    angleType = EvaluateExpression.DEGREE;
-                    ((DefaultButton) view).setText(getString(R.string.degree_button));
-                    view.setSelected(false);
-                }
-                return;
-            case R.id.answer:
-                if(previousResult != null) {
-                    textInputBox1 += getResources().getString(R.string.ans);
-                }
-                break;
-            case R.id.fraction:
-                if(previousResult != null) {
-                    Log.i(LOG_TAG, "Fraction: " + Utils.doubleToFraction(Double.parseDouble(previousResult)));
-                    resultBoxKey.setText(Utils.doubleToFraction(Double.parseDouble(previousResult)));
-                }
-                break;
+                case R.id.answer:
+                    if (previousResult != null) {
+                        textInputBox1 += getResources().getString(R.string.ans);
+                    }
+                    break;
+                case R.id.fraction:
+                    if (previousResult != null) {
+                        FractionBuilder mFractionBuilder = new FractionBuilder();
+                        try {
+                            mFractionBuilder.createFraction(Double.parseDouble(previousResult));
+                        } catch (IrrationalNumberException ex) {
+                            ex.printStackTrace();
+                        }
+                        resultBoxKey.setText(mFractionBuilder.toString());
+                    }
+                    break;
+            }
         }
 
         inputBoxKey.setText(Html.fromHtml(textInputBox1));
@@ -369,7 +404,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         expression.setPreviousResult(previousResult);
         String result = expression.evaluate();
 
-        if(result == null) {
+        if (result == null) {
             Log.i(LOG_TAG, "Empty Input");
             inputBoxKey.setText(getString(R.string._0));
             resultBoxKey.setText("");
@@ -378,26 +413,26 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         int resultSize = result.length();
 
-        if(resultSize> 15) {
+        if (resultSize > 15) {
             resultBoxKey.setTextSize(25);
             Log.i("INPUT SIZE: ", "" + resultSize);
         }
 
-        if(resultSize > 25) {
+        if (resultSize > 25) {
             resultBoxKey.setTextSize(20);
             Log.i("INPUT SIZE: ", "" + resultSize);
         }
 
-        if(resultSize > 35) {
+        if (resultSize > 35) {
             resultBoxKey.setTextSize(15);
             Log.i("INPUT SIZE: ", "" + resultSize);
         }
 
-        if(textInputBox1.equals(getString(R.string._0))) {
+        if (textInputBox1.equals(getString(R.string._0))) {
             textInputBox1 = "";
         }
 
-        if(!result.equals(getResources().getString(R.string.input_error))) {
+        if (!result.equals(getResources().getString(R.string.input_error))) {
             ResultLog resultLog = new ResultLog(textInputBox1, result);
             dbHelper.createResultLog(resultLog);
         }
@@ -405,7 +440,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         previousResult = result;
         resultBoxKey.setText(result);
 
-        if(!result.equals(getResources().getString(R.string.input_error))) {
+        if (!result.equals(getResources().getString(R.string.input_error))) {
             clearResult = true;
         }
     }
@@ -428,13 +463,13 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         boolean par = false;
         Log.i("TEXT SIZE BEFORE!", "" + textInputBox1.length());
 
-        if(clearResult) {
+        if (clearResult) {
             Log.i(LOG_TAG, "Here?");
             clearDisplay();
             return;
         }
 
-        if(textInputBox1.length() <= 1) {
+        if (textInputBox1.length() <= 1) {
             textInputBox1 = getString(R.string._0);
         } else {
             if (textInputBox1.charAt(textInputBox1.length() - 1) == '>') {
@@ -457,25 +492,24 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         String[] referenceColors = {"#2ecc71", "#e74c3c", "#9b59b6", "#f1c40f", "#ecf0f1", "#e67e22"};
         colors = new String[100];
         int counter = 0;
-        for(int i = 0; i < colors.length; i++) {
+        for (int i = 0; i < colors.length; i++) {
             colors[i] = referenceColors[counter];
             //Log.i("COLORS", "" + referenceColors[counter]);
             counter++;
-            if(counter == 6) {
+            if (counter == 6) {
                 counter = 0;
             }
         }
     }
 
     /**
-     *
      * @param view
      */
     public void handleVar(View view) {
         String result = varDialog.handleVar(view);
 
-        if(result != null) {
-            if(textInputBox1.equals(getString(R.string._0))) {
+        if (result != null) {
+            if (textInputBox1.equals(getString(R.string._0))) {
                 textInputBox1 = "";
             }
             textInputBox1 += result;
@@ -485,6 +519,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
     /**
      * Helper method to start a dialog to store or release variables.
+     *
      * @param type the type of dialog
      */
     public void startDialog(int type) {
@@ -502,63 +537,49 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     }
 
     /**
-     *
-     * @return
-     *      The Functions Keypad of this Fragment
+     * @return The Functions Keypad of this Fragment
      */
     public KeypadFunctionsFragment getKeypadFunctionsFragment() {
         return mKeypadFunctionsFragment;
     }
 
     /**
-     *
-     * @return
-     *      The Keypad of this Fragment
+     * @return The Keypad of this Fragment
      */
     public KeypadFragment getKeypadFragment() {
         return mKeypadFragment;
     }
 
     /**
-     *
-     * @return
-     *      the active rootView of this Fragment
+     * @return the active rootView of this Fragment
      */
     public View getRootView() {
         return rootView;
     }
 
     /**
-     *
-     * @return
-     *          the LinearLayout that holds the display
+     * @return the LinearLayout that holds the display
      */
     public LinearLayout getDisplay() {
         return resultLayoutKey;
     }
 
     /**
-     *
-     * @return
-     *      gets the inputBox for this fragment
+     * @return gets the inputBox for this fragment
      */
     public static TextView getInputBoxKey() {
         return inputBoxKey;
     }
 
     /**
-     *
-     * @return
-     *      gets the result box for this fragment
+     * @return gets the result box for this fragment
      */
     public static TextView getResultBoxKey() {
         return resultBoxKey;
     }
 
     /**
-     *
-     * @return
-     *      Returns the current theme used by this fragment
+     * @return Returns the current theme used by this fragment
      */
     public Theme getCurrentTheme() {
         return currentTheme;

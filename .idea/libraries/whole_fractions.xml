@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="whole-fractions">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/main/libs/whole-fractions.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
