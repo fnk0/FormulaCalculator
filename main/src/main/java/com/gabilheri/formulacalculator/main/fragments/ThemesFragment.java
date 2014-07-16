@@ -77,7 +77,7 @@ public class ThemesFragment extends Fragment {
         mCardsListView = (CardListView) view.findViewById(R.id.themesList);
         mCardList = new ArrayList<>();
 
-        themesList = dbHelper.getAllThemesForUser("marcus");
+        themesList = dbHelper.getAllThemesForUser("user");
 
         mCardList.add(new AddThemeCard(getActivity()));
 
@@ -91,6 +91,7 @@ public class ThemesFragment extends Fragment {
                 mCard.setSelectedColor(mTheme.getSelectedColor());
                 mCard.setDisplayColor(mTheme.getDisplayColor());
                 mCard.setThemeID(mTheme.getId());
+                mCard.setUsername(mTheme.getUsername());
                 mCardList.add(mCard);
             }
         }

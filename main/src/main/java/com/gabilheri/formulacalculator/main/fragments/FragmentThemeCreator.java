@@ -117,6 +117,8 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                 if(resultCode == Activity.RESULT_OK) {
                     Bundle mBundle = data.getExtras();
                     newTheme.setThemeName(mBundle.getString(SaveDialog.THEME_NAME));
+                    newTheme.setThemeType(Theme.THEME_PUBLIC);
+                    newTheme.setUsername("user");
                     DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
                     db.createTheme(newTheme);
 

@@ -23,7 +23,7 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCardClickListener, Card.OnUndoSwipeListListener {
 
-    private String themeName;
+    private String themeName, username;
     private long themeID;
     private int primaryColor, secondaryColor, selectedColor, displayColor;
     private Context mContext;
@@ -34,10 +34,12 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
     public ThemeCard(Context context) {
         super(context, R.layout.theme_card);
         this.mContext = context;
+        setSwipeable(true);
         dbHelper = new DatabaseHelper(context);
         mPreferences = context.getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
         setOnClickListener(this);
+        setOnSwipeListener(this);
     }
 
     public ThemeCard(Context context, int innerLayout) {
@@ -76,7 +78,11 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
 
     @Override
     public void onSwipe(Card card) {
-
+        dbHelper.deleteTheme(themeID, username);
+        SharedPreferences mPref = mContext.getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mPref.edit();
+        editor.putString(MainActivity.CURRENT_THEME, Theme.DEFAULT_THEME);
+        editor.apply();
     }
 
     @Override
@@ -138,5 +144,13 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
 
     public void setmContext(Context mContext) {
         this.mContext = mContext;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
