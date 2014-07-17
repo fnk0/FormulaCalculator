@@ -2,12 +2,6 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/whole-fractions-e186b1f3586feb15f4a1d91a2ef6fe7d9c8bdb19.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/main/libs/whole-fractions.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="4c2ffe6aabdcf50350f1e7ccd22c5cdcfdf46cee"/>
-    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-eeec11e4515496d05393cacc10f9705426055e75.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.etsy.android.grid/library/1.0.4/classes.jar"
         jumboMode="false"
@@ -62,17 +56,17 @@
         revision="19.1.0"
         sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb"/>
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-764aa36738de2d4ddc84400c821fd2b0a80c4297.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
-    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/support-v4-19.1.0-fe930dc68beb1e566675ce71b270d4091c6c249b.jar"
         jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-764aa36738de2d4ddc84400c821fd2b0a80c4297.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
     <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/exp4j-0.3.12-SNAPSHOT-a3bda51ad83f1ba18cfa4103e23aadeb45c1fdb7.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/main/libs/exp4j-0.3.12-SNAPSHOT.jar"

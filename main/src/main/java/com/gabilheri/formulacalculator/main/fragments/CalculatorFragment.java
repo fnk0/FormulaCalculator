@@ -26,10 +26,11 @@ import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
+import com.gabilheri.formulacalculator.main.logic.whole_fractions.Fraction;
+import com.gabilheri.formulacalculator.main.logic.whole_fractions.FractionBuilder;
+import com.gabilheri.formulacalculator.main.logic.whole_fractions.IrrationalNumberException;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
-import com.ryanddawkins.whole_fractions.FractionBuilder;
-import com.ryanddawkins.whole_fractions.IrrationalNumberException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -218,6 +219,19 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 case R.id.keypadSqrt:
                     textInputBox1 = getString(R.string.sqrt) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>" + getString(R.string.ans);
                     break;
+                case R.id.fraction:
+                    if (previousResult != null) {
+                        FractionBuilder mFractionBuilder = new FractionBuilder();
+                        try {
+                            double res = Double.parseDouble(previousResult);
+                            Log.i(LOG_TAG, "Res: " + res);
+                            Fraction mFraction = mFractionBuilder.createFraction(res);
+                            resultBoxKey.setText(mFraction.toString());
+                        } catch (IrrationalNumberException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    break;
             }
             isAnswerInserted = true;
             clearResult = false;
@@ -376,22 +390,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                         textInputBox1 += getResources().getString(R.string.ans);
                     }
                     break;
-                case R.id.fraction:
-                    if (previousResult != null) {
-                        FractionBuilder mFractionBuilder = new FractionBuilder();
-                        try {
-                            mFractionBuilder.createFraction(Double.parseDouble(previousResult));
-                        } catch (IrrationalNumberException ex) {
-                            ex.printStackTrace();
-                        }
-                        resultBoxKey.setText(mFractionBuilder.toString());
-                    }
-                    break;
             }
         }
 
         inputBoxKey.setText(Html.fromHtml(textInputBox1));
-
         Log.d("FRAGMENT MAIN: ", "Text Input: " + textInputBox1);
     }
 
