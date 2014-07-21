@@ -107,6 +107,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                 }
                 break;
             case ThemePartDialog.THEME_PART_DIALOG_CODE:
+
                 if(resultCode == Activity.RESULT_OK) {
                     Bundle mBundle = data.getExtras();
                     editMode =  mBundle.getInt(ThemePartDialog.EDIT_TYPE);
