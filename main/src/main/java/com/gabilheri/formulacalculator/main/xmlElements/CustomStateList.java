@@ -11,8 +11,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RectShape;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -33,8 +31,6 @@ public class CustomStateList extends StateListDrawable {
     private ObjectAnimator fadeIn, fadeOut;
     private AnimationDrawable mAnimation;
     private AnimatorSet mAnimatorSet;
-    final Animation in = new AlphaAnimation(0.0f, 1.0f);
-    final Animation out = new AlphaAnimation(1.0f, 0.0f);
 
     /**
      *
@@ -61,6 +57,7 @@ public class CustomStateList extends StateListDrawable {
 
         mCircleShape = new ShapeDrawable();
         mCircleShape.setShape(new OvalShape());
+        mCircleShape.setPadding(10, 10, 10, 10);
         mCircleShape.getPaint().setColor(highlightColor);
 
         mSquareShape = new ShapeDrawable();
@@ -70,15 +67,9 @@ public class CustomStateList extends StateListDrawable {
         Drawable[] layers = new Drawable[] {mSquareShape, mCircleShape};
         mLayer = new LayerDrawable(layers);
 
-        fadeIn = ObjectAnimator.ofFloat(mLayer, "alpha", 0f, 1f);
-        fadeIn.setDuration(1000);
-
-        fadeOut = ObjectAnimator.ofFloat(mLayer, "alpha", 1f, 0f);
-        fadeOut.setDuration(1000);
-
-        this.addState(new int[] {stateFocused }, mLayer);
-        this.addState(new int[] {statePressed }, mLayer);
-        this.addState(new int[] {stateSelected }, new ColorDrawable(selectedColor));
+        this.addState(new int[] {stateFocused }, new ColorDrawable(backgroundColor));
+        this.addState(new int[] {statePressed }, new ColorDrawable(backgroundColor));
+        this.addState(new int[] {stateSelected }, new ColorDrawable(backgroundColor));
         this.addState(new int[]{}, mSquareShape);
     }
 

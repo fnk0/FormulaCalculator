@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
@@ -41,6 +42,7 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
     public static final String BUTTON_TYPE = "buttonType";
     public static final int COLORPICK_CODE = 999;
     public static final String LOG_TAG = "ColorPicker";
+
 
     /**
      *
@@ -70,6 +72,27 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
         toDisplay = "#" + Integer.toHexString(colorPicker.getColor());
         hexValue.setText(toDisplay.toUpperCase());
         getColorButton.setOnClickListener(this);
+
+        /**
+        hexValue.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                colorPicker.setColor(new BigInteger(s.subSequence(1, s.length()).toString(), 16).intValue());
+            }
+        });
+         **/
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(layout);
         return builder.create();
@@ -83,7 +106,7 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
                 colorPicker.setOldCenterColor(colorPicker.getColor());
                 Intent intent = new Intent();
                 Bundle extras = new Bundle();
-                extras.putInt(COLOR, colorPicker.getColor());
+                extras.putInt(COLOR, Utils.getHexColor(hexValue.getText().toString()));
                 extras.putInt(VIEW, selectedView);
                 intent.putExtras(extras);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);

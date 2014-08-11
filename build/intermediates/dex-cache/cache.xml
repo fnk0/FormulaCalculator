@@ -2,8 +2,20 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-eeec11e4515496d05393cacc10f9705426055e75.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.etsy.android.grid/library/1.0.4/classes.jar"
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-f6a95eca5bc7c16a07d7189219daf2aecdd02fe9.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/systembartint-1.0.3-8a8fd55cacfe8ca3ab5b1f14d08ee745b15c4184.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-c4b63e08fe432262228bba416b6e098c95e96cb1.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.etsy.android.grid/library/1.0.4/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="589fdaab008936a7b90e8332bbd49b4c010b8c0c"/>
@@ -20,35 +32,17 @@
         revision="19.1.0"
         sha1="15aa5a8609ea4667674977341ec9a3e231028e05"/>
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-30e775d9ac149276d6651065a19ea1fa46dd13cd.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library-extra/1.6.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="a4596e7120d868856e75d96a74acf7f633775060"/>
-    <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-da02ea23021cb2bcd71383fea9bdb530e71e7d67.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.6.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="dd59f15631a0446653bc4197a9afd6ee63eef42d"/>
-    <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-3a2f29c0f75303ac83760907d99662e48569b46d.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
-    <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-80349e2bcd591d569faefc6c3b7404918ad0839e.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.larswerkman/HoloColorPicker/1.4/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="5d5a825cbf0f67237377034c2c4edf9ba7e60fbe"/>
-    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/library-2.6.0-54de829a917f55f40b90e0daee969a1be9489660.jar"
         jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.nhaarman.listviewanimations/library/2.6.0/59351ccb0a1631d30358f6a92749a072f2df7602/library-2.6.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="59351ccb0a1631d30358f6a92749a072f2df7602"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-26dec73bb7e4080234c8d828dcbc5eb9b0c20684.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.6.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="dd59f15631a0446653bc4197a9afd6ee63eef42d"/>
     <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/library-2.4.0-54fcfcaed0c598b6d84d910c21cedf1dc2a750eb.jar"
         jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
@@ -56,22 +50,34 @@
         revision="19.1.0"
         sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb"/>
     <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-d3abbb4a63055b0e9ceafa39d0391042e682a068.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library-extra/1.6.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="a4596e7120d868856e75d96a74acf7f633775060"/>
+    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/support-v4-19.1.0-fe930dc68beb1e566675ce71b270d4091c6c249b.jar"
         jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-764aa36738de2d4ddc84400c821fd2b0a80c4297.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-7e1b592fe5ea088ced1830b6cadb874a080c82bc.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.larswerkman/HoloColorPicker/1.4/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+        sha1="5d5a825cbf0f67237377034c2c4edf9ba7e60fbe"/>
     <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/exp4j-0.3.12-SNAPSHOT-a3bda51ad83f1ba18cfa4103e23aadeb45c1fdb7.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/main/libs/exp4j-0.3.12-SNAPSHOT.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="3c090acb7f134979389677c39684b0e8849a07ab"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-bcd3a1e6ae74385854bf0cf674a9fdd5c7c30ac5.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
 
 </pre-dex-items>

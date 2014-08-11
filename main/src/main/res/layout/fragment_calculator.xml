@@ -1,11 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:id="@+id/calculatorFrag"
+    >
 
     <LinearLayout
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:id="@+id/resultLayoutKey"
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -45,9 +49,6 @@
         android:layout_weight="0.04"
         android:layout_width="match_parent"
         android:layout_height="0dip" />
-
-
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

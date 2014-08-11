@@ -15,28 +15,27 @@
     <!-- Navigation Drawer Titles -->
     <array name="drawer_items">
         <item name="calculator">Calculator</item>
-        <item name="formulas">Formulas</item>
         <item name="logs">Logs</item>
-        <item name="settings">Settings</item>
-        <!-- <item name="unit_converter">Unit Converter</item> -->
+        <item name="formulas">Formulas</item>
+        <item name="unit_converter">Unit Converter</item>
         <item name="themes">Themes</item>
+        <item name="settings">Settings</item>
         <item name="about">About</item>
-        <item name="tutorial">Share</item>
-        <item name="sign_in">Sign In</item>
-        <item name="debug">Test</item>
+        <!-- <item name="sign_in">Sign In</item> -->
+        <!-- <item name="debug">Test</item> -->
     </array>
 
     <!-- Navigation Drawer Resource Strings -->
     <array name="drawer_icons">
-        <item name="icon_calculator">@drawable/ic_calculator</item>
-        <item name="icon_formulas">@drawable/ic_formula</item>
+        <item name="icon_calculator">@drawable/ic_launcher</item>
         <item name="icon_logs">@drawable/ic_log</item>
-        <item name="icon_settings">@drawable/ic_settings</item>
+        <item name="icon_formulas">@drawable/ic_formula</item>
+        <item name="icon_share">@drawable/ic_convert</item>
         <item name="icon_themes">@drawable/ic_themes</item>
+        <item name="icon_settings">@drawable/ic_settings</item>
         <item name="icon_info">@drawable/ic_info</item>
-        <item name="icon_share">@drawable/ic_share</item>
-        <item name="icon_gplius">@drawable/ic_google_plus</item>
-        <item name="icon_debug">@drawable/ic_debug</item>
+        <!-- <item name="icon_gplius">@drawable/ic_google_plus</item> -->
+        <!-- <item name="icon_debug">@drawable/ic_debug</item> -->
     </array>
 
 
@@ -130,5 +129,16 @@
     <string name="delete">Delete</string>
     <string name="select">Select</string>
     <string name="create_theme">Create New Theme</string>
+    <string name="plus_minus">+/-</string>
+
+    <string-array name="unit_types">
+        <item name="mass">Mass</item>
+        <item name="speed">Speed</item>
+        <item name="length">Length</item>
+        <item name="temperature">Temperature</item>
+        <item name="volume">Volume</item>
+        <item name="area">Area</item>
+        <item name="data">Data</item>
+    </string-array>
 
 </resources>

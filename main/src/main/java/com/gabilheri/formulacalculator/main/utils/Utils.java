@@ -1,9 +1,19 @@
 package com.gabilheri.formulacalculator.main.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
+import com.gabilheri.formulacalculator.main.database.Theme;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import java.math.BigInteger;
 
 /**
  * @author Marcus Gabilheri
@@ -57,6 +67,27 @@ public class Utils {
         return "#" + alpha + red + green + blue;
     }
 
+    /**
+     * Helper method to transform a Hex String to it's integer value
+     * @param hexString
+     * @return
+     */
+    public static int getHexColor(String hexString) {
+        String filtered = hexString.replaceAll("#", "");
+        return new BigInteger(filtered, 16).intValue();
+    }
+
+    /**
+     * Helper method to get the current Theme for the app
+     * @param mContext
+     * @return
+     */
+    public static Theme getCurrentTheme(Context mContext) {
+        SharedPreferences mPreferences = mContext.getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
+        DatabaseHelper dbHelper = new DatabaseHelper(mContext.getApplicationContext());
+        return dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+    }
+
     private static String pad(String s) {
         return (s.length() == 1) ? "0" + s : s;
     }
@@ -89,7 +120,7 @@ public class Utils {
             case R.id.plus:
             case R.id.minus:
             case R.id.keypadSqrt:
-            case R.id.fraction:
+            //case R.id.fraction:
             case R.id.multiply:
             case R.id.divide:
             case R.id.keypadPwr:
@@ -99,4 +130,13 @@ public class Utils {
                 return false;
         }
     }
+
+
+    public static void setInsets(Activity context, View view) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+        SystemBarTintManager tintManager = new SystemBarTintManager(context);
+        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+        view.setPadding(0, config.getPixelInsetTop(true), config.getPixelInsetRight(), config.getPixelInsetBottom());
+    }
+
 }

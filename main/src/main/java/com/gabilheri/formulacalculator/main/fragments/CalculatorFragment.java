@@ -26,9 +26,6 @@ import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
-import com.gabilheri.formulacalculator.main.logic.whole_fractions.Fraction;
-import com.gabilheri.formulacalculator.main.logic.whole_fractions.FractionBuilder;
-import com.gabilheri.formulacalculator.main.logic.whole_fractions.IrrationalNumberException;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
@@ -96,6 +93,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
         currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+
+        LinearLayout mLayout = (LinearLayout) view.findViewById(R.id.calculatorFrag);
+        Utils.setInsets(getActivity(), mLayout);
 
         angleType = EvaluateExpression.DEGREE;
         rootView = view;
@@ -219,6 +219,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                 case R.id.keypadSqrt:
                     textInputBox1 = getString(R.string.sqrt) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>" + getString(R.string.ans);
                     break;
+                /*
                 case R.id.fraction:
                     if (previousResult != null) {
                         FractionBuilder mFractionBuilder = new FractionBuilder();
@@ -232,6 +233,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                         }
                     }
                     break;
+                */
             }
             isAnswerInserted = true;
             clearResult = false;

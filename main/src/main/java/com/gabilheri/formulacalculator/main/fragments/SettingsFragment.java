@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -44,6 +46,8 @@ public class SettingsFragment extends Fragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        LinearLayout settingsFrag = (LinearLayout) view.findViewById(R.id.settingsFrag);
+        Utils.setInsets(getActivity(), settingsFrag);
 
         mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_settings);

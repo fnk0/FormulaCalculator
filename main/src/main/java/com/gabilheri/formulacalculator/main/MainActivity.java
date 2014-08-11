@@ -1,13 +1,16 @@
 package com.gabilheri.formulacalculator.main;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,9 +35,11 @@ import com.gabilheri.formulacalculator.main.fragments.FragmentThemeCreator;
 import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
 import com.gabilheri.formulacalculator.main.fragments.ThemesFragment;
+import com.gabilheri.formulacalculator.main.fragments.UnitConverterFragment;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
 import com.gabilheri.formulacalculator.main.tests.TestFragment;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -40,6 +47,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,10 +92,12 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
 
     //Constants for the Fragments
     public static final int CALCULATOR_FRAG = 0;
-    public static final int FORMULAS_FRAG = 1;
-    public static final int LOG_FRAG = 2;
-    public static final int SETTINGS_FRAG = 3;
-    public static final int THEMES = 4;
+    public static final int LOG_FRAG = 1;
+    public static final int FORMULAS_FRAG = 2;
+    public static final int UNIT_CONVERTER_FRAG = 3;
+    public static final int THEMES_FRAG = 4;
+    public static final int SETTINGS_FRAG = 5;
+    public static final int ABOUT_FRAG = 6;
     public static final int GOOGLE_PLUS = 7;
     public static final int DEBUG_FRAG = 8;
     public static final int THEME_CREATOR = 15;
@@ -104,6 +114,10 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     private NavDrawerListAdapter navAdapter;
     private Fragment activeFragment;
     private FragmentWithKeypad keypadFragment;
+    private Intent mIntent;
+
+    private DatabaseHelper mHelper;
+    private SystemBarTintManager tintManager;
 
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
@@ -112,10 +126,17 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mIntent = getIntent();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+
         mPreferences = getSharedPreferences(CURRENT_THEME, MODE_PRIVATE);
         mEditor = mPreferences.edit();
 
-        DatabaseHelper mHelper = new DatabaseHelper(this.getApplicationContext());
+        mHelper = new DatabaseHelper(this.getApplicationContext());
+        mPreferences = getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
 
         if(mHelper.getAllThemesForUser(null).size() == 0) {
             Theme defaultTheme = new Theme();
@@ -151,6 +172,19 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             mEditor.putString(CURRENT_THEME, Theme.DEFAULT_THEME);
             mEditor.apply();
         }
+
+        Theme currentTheme = Utils.getCurrentTheme(this);
+
+        // Enabling action bar app and Icon , and behaving it as a toggle button.
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
+        getActionBar().setHomeButtonEnabled(true);
+
+
+        tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setTintColor(currentTheme.getDisplayColor());
 
         setContentView(R.layout.activity_main);
 
@@ -195,10 +229,6 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         navAdapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
         mDrawerList.setAdapter(navAdapter);
 
-        // Enabling action bar app and Icon , and behaving it as a toggle button.
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.action_bar)));
-        getActionBar().setHomeButtonEnabled(true);
 
         /**
          * Handles the Drawer close and drawer open.
@@ -230,6 +260,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         //revMob.setTestingMode(RevMobTestingMode.WITH_ADS);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -237,6 +268,21 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         //ViewGroup group = (ViewGroup) findViewById(R.id.banner);
         //group.addView(banner);
     }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -265,6 +311,9 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         activeFragment = null;
         switch (position) {
             case CALCULATOR_FRAG:
+                Theme currentTheme = mHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
+                tintManager.setTintColor(currentTheme.getDisplayColor());
                 activeFragment = new CalculatorFragment();
 
                 if(fragBundle != null) {
@@ -278,13 +327,14 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             case LOG_FRAG:
                 activeFragment = new LogFragment();
                 break;
+            case UNIT_CONVERTER_FRAG:
+                activeFragment = new UnitConverterFragment();
+                break;
             case SETTINGS_FRAG:
                 activeFragment = new SettingsFragment();
                 break;
-            case THEMES:
+            case THEMES_FRAG:
                 activeFragment = new ThemesFragment();
-                break;
-            case 5:
                 break;
             case GOOGLE_PLUS:
                 if(mGoogleServices.isConnected()) {
@@ -346,17 +396,12 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 

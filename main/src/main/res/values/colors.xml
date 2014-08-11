@@ -32,5 +32,10 @@
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
     <color name="card_background">#FFFFFF</color>
+
     <color name="action_bar">#263238</color>
+
+    <color name="actionbar_bg">#FF0099CC</color>
+    <color name="statusbar_bg">#FF006080</color>
+
 </resources>

@@ -1,10 +1,10 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +28,8 @@ import java.util.HashMap;
  */
 public class KeypadFragment extends Fragment {
 
-    private DefaultButton btnDel, btnParLeft, btnParRight, btnPlus, btnMinus, btnMultiply, btnDivide, btnPercent, btnPower;
-    private DefaultButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnDot, btnStr, btnRel, btnEqual, btnAns, btnFrac;
+    private DefaultButton btnDel, btnParLeft, btnParRight, btnPlus, btnMinus, btnMultiply, btnDivide;
+    private DefaultButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0, btnDot, btnEqual, btnAns;
     private HashMap<Integer, DefaultButton> mKeypadButtons;
     private ArrayList<DefaultButton> mButtonsArray;
     private ArrayList<DefaultButton> mSecondButtonsArray;
@@ -71,10 +71,6 @@ public class KeypadFragment extends Fragment {
         mKeypadButtons.put(R.id.answer, btnAns);
         mButtonsArray.add(btnAns);
 
-        btnFrac = (DefaultButton) rootView.findViewById(R.id.fraction);
-        mKeypadButtons.put(R.id.fraction, btnFrac);
-        mButtonsArray.add(btnFrac);
-
         btnParLeft = (DefaultButton) rootView.findViewById(R.id.parLeft);
         mKeypadButtons.put(R.id.parLeft, btnParLeft);
         mButtonsArray.add(btnParLeft);
@@ -98,14 +94,6 @@ public class KeypadFragment extends Fragment {
         btnDivide = (DefaultButton) rootView.findViewById(R.id.divide);
         mKeypadButtons.put(R.id.divide, btnDivide);
         mSecondButtonsArray.add(btnDivide);
-
-        btnPercent = (DefaultButton) rootView.findViewById(R.id.btnPercent);
-        mKeypadButtons.put(R.id.btnPercent, btnPercent);
-        mButtonsArray.add(btnPercent);
-
-        btnPower = (DefaultButton) rootView.findViewById(R.id.keypadPwr);
-        mKeypadButtons.put(R.id.keypadPwr, btnPower);
-        mButtonsArray.add(btnPower);
 
         btn1 = (DefaultButton) rootView.findViewById(R.id.keypad1);
         mKeypadButtons.put(R.id.keypad1, btn1);
@@ -150,14 +138,6 @@ public class KeypadFragment extends Fragment {
         btnDot = (DefaultButton) rootView.findViewById(R.id.keypadDot);
         mKeypadButtons.put(R.id.keypadDot, btnDot);
         mButtonsArray.add(btnDot);
-
-        btnStr = (DefaultButton) rootView.findViewById(R.id.keypadStore);
-        mKeypadButtons.put(R.id.keypadStore, btnStr);
-        mButtonsArray.add(btnStr);
-
-        btnRel = (DefaultButton) rootView.findViewById(R.id.keypadRelease);
-        mKeypadButtons.put(R.id.keypadRelease, btnRel);
-        mButtonsArray.add(btnRel);
 
         btnEqual = (DefaultButton) rootView.findViewById(R.id.equal);
         mKeypadButtons.put(R.id.equal, btnEqual);

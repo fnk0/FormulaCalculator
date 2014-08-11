@@ -124,7 +124,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                     db.createTheme(newTheme);
 
                     MainActivity mainActivity = (MainActivity) getActivity();
-                    mainActivity.displayView(MainActivity.THEMES, null);
+                    mainActivity.displayView(MainActivity.THEMES_FRAG, null);
                 }
 
                 break;
@@ -339,7 +339,8 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem menuItem = menu.add(Menu.NONE, R.id.saveTheme, 10, R.string.save_theme);
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menuItem.setIcon(android.R.drawable.ic_menu_save);
+        menuItem.setTitle("Save");
+        menuItem.setIcon(R.drawable.ic_action_save);
     }
 
     /**

@@ -9,11 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.cards.LogCard;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.ResultLog;
+import com.gabilheri.formulacalculator.main.database.Theme;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,8 +87,15 @@ public class LogFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        logsList = (CardListView) view.findViewById(R.id.logList);
 
+        LinearLayout logFrag = (LinearLayout) view.findViewById(R.id.logFragment);
+        Utils.setInsets(getActivity(), logFrag);
+
+        Theme currentTheme = Utils.getCurrentTheme(getActivity());
+
+        view.setBackgroundColor(currentTheme.getDisplayColor());
+
+        logsList = (CardListView) view.findViewById(R.id.logList);
         mCardsList = new ArrayList<>();
 
         resultLogs =  dbHelper.getAllResultLogs();
@@ -136,7 +146,7 @@ public class LogFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem deleteItem = menu.add(Menu.NONE, R.id.delete, 10, R.string.save_theme);
         deleteItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        deleteItem.setIcon(android.R.drawable.ic_menu_delete);
+        deleteItem.setIcon(R.drawable.ic_action_delete);
     }
 
     /**

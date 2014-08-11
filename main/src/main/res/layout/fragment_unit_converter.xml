@@ -1,0 +1,200 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/unitConverter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/themes_background"
+    android:weightSum="10"
+    tools:context=".fragments.UnitConverterFragment">
+
+    <Spinner
+        android:id="@+id/unit_type"
+        android:entries="@array/unit_types"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        />
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:weightSum="10"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:text="From: "
+            android:layout_width="0dip"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/from_unit"
+            android:layout_width="0dip"
+            android:layout_weight="8"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:weightSum="10"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dip">
+
+        <TextView
+            android:text="To: "
+            android:layout_width="0dip"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/to_unit"
+            android:layout_width="0dip"
+            android:layout_weight="8"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="2.5"
+        android:layout_height="0dip">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:weightSum="4"
+        android:layout_width="match_parent"
+        android:layout_weight="4.5"
+        android:layout_height="0dip">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dip"
+            android:weightSum="3">
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn1"
+                android:text="@string/_1"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+            />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn2"
+                android:text="@string/_2"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn3"
+                android:text="@string/_3"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dip"
+            android:weightSum="3">
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn4"
+                android:text="@string/_4"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn5"
+                android:text="@string/_5"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn6"
+                android:text="@string/_6"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dip"
+            android:weightSum="3">
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn7"
+                android:text="@string/_7"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn8"
+                android:text="@string/_8"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn9"
+                android:text="@string/_9"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dip"
+            android:weightSum="3">
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btnDot"
+                android:text="@string/dot"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btn0"
+                android:text="@string/_0"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btnpLusMinus"
+                android:text="@string/plus_minus"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+        </TableRow>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

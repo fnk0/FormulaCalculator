@@ -9,12 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.cards.AddThemeCard;
 import com.gabilheri.formulacalculator.main.cards.ThemeCard;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,11 @@ public class ThemesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        view.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getDisplayColor());
+
+        LinearLayout themesFrag = (LinearLayout) view.findViewById(R.id.themesFrag);
+        Utils.setInsets(getActivity(), themesFrag);
 
         mCardsListView = (CardListView) view.findViewById(R.id.themesList);
         mCardList = new ArrayList<>();

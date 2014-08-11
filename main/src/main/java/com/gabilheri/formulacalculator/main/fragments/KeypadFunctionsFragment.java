@@ -28,7 +28,7 @@ import java.util.HashMap;
 public class KeypadFunctionsFragment extends Fragment {
 
     private DefaultButton btnSqrt, btnLog,  btnLn, btnSin, btnCos, btnTan, btnE, btnPi, btnInf, btnArcSin, btnArcCos, btnArcTan, btnFactorial;
-    private DefaultButton degreeRad, btnDel;
+    private DefaultButton degreeRad, btnDel, btnStr, btnRel, btnPercent, btnPower;
     private DefaultButton empty1, empty2, empty3, empty4, empty5, empty6, empty7, empty8, empty9, empty10, empty11, empty12, empty13;
     private HashMap<Integer, DefaultButton> mKeypadFunctionButtons;
     private ArrayList<DefaultButton> mButtonsArray;
@@ -111,57 +111,27 @@ public class KeypadFunctionsFragment extends Fragment {
         mKeypadFunctionButtons.put(R.id.degreeRad, degreeRad);
         mButtonsArray.add(degreeRad);
 
-        empty1 = (DefaultButton) rootView.findViewById(R.id.emptyBtn1);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty1);
-        mButtonsArray.add(empty1);
+        btnPercent = (DefaultButton) rootView.findViewById(R.id.btnPercent);
+        mKeypadFunctionButtons.put(R.id.btnPercent, btnPercent);
+        mSecondaryButtonsArray.add(btnPercent);
 
-        empty2 = (DefaultButton) rootView.findViewById(R.id.emptyBtn2);
-        mKeypadFunctionButtons.put(R.id.emptyBtn2, empty2);
-        mButtonsArray.add(empty2);
+        btnPower = (DefaultButton) rootView.findViewById(R.id.keypadPwr);
+        mKeypadFunctionButtons.put(R.id.keypadPwr, btnPower);
+        mButtonsArray.add(btnPower);
 
-        empty3 = (DefaultButton) rootView.findViewById(R.id.emptyBtn3);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty3);
-        mButtonsArray.add(empty3);
+        btnStr = (DefaultButton) rootView.findViewById(R.id.keypadStore);
+        mKeypadFunctionButtons.put(R.id.keypadStore, btnStr);
+        mButtonsArray.add(btnStr);
 
-        empty4 = (DefaultButton) rootView.findViewById(R.id.emptyBtn4);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty4);
-        mButtonsArray.add(empty4);
+        btnRel = (DefaultButton) rootView.findViewById(R.id.keypadRelease);
+        mKeypadFunctionButtons.put(R.id.keypadRelease, btnRel);
+        mButtonsArray.add(btnRel);
 
-        empty5 = (DefaultButton) rootView.findViewById(R.id.emptyBtn5);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty5);
-        mButtonsArray.add(empty5);
-
-        empty6 = (DefaultButton) rootView.findViewById(R.id.emptyBtn6);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty6);
-        mButtonsArray.add(empty6);
-
-        empty7 = (DefaultButton) rootView.findViewById(R.id.emptyBtn7);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty7);
-        mButtonsArray.add(empty7);
-
-        empty8 = (DefaultButton) rootView.findViewById(R.id.emptyBtn8);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty8);
-        mButtonsArray.add(empty8);
-
-        empty9 = (DefaultButton) rootView.findViewById(R.id.emptyBtn9);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty9);
-        mButtonsArray.add(empty9);
-
-        empty10 = (DefaultButton) rootView.findViewById(R.id.emptyBtn10);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty10);
-        mButtonsArray.add(empty10);
-
-        empty11 = (DefaultButton) rootView.findViewById(R.id.emptyBtn11);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty11);
-        mButtonsArray.add(empty11);
-
-        empty12 = (DefaultButton) rootView.findViewById(R.id.emptyBtn12);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty12);
-        mButtonsArray.add(empty12);
-
-        empty13 = (DefaultButton) rootView.findViewById(R.id.emptyBtn13);
-        mKeypadFunctionButtons.put(R.id.emptyBtn1, empty13);
-        mButtonsArray.add(empty13);
+        /*
+        btnFrac = (DefaultButton) rootView.findViewById(R.id.fraction);
+        mKeypadButtons.put(R.id.fraction, btnFrac);
+        mButtonsArray.add(btnFrac);
+        */
 
         for(DefaultButton mButton : mButtonsArray) {
             mButton.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());
