@@ -224,7 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ResultLog getResultLog(long logId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_RESULTS + " WHERE " + KEY_ID + " = " + logId;
-        Log.i(LOG_TAG, selectQuery);
+        //Log.i(LOG_TAG, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor != null) {
             cursor.moveToFirst();
@@ -252,7 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_THEMES + " WHERE " + KEY_ID + " = " + themeID +
                 " AND " + KEY_USERNAME + " = '" + username + "'";
-        Log.i(LOG_TAG, selectQuery);
+        //Log.i(LOG_TAG, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor != null) {
             cursor.moveToFirst();
@@ -272,14 +272,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .setSecondaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_HIGHLIGHT)))
                 .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
 
-        //this.closeDB();
+        this.closeDB();
         return selectedTheme;
     }
 
     public Theme getThemeByName(String themeName) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_THEMES + " WHERE " + KEY_THEME_NAME + " = '" + themeName + "'";
-        Log.i(LOG_TAG, selectQuery);
+        //Log.i(LOG_TAG, selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         if(cursor != null) {
             cursor.moveToFirst();
@@ -298,7 +298,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .setPrimaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_PRIMARY_HIGHLIGHT)))
                 .setSecondaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_HIGHLIGHT)))
                 .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
-        //this.closeDB();
+        this.closeDB();
         return selectedTheme;
     }
 
@@ -371,7 +371,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        //this.closeDB();
+        this.closeDB();
         return themesResult;
     }
 
@@ -447,7 +447,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         db.delete(TABLE_THEMES, KEY_ID + " = ?", new String[]{String.valueOf(themeId)});
-        //this.closeDB();
+        this.closeDB();
     }
 
     /**

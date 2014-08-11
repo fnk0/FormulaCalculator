@@ -1,8 +1,9 @@
 package com.gabilheri.formulacalculator.main.logic;
 
-import android.app.Fragment;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.gabilheri.formulacalculator.main.R;

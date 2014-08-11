@@ -1,8 +1,6 @@
 package com.gabilheri.formulacalculator.main;
 
 import android.annotation.TargetApi;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -13,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -329,6 +328,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 break;
             case UNIT_CONVERTER_FRAG:
                 activeFragment = new UnitConverterFragment();
+                keypadFragment = (UnitConverterFragment) activeFragment;
                 break;
             case SETTINGS_FRAG:
                 activeFragment = new SettingsFragment();
@@ -358,7 +358,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
 
         if(position != GOOGLE_PLUS) {
             if (activeFragment != null) {
-                FragmentManager fragmentManager = getFragmentManager();
+                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container, activeFragment).commit();
 
