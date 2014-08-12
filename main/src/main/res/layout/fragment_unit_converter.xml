@@ -32,17 +32,22 @@
         android:layout_weight="1"
         >
 
-        <TextView
-            android:text="From: "
-            android:layout_width="0dip"
-            android:layout_weight="2"
-            android:layout_height="wrap_content" />
-
         <Spinner
             android:id="@+id/from_unit"
             android:layout_width="0dip"
-            android:layout_weight="8"
+            android:layout_weight="5"
             android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/from_unit_input"
+            android:layout_width="0dip"
+            android:layout_weight="5"
+            android:inputType="none"
+            android:hint="From..."
+            android:textIsSelectable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,33 +61,51 @@
         android:layout_weight="1"
         android:layout_height="0dip">
 
-        <TextView
-            android:text="To: "
-            android:layout_width="0dip"
-            android:layout_weight="2"
-            android:layout_height="wrap_content" />
-
         <Spinner
             android:id="@+id/to_unit"
             android:layout_width="0dip"
-            android:layout_weight="8"
+            android:layout_weight="5"
             android:layout_height="wrap_content" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_weight="2.5"
-        android:layout_height="0dip">
-
+        <EditText
+            android:id="@+id/to_unit_input"
+            android:layout_width="0dip"
+            android:layout_weight="5"
+            android:inputType="none"
+            android:hint="To..."
+            android:textIsSelectable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
-        android:weightSum="4"
+        android:weightSum="5"
         android:layout_width="match_parent"
-        android:layout_weight="4.5"
+        android:layout_weight="7"
         android:layout_height="0dip">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dip"
+            android:weightSum="3">
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btnConvert"
+                android:text="Convert"
+                android:layout_weight="2"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
 
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/btnDel"
+                android:text="@string/delete_string"
+                android:layout_weight="1"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                />
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_weight="1"

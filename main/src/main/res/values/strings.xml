@@ -130,6 +130,7 @@
     <string name="select">Select</string>
     <string name="create_theme">Create New Theme</string>
     <string name="plus_minus">+/-</string>
+    <string name="delete_string">R</string>
 
     <string-array name="unit_types">
         <item name="mass">Mass</item>

@@ -76,7 +76,7 @@ public class ThemesFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        view.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getDisplayColor());
+        view.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getPrimaryColor());
 
         LinearLayout themesFrag = (LinearLayout) view.findViewById(R.id.themesFrag);
         Utils.setInsets(getActivity(), themesFrag);

@@ -1,12 +1,16 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.BaseInputConnection;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -35,6 +39,9 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
     private ArrayList<DefaultButton> mSecondaryButtons;
     private ActionBar mActionBar;
     private Spinner typeSpinner, fromSpinner, toSpinner;
+    private EditText fromType, toType;
+
+    private BaseInputConnection textFieldInputConnection;
 
     public UnitConverterFragment() {}
 
@@ -60,6 +67,8 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         LinearLayout settingsFrag = (LinearLayout) view.findViewById(R.id.unitConverter);
         Utils.setInsets(getActivity(), settingsFrag);
 
+
+
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
         view.setBackgroundColor(currentTheme.getDisplayColor());
 
@@ -69,11 +78,15 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         mDefaultButtons = new ArrayList<>();
         mSecondaryButtons = new ArrayList<>();
 
+        fromType = (EditText) view.findViewById(R.id.from_unit_input);
+        toType = (EditText) view.findViewById(R.id.to_unit_input);
+
+        //fromType.setInputType(InputType.TYPE_NULL);
+        //toType.setInputType(InputType.TYPE_NULL);
+
         typeSpinner = (Spinner) view.findViewById(R.id.unit_type);
         fromSpinner = (Spinner) view.findViewById(R.id.from_unit);
         toSpinner = (Spinner) view.findViewById(R.id.to_unit);
-
-        //typeSpinner.setBackgroundColor(currentTheme.getDisplayColor());
 
         SpinnerAdapter typeSpinnerAdapter = new SpinnerAdapter(getActivity(), getResources().getStringArray(R.array.unit_types));
         typeSpinner.setAdapter(typeSpinnerAdapter);
@@ -114,6 +127,26 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         btnPlusMinus = (DefaultButton) view.findViewById(R.id.btnpLusMinus);
         mSecondaryButtons.add(btnPlusMinus);
 
+        btnConvert = (DefaultButton) view.findViewById(R.id.btnConvert);
+        mSecondaryButtons.add(btnConvert);
+
+        btnDel = (DefaultButton) view.findViewById(R.id.btnDel);
+        mSecondaryButtons.add(btnDel);
+
+        Typeface mFont = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(), "icons.ttf");
+        btnDel.setTypeface(mFont);
+        btnDel.setTextSize(35);
+
+        btnDel.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                fromType.setText("");
+                return true;
+            }
+        });
+
+        //textFieldInputConnection = new BaseInputConnection(fromType, true);
+
         for(DefaultButton b : mDefaultButtons) {
             b.setBackgroundColor(currentTheme.getPrimaryColor());
         }
@@ -131,6 +164,30 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
 
     @Override
     public void handleKeypad(View view) {
-        Log.i(LOG_TAG, ((DefaultButton) view).getText().toString());
+        switch (view.getId()) {
+            case R.id.btn0:
+            case R.id.btn1:
+            case R.id.btn2:
+            case R.id.btn3:
+            case R.id.btn4:
+            case R.id.btn5:
+            case R.id.btn6:
+            case R.id.btn7:
+            case R.id.btn8:
+            case R.id.btn9:
+                fromType.append(((DefaultButton) view).getText().toString());
+                break;
+            case R.id.btnDel:
+                //fromType.requestFocus();
+                //KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
+                //fromType.dispatchKeyEvent(event);
+                //textFieldInputConnection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
+                Log.i(LOG_TAG, "Del Pressed");
+                fromType.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
+                break;
+            default:
+                break;
+
+        }
     }
 }

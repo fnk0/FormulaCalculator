@@ -94,7 +94,7 @@ public class LogFragment extends Fragment {
 
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
 
-        view.setBackgroundColor(currentTheme.getDisplayColor());
+        view.setBackgroundColor(currentTheme.getSecondaryColor());
 
         logsList = (CardListView) view.findViewById(R.id.logList);
         mCardsList = new ArrayList<>();

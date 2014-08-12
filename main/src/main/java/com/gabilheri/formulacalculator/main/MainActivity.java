@@ -307,10 +307,11 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
      */
     public void displayView(int position, Bundle fragBundle) {
         // update the main content by replacing fragments
+        Theme currentTheme = Utils.getCurrentTheme(this);
         activeFragment = null;
         switch (position) {
             case CALCULATOR_FRAG:
-                Theme currentTheme = mHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
+
                 getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
                 tintManager.setTintColor(currentTheme.getDisplayColor());
                 activeFragment = new CalculatorFragment();
@@ -321,12 +322,18 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 keypadFragment = (CalculatorFragment) activeFragment;
                 break;
             case FORMULAS_FRAG:
+                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
+                tintManager.setTintColor(currentTheme.getDisplayColor());
                 activeFragment = new CardsFormulasFragment();
                 break;
             case LOG_FRAG:
                 activeFragment = new LogFragment();
+                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getSecondaryColor()));
+                tintManager.setTintColor(currentTheme.getSecondaryColor());
                 break;
             case UNIT_CONVERTER_FRAG:
+                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
+                tintManager.setTintColor(currentTheme.getDisplayColor());
                 activeFragment = new UnitConverterFragment();
                 keypadFragment = (UnitConverterFragment) activeFragment;
                 break;
@@ -334,6 +341,8 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 activeFragment = new SettingsFragment();
                 break;
             case THEMES_FRAG:
+                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getPrimaryColor()));
+                tintManager.setTintColor(currentTheme.getPrimaryColor());
                 activeFragment = new ThemesFragment();
                 break;
             case GOOGLE_PLUS:

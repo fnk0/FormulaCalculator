@@ -91,6 +91,7 @@ public class DefaultButton extends Button implements View.OnClickListener {
             this.setTextColor(textColor);
             this.setBackground(new CustomStateList(context, backgroundColor, highlightColor, selectedColor));
         }
+
     }
 
     /**
