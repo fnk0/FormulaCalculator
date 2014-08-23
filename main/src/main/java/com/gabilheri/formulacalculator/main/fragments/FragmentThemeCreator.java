@@ -86,7 +86,8 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                     if(editMode == BACKGROUND_EDIT) {
                         if(editView == DISPLAY_EDIT) {
                             getDisplay().setBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
-                            mActivity.updateActionBar(mBundle.getInt(ColorPickDialog.COLOR));
+                            mActivity.updateActionBar(mBundle.getInt(ColorPickDialog.COLOR), newTheme.getDisplayTextColor());
+                            mActivity.setActionBarColor();
                             buttonGroup = DISPLAY_EDIT;
                         } else {
                             for(DefaultButton mButton : getArrayForType(buttonGroup)) {

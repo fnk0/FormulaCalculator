@@ -56,4 +56,25 @@
         android:layout_height="0dip"
         android:layout_weight="6"
         tools:context="com.gabilheri.formulacalculator.main.fragments.CalculatorFragment" />
+
+    <LinearLayout
+        android:weightSum="10"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dip">
+
+        <View
+            android:layout_weight="8"
+            android:background="@color/def_button"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:background="@color/button_2"
+            android:layout_weight="2"
+            android:layout_width="0dip"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
 </LinearLayout>

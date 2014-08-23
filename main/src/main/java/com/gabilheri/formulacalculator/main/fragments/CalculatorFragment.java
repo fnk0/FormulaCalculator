@@ -90,6 +90,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         ActionBar mActionBar = getActivity().getActionBar();

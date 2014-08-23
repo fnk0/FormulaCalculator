@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
@@ -121,7 +122,8 @@ public class MainActivity extends FragmentActivity
 
     private DatabaseHelper mHelper;
     private SystemBarTintManager tintManager;
-    private int mActionBarColor;
+    private int mActionBarColor, mActionBarTextColor, titleID;
+    private TextView mActionBarTitle;
 
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
@@ -183,7 +185,9 @@ public class MainActivity extends FragmentActivity
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
         getActionBar().setHomeButtonEnabled(true);
-
+        titleID = getResources().getIdentifier("action_bar_title", "id", "android");
+        mActionBarTitle = (TextView) findViewById(titleID);
+        mActionBarTitle.setTextColor(currentTheme.getDisplayTextColor());
 
         tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
@@ -324,7 +328,7 @@ public class MainActivity extends FragmentActivity
         activeFragment = null;
         switch (position) {
             case CALCULATOR_FRAG:
-                updateActionBar(currentTheme.getDisplayColor());
+                updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new CalculatorFragment();
 
                 if(fragBundle != null) {
@@ -333,32 +337,32 @@ public class MainActivity extends FragmentActivity
                 keypadFragment = (CalculatorFragment) activeFragment;
                 break;
             case FORMULAS_FRAG:
-                updateActionBar(currentTheme.getDisplayColor());
+                updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new CardsFormulasFragment();
                 break;
             case LOG_FRAG:
                 activeFragment = new LogFragment();
-                updateActionBar(currentTheme.getSecondaryColor());
+                updateActionBar(currentTheme.getSecondaryColor(), currentTheme.getSecondaryButtonTextColor());
                 break;
             case UNIT_CONVERTER_FRAG:
-                updateActionBar(currentTheme.getDisplayColor());
+                updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new UnitConverterFragment();
                 keypadFragment = (UnitConverterFragment) activeFragment;
                 break;
             case SETTINGS_FRAG:
-                updateActionBar(currentTheme.getSecondaryColor());
+                updateActionBar(currentTheme.getSecondaryColor(), currentTheme.getSecondaryButtonTextColor());
                 activeFragment = new SettingsFragment();
                 break;
             case THEMES_FRAG:
-                updateActionBar(currentTheme.getPrimaryColor());
+                updateActionBar(currentTheme.getPrimaryColor(), currentTheme.getPrimaryButtonTextColor());
                 activeFragment = new ThemesFragment();
                 break;
             case GOOGLE_PLUS:
                 if(mGoogleServices.isConnected()) {
-                    signOutFromGplus();
+                    //signOutFromGplus();
                     //navDrawerItems.get(7).setTitle("Sign In");
                 } else {
-                    signInWithGPlus();
+                    //signInWithGPlus();
                     //navDrawerItems.get(7).setTitle("Sign Out");
                 }
                 break;
@@ -366,7 +370,7 @@ public class MainActivity extends FragmentActivity
                 activeFragment = new TestFragment();
                 break;
             case THEME_CREATOR:
-                updateActionBar(currentTheme.getDisplayColor());
+                updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new FragmentThemeCreator();
                 keypadFragment = (FragmentThemeCreator) activeFragment;
                 break;
@@ -648,11 +652,13 @@ public class MainActivity extends FragmentActivity
      * @param color
      *          Color to change to
      */
-    public void updateActionBar(int color) {
+    public void updateActionBar(int color, int textColor) {
+        mActionBarTextColor = textColor;
         mActionBarColor = color;
     }
 
     public void setActionBarColor() {
+        mActionBarTitle.setTextColor(mActionBarTextColor);
         getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
         tintManager.setTintColor(mActionBarColor);
     }

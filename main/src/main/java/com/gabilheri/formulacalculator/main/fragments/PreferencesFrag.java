@@ -38,7 +38,7 @@ public class PreferencesFrag extends PreferenceFragment implements Preference.On
         if (preference.getKey().equals(getActivity().getResources().getString(R.string.par_key))) {
             // Display the fragment as the main content.
             // If the user has clicked on a preference screen, set up the action bar
-            getFragmentManager().beginTransaction().replace(R.id.fragHolder, new ParenthesisPrefs())
+            getFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out).replace(R.id.fragHolder, new ParenthesisPrefs())
                     .addToBackStack(null).commit();
             return true;
         }
