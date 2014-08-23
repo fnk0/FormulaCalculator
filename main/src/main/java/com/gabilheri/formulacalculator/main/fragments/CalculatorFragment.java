@@ -1,12 +1,16 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.preference.PreferenceManager;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
@@ -77,6 +81,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
 
         return inflater.inflate(R.layout.fragment_calculator, container, false);
@@ -99,7 +104,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         angleType = EvaluateExpression.DEGREE;
         rootView = view;
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
         resultLayoutKey = (LinearLayout) view.findViewById(R.id.resultLayoutKey);
         resultLayoutKey.setBackgroundColor(currentTheme.getDisplayColor());
@@ -157,7 +162,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         private Fragment mFragment;
 
@@ -392,6 +397,21 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
                         textInputBox1 += getResources().getString(R.string.ans);
                     }
                     break;
+                case R.id.keypadTax:
+                    textInputBox1 += getString(R.string.tax_input) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.cubeRoot:
+                    textInputBox1 += getString(R.string.cube_root) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnArcSin:
+                    textInputBox1 += getString(R.string.input_arcsin) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnArcCos:
+                    textInputBox1 += getString(R.string.input_arccos) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
+                case R.id.btnArcTan:
+                    textInputBox1 += getString(R.string.input_arctan) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    break;
             }
         }
 
@@ -493,14 +513,23 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      * Helper function to instantiate the array of colors for the parenthesis.
      */
     public void instantiateColors() {
-        String[] referenceColors = {"#2ecc71", "#e74c3c", "#9b59b6", "#f1c40f", "#ecf0f1", "#e67e22"};
-        colors = new String[100];
+
+        String[] keys = Utils.getParenthesisKeys(getActivity());
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String[] referenceColors = new String[8];
+
+        for(int i = 0; i < keys.length; i++) {
+            String s = preferences.getString(keys[i], "#FF000000");
+            referenceColors[i] = s.substring(0, 1) + s.substring(3, s.length());
+        }
+
+        colors = new String[112];
         int counter = 0;
         for (int i = 0; i < colors.length; i++) {
             colors[i] = referenceColors[counter];
-            //Log.i("COLORS", "" + referenceColors[counter]);
             counter++;
-            if (counter == 6) {
+            if (counter == 8) {
                 counter = 0;
             }
         }

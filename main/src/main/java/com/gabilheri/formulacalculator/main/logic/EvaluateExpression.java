@@ -1,9 +1,9 @@
 package com.gabilheri.formulacalculator.main.logic;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.gabilheri.formulacalculator.main.R;
@@ -82,13 +82,18 @@ public class EvaluateExpression {
             return null;
         }
 
+        CustomFunction arcSinFunc = null;
+        CustomFunction arcCosFunc = null;
+        CustomFunction arcTanFunc = null;
         CustomFunction cosdFunc = null;
         CustomFunction tandFunc = null;
         CustomFunction sindFunc = null;
         CustomFunction funX = null;
+        CustomFunction taxFunc = null;
         CustomFunction log10 = null;
         CustomFunction ln = null;
         CustomFunction sqrt = null;
+        CustomFunction cbrt = null;
         CustomFunction fact = null;
         CustomFunction release = null;
         CustomOperator percent = null;
@@ -152,11 +157,58 @@ public class EvaluateExpression {
                 }
             };
 
+            cbrt = new CustomFunction("cbrt") {
+                @Override
+                public double applyFunction(double... doubles) {
+                    return Math.cbrt(doubles[0]);
+                }
+            };
+
+            arcSinFunc = new CustomFunction("arcSin") {
+                @Override
+                public double applyFunction(double... doubles) {
+                    if(angleType == DEGREE) {
+                        return Double.parseDouble(df.format(MathUtils.arcSinDegrees(doubles[0])));
+                    } else {
+                        return Double.parseDouble(df.format(Math.asin(doubles[0])));
+                    }
+                }
+            };
+
+            arcCosFunc = new CustomFunction("arcCos") {
+                @Override
+                public double applyFunction(double... doubles) {
+                    if(angleType == DEGREE) {
+                        return Double.parseDouble(df.format(MathUtils.arcCosDegrees(doubles[0])));
+                    } else {
+                        return Double.parseDouble(df.format(Math.acos(doubles[0])));
+                    }
+                }
+            };
+
+            arcTanFunc = new CustomFunction("arcTan") {
+                @Override
+                public double applyFunction(double... doubles) {
+                    if(angleType == DEGREE) {
+                        return Double.parseDouble(df.format(MathUtils.arcTanDegrees(doubles[0])));
+                    } else {
+                        return Double.parseDouble(df.format(Math.atan(doubles[0])));
+                    }
+                }
+            };
+
             release = new CustomFunction("var") {
                 @Override
                 public double applyFunction(double... doubles) {
                     SharedPreferences storedVar = fragment.getActivity().getSharedPreferences("storeVar", Context.MODE_PRIVATE);
                     return Double.parseDouble(storedVar.getString("var" + (int) doubles[0], "0"));
+                }
+            };
+
+            taxFunc = new CustomFunction("tax") {
+                @Override
+                public double applyFunction(double... doubles) {
+                    return doubles[0] * Utils.getTaxVaue(fragment.getActivity());
                 }
             };
 
@@ -181,6 +233,7 @@ public class EvaluateExpression {
         expression = Utils.stripHTML(expression);
         expression = expression.replaceAll(fragment.getActivity().getString(R.string.divide), "/");
         expression = expression.replaceAll(fragment.getActivity().getString(R.string.multiply), "*");
+        expression = expression.replaceAll(fragment.getActivity().getString(R.string.cube_root), "cbrt");
         expression = expression.replaceAll(fragment.getActivity().getString(R.string.sqrt), "sqrt");
         if(!checkFactorial(expression)) {
             return "Factorial error! Should be whole number!";
@@ -227,9 +280,10 @@ public class EvaluateExpression {
         }
         Log.i("EXPRESSION: ", expression);
 
-        if(previousResult == null) {
+        if(previousResult == null || previousResult.equals(fragment.getString(R.string.input_error))) {
             previousResult = "0.0";
         }
+
         try {
             Calculable calc = new ExpressionBuilder(expression)
                     .withOperation(percent)
@@ -239,8 +293,13 @@ public class EvaluateExpression {
                     .withCustomFunction(log10)
                     .withCustomFunction(ln)
                     .withCustomFunction(sqrt)
+                    .withCustomFunction(cbrt)
+                    .withCustomFunction(arcSinFunc)
+                    .withCustomFunction(arcCosFunc)
+                    .withCustomFunction(arcTanFunc)
                     .withCustomFunction(fact)
                     .withCustomFunction(release)
+                    .withCustomFunction(taxFunc)
                     .withVariable(fragment.getString(R.string.pi), varPi)
                     .withVariable(fragment.getString(R.string.var_e), varE)
                     .withVariable(fragment.getString(R.string.ans), Double.parseDouble(previousResult))

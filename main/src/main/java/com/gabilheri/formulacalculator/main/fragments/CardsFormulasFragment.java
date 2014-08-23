@@ -1,8 +1,9 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.cards.CircleCard;
 import com.gabilheri.formulacalculator.main.cards.CustomCard;
+import com.gabilheri.formulacalculator.main.cards.FormulaCard;
 import com.gabilheri.formulacalculator.main.cards.SquareCard;
 import com.gabilheri.formulacalculator.main.formulas.Formula;
 import com.gabilheri.formulacalculator.main.utils.Utils;
@@ -39,16 +41,17 @@ public class CardsFormulasFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toAddStuff = (LinearLayout) inflater.inflate(R.layout.fragment_formulas, null);
         Utils.setInsets(getActivity(), toAddStuff);
         mCardList = (CardListView) toAddStuff.findViewById(R.id.testList);
         mCards = new ArrayList<>();
 
         for(int i = 0; i < 5; i++) {
-            CustomCard mCard = new CircleCard(getActivity());
-            CustomCard sCard = new SquareCard(getActivity());
-            mCards.add(sCard);
+            FormulaCard mCard = new FormulaCard(getActivity());
+            mCard.setFormulaTitle("Example Card");
+            mCard.setFormulaText("This is where the formula goes.");
+            mCard.setFormulaDrawable(R.drawable.ic_circle);
             mCards.add(mCard);
         }
 

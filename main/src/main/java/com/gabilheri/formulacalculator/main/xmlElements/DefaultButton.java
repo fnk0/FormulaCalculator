@@ -27,10 +27,10 @@ import com.gabilheri.formulacalculator.main.R;
  */
 public class DefaultButton extends Button implements View.OnClickListener {
 
+    public static final String RADIUS = "radius";
     private int textColor, backgroundColor, highlightColor, selectedColor;
     private Context mContext;
     private MainActivity mActivity;
-    private Animation zoom;
 
     private float mDownX;
     private float mDownY;
@@ -78,9 +78,7 @@ public class DefaultButton extends Button implements View.OnClickListener {
         backgroundColor = context.getResources().getColor(R.color.def_button);
         highlightColor = context.getResources().getColor(R.color.def_button_pressed);
         selectedColor = context.getResources().getColor(R.color.light_orange);
-
         this.mContext = context;
-        zoom = AnimationUtils.loadAnimation(mContext, R.anim.zoom);
         /**
          * This is necessary so the Layout editor can render this button in real time.
          */
@@ -171,7 +169,6 @@ public class DefaultButton extends Button implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //startAnimation(zoom);
         mActivity.handleKeypad(this);
     }
 
@@ -181,10 +178,10 @@ public class DefaultButton extends Button implements View.OnClickListener {
             mDownX = event.getX();
             mDownY = event.getY();
 
-            ObjectAnimator animator = ObjectAnimator.ofFloat(this, "radius", 0,
+            ObjectAnimator animator = ObjectAnimator.ofFloat(this, RADIUS, 0,
                     getWidth() * 3.0f);
             animator.setInterpolator(new AccelerateInterpolator());
-            animator.setDuration(400);
+            animator.setDuration(500);
             animator.start();
         }
         return super.onTouchEvent(event);
@@ -194,7 +191,7 @@ public class DefaultButton extends Button implements View.OnClickListener {
         mRadius = radius;
         if (mRadius > 0) {
             RadialGradient radialGradient = new RadialGradient(mDownX, mDownY,
-                    mRadius * 3, Color.TRANSPARENT, Color.BLACK,
+                    mRadius * 3, highlightColor, highlightColor,
                     Shader.TileMode.MIRROR);
             mPaint.setShader(radialGradient);
         }
@@ -214,7 +211,7 @@ public class DefaultButton extends Button implements View.OnClickListener {
         canvas.clipPath(mPath2);
 
         mPath.reset();
-        mPath.addCircle(mDownX, mDownY, mRadius / 3, Path.Direction.CW);
+        mPath.addCircle(mDownX, mDownY, mRadius / 2, Path.Direction.CW);
 
         canvas.clipPath(mPath, Region.Op.DIFFERENCE);
 

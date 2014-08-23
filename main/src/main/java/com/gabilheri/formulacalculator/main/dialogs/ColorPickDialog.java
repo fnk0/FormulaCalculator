@@ -3,10 +3,11 @@ package com.gabilheri.formulacalculator.main.dialogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,8 @@ import com.larswerkman.holocolorpicker.ValueBar;
  * @version 1.0
  * @since 6/15/14
  */
-public class ColorPickDialog extends DialogFragment implements View.OnClickListener, ColorPicker.OnColorChangedListener {
+public class ColorPickDialog extends DialogFragment implements ColorPicker.OnColorChangedListener {
 
-    private Button getColorButton;
     private ColorPicker colorPicker;
     private SVBar svBar;
     private OpacityBar opacityBar;
@@ -54,16 +54,15 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.dialog_colorpicker, null);
         Bundle extras = getArguments();
-        selectedView = extras.getInt("view");
-        getColorButton = (Button) layout.findViewById(R.id.selColor);
+        selectedView = extras.getInt(VIEW);
         hexValue = (EditText) layout.findViewById(R.id.hexValue);
         colorPicker = (ColorPicker) layout.findViewById(R.id.colorPicker);
         svBar = (SVBar) layout.findViewById(R.id.svBar);
         opacityBar = (OpacityBar) layout.findViewById(R.id.opacityBar);
         valueBar = (ValueBar) layout.findViewById(R.id.valueBar);
         saturationBar = (SaturationBar) layout.findViewById(R.id.saturationBar);
-        colorPicker.setColor(extras.getInt("color"));
-        colorPicker.setOldCenterColor(extras.getInt("color"));
+        colorPicker.setColor(extras.getInt(COLOR));
+        colorPicker.setOldCenterColor(extras.getInt(COLOR));
         colorPicker.addSVBar(svBar);
         colorPicker.addOpacityBar(opacityBar);
         colorPicker.addValueBar(valueBar);
@@ -71,37 +70,11 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
         colorPicker.setOnColorChangedListener(this);
         toDisplay = "#" + Integer.toHexString(colorPicker.getColor());
         hexValue.setText(toDisplay.toUpperCase());
-        getColorButton.setOnClickListener(this);
-
-        /**
-        hexValue.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                colorPicker.setColor(new BigInteger(s.subSequence(1, s.length()).toString(), 16).intValue());
-            }
-        });
-         **/
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(layout);
-        return builder.create();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.selColor:
+        builder.setPositiveButton("Select Color", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 Log.i(LOG_TAG, "" + colorPicker.getColor());
                 colorPicker.setOldCenterColor(colorPicker.getColor());
                 Intent intent = new Intent();
@@ -111,8 +84,18 @@ public class ColorPickDialog extends DialogFragment implements View.OnClickListe
                 intent.putExtras(extras);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                 dismiss();
-                break;
-        }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dismiss();
+            }
+        });
+
+        builder.setView(layout);
+        return builder.create();
     }
 
     @Override

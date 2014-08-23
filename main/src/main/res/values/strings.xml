@@ -15,7 +15,7 @@
     <!-- Navigation Drawer Titles -->
     <array name="drawer_items">
         <item name="calculator">Calculator</item>
-        <item name="logs">Logs</item>
+        <item name="logs">Recents</item>
         <item name="formulas">Formulas</item>
         <item name="unit_converter">Unit Converter</item>
         <item name="themes">Themes</item>
@@ -131,6 +131,15 @@
     <string name="create_theme">Create New Theme</string>
     <string name="plus_minus">+/-</string>
     <string name="delete_string">R</string>
+    <string name="cube_root">\u00B3\u221A</string>
+    <string name="sine_inverse">sin\u207B\u00B9</string>
+    <string name="cos_inverse">cos\u207B\u00B9</string>
+    <string name="tan_inverse">tan\u207B\u00B9</string>
+    <string name="tax_input">tax</string>
+
+    <string name="input_arcsin">arcSin</string>
+    <string name="input_arccos">arcCos</string>
+    <string name="input_arctan">arcTan</string>
 
     <string-array name="unit_types">
         <item name="mass">Mass</item>
@@ -141,5 +150,55 @@
         <item name="area">Area</item>
         <item name="data">Data</item>
     </string-array>
+
+    <!-- Parenthesis Preferences -->
+    <string name="par1">par1</string>
+    <string name="par2">par2</string>
+    <string name="par3">par3</string>
+    <string name="par4">par4</string>
+    <string name="par5">par5</string>
+    <string name="par6">par6</string>
+    <string name="par7">par7</string>
+    <string name="par8">par8</string>
+
+    <string name="namePar1">Parenthesis 1</string>
+    <string name="namePar2">Parenthesis 2</string>
+    <string name="namePar3">Parenthesis 3</string>
+    <string name="namePar4">Parenthesis 4</string>
+    <string name="namePar5">Parenthesis 5</string>
+    <string name="namePar6">Parenthesis 6</string>
+    <string name="namePar7">Parenthesis 7</string>
+    <string name="namePar8">Parenthesis 8</string>
+
+    <string name="par_key">parenthesisColors</string>
+
+    <!-- Tax Preference -->
+    <string name="tax_key">tax_key</string>
+    <string name="tax_description">Tax Percentage</string>
+    <string name="tax_def_value">8.81</string>
+
+    <!-- Calc Layout types -->
+    <string name="calc_layout_key">calcLayout</string>
+    <string name="keypad_cellphone">Keypad: 1, 2, 3&#8430;</string>
+    <string name="keypad_standard">Standard: 7, 8, 9&#8430;</string>
+    <string name="keypad_cellphone_value">cellphone</string>
+    <string name="keypad_standard_value">standard</string>
+
+    <string-array name="layout_types">
+        <item>@string/keypad_cellphone</item>
+        <item>@string/keypad_standard</item>
+    </string-array>
+
+    <string-array name="layout_types_values">
+        <item>@string/keypad_cellphone_value</item>
+        <item>@string/keypad_standard_value</item>
+    </string-array>
+
+    <!-- Preference Titles -->
+    <string name="ui_settings">UI Settings</string>
+    <string name="par_colors">Parenthesis Colors</string>
+    <string name="calc_layout">Calculator Layout</string>
+    <string name="sales_tax">Tax</string>
+
 
 </resources>

@@ -1,10 +1,10 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
@@ -50,7 +51,15 @@ public class KeypadFragment extends Fragment {
 
         Log.i(LOG_TAG, "Current Theme: " + currentTheme.getThemeName());
 
-        View rootView = inflater.inflate(R.layout.keypad_layout, container, false);
+        View rootView = null;
+
+        if(Utils.isKeypadStandard(getActivity())) {
+            rootView = inflater.inflate(R.layout.keypad_layout_standard, container, false);
+        } else {
+            rootView = inflater.inflate(R.layout.keypad_layout, container, false);
+        }
+
+
 
         btnDel = (DefaultButton) rootView.findViewById(R.id.keypadDel);
         mKeypadButtons.put(R.id.keypadDel, btnDel);

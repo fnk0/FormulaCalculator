@@ -236,6 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         resultLog.setCreatedAt(cursor.getString(cursor.getColumnIndex(KEY_CREATED_AT)));
 
         this.closeDB();
+        cursor.close();
         return resultLog;
     }
 
@@ -273,6 +274,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
 
         this.closeDB();
+        cursor.close();
         return selectedTheme;
     }
 
@@ -299,6 +301,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .setSecondaryHighlightColor(cursor.getInt(cursor.getColumnIndex(KEY_SECONDARY_HIGHLIGHT)))
                 .setThemeType(cursor.getInt(cursor.getColumnIndex(KEY_THEME_TYPE)));
         this.closeDB();
+        cursor.close();
         return selectedTheme;
     }
 
@@ -438,10 +441,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *      The ID for the theme to be deleted
      */
     public void deleteTheme(long themeId, String username) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
         Theme mTheme = getTheme(themeId, username);
-
+        SQLiteDatabase db = this.getWritableDatabase();
         if(mTheme.getThemeType() == Theme.THEME_SYSTEM) {
             return;
         }

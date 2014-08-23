@@ -8,6 +8,24 @@
         revision="19.1.0"
         sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
     <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/google-http-client-1.18.0-rc-79f31c7c326db4964afce8a80207822cb3dc69d2.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.18.0-rc/880ad30d2b249a7591c195c2392646f1b146c139/google-http-client-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="880ad30d2b249a7591c195c2392646f1b146c139"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/jsr305-1.3.9-991716ac688f0bb86880c3736f569b546c92ed43.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/google-oauth-client-1.18.0-rc-d0500c9b10d8dccf3d1ab46675b64ef33679b012.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.18.0-rc/30281a66559f60a491748974ac17cec3483b873/google-oauth-client-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="030281a66559f60a491748974ac17cec3483b873"/>
+    <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/systembartint-1.0.3-8a8fd55cacfe8ca3ab5b1f14d08ee745b15c4184.jar"
         jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
         jumboMode="false"
@@ -20,17 +38,47 @@
         revision="19.1.0"
         sha1="589fdaab008936a7b90e8332bbd49b4c010b8c0c"/>
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/support-v13-19.1.0-432d29bb26d6067815408d15c09d69cadf2dd68d.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v13/19.1.0/support-v13-19.1.0.jar"
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
+        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="6b852a232f642c75a7fdfc7212b841b8c8f8959c"/>
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
     <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/revmob-6.9.1-8f776dffcf7fece0cecb05d5889fc1d184c4611d.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/main/libs/revmob-6.9.1.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="15aa5a8609ea4667674977341ec9a3e231028e05"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/backend-endpoints-android-e19144dc75ecbabeb1c9bf1f3595e2a70ab71e22.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/backend/build/libs/backend-endpoints-android.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e9724316f96087b3e796aa419590fc6c18e8bf2f"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-839adaf1a8ee3b42c55c990ed758ce05f16ea44f.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e128103d5281ddd26195a7f980b36d0d005a4e56"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/google-api-client-android-1.18.0-rc-c1987a6c4a827870f76c2543daa50510035b148a.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.18.0-rc/5a61d590275464895d783fb1612418964e20162e/google-api-client-android-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5a61d590275464895d783fb1612418964e20162e"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-cbf2a382d58d2da4505742bcb82266fca2db406e.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-997075cad0f3441dd0bec8b550fda8b3b3453955.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/library-2.6.0-54de829a917f55f40b90e0daee969a1be9489660.jar"
         jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.nhaarman.listviewanimations/library/2.6.0/59351ccb0a1631d30358f6a92749a072f2df7602/library-2.6.0.jar"
@@ -56,11 +104,17 @@
         revision="19.1.0"
         sha1="a4596e7120d868856e75d96a74acf7f633775060"/>
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/support-v4-19.1.0-fe930dc68beb1e566675ce71b270d4091c6c249b.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-2767fccb514acc73663dca523f7cf3fb0e9cd533.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+        sha1="27bbd3982cdfe4468a9bf99c8c773734a9049e33"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/google-http-client-android-1.18.0-rc-be51c08ff656425f5e8ef6570dbe63275ac18ca4.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-android/1.18.0-rc/cc519375a59b88327d65b79172798e7e6417bc78/google-http-client-android-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="cc519375a59b88327d65b79172798e7e6417bc78"/>
     <item
         dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-7e1b592fe5ea088ced1830b6cadb874a080c82bc.jar"
         jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.larswerkman/HoloColorPicker/1.4/classes.jar"
@@ -74,10 +128,22 @@
         revision="19.1.0"
         sha1="3c090acb7f134979389677c39684b0e8849a07ab"/>
     <item
-        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-bcd3a1e6ae74385854bf0cf674a9fdd5c7c30ac5.jar"
-        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-fdd41c3220a9dd67803112344e18a866e9114fad.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/google-api-client-1.18.0-rc-d8279c8c67867d8b3bd7c7840294997b55142413.jar"
+        jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.18.0-rc/45b0d00b78197d8a3047751443c09538117d188b/google-api-client-1.18.0-rc.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="45b0d00b78197d8a3047751443c09538117d188b"/>
+    <item
+        dex="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-131a9a3992244dbd1b87dcbd78de7d3daf8229d4.jar"
+        jar="/Users/marcus/Android Projects/FormulaCalculator/main/build/intermediates/exploded-aar/com.github.machinarius/preferencefragment/0.1.1/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="648463e00c6883d01b6c11a6781776203334b6fc"/>
 
 </pre-dex-items>

@@ -1,8 +1,9 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -75,7 +76,7 @@ public class ThemesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         view.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getPrimaryColor());
 
         LinearLayout themesFrag = (LinearLayout) view.findViewById(R.id.themesFrag);
@@ -95,7 +96,7 @@ public class ThemesFragment extends Fragment {
                 mCard.setThemeName(mTheme.getThemeName());
                 mCard.setPrimaryColor(mTheme.getPrimaryColor());
                 mCard.setSecondaryColor(mTheme.getSecondaryColor());
-                mCard.setSelectedColor(mTheme.getSelectedColor());
+                mCard.setSelectedColor(mTheme.getDisplayTextColor());
                 mCard.setDisplayColor(mTheme.getDisplayColor());
                 mCard.setThemeID(mTheme.getId());
                 mCard.setUsername(mTheme.getUsername());

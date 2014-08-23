@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jdo-api-3.1-rc1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.jdo/jdo-api/3.1-rc1/da4b868e9c5eb00819dfff8a58bba86bd0702280/jdo-api-3.1-rc1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.jdo/jdo-api/3.1-rc1/9f7e92ae9efda63fc4d2f521aaff6193af0b3340/jdo-api-3.1-rc1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

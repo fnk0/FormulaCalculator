@@ -2,6 +2,10 @@ package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +23,7 @@ import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.SaveDialog;
 import com.gabilheri.formulacalculator.main.dialogs.ThemePartDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
@@ -53,6 +58,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     private KeypadFragment mKeypad;
     private KeypadFunctionsFragment mFunctionsKeypad;
     private ArrayList<DefaultButton> primaryKeypadButtons, secondaryKeypadButtons, primaryFunctionButtons, secondaryFunctionButtons;
+    private MainActivity mActivity;
 
     /**
      *
@@ -61,7 +67,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         super();
         newTheme = new Theme();
         mKeypad = getKeypadFragment();
-
         mFunctionsKeypad = getKeypadFunctionsFragment();
         primaryKeypadButtons = mKeypad.getPrimaryButtonsArray();
         secondaryKeypadButtons = mKeypad.getSecondButtonsArray();
@@ -81,6 +86,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                     if(editMode == BACKGROUND_EDIT) {
                         if(editView == DISPLAY_EDIT) {
                             getDisplay().setBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
+                            mActivity.updateActionBar(mBundle.getInt(ColorPickDialog.COLOR));
                             buttonGroup = DISPLAY_EDIT;
                         } else {
                             for(DefaultButton mButton : getArrayForType(buttonGroup)) {
@@ -147,6 +153,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         extras.putInt(COLOR, buttonColor);
         buttonGroup = getButtonType(viewID);
         pickerDialog.setArguments(extras);
+
         pickerDialog.show(getFragmentManager(), "pickerDialog");
     }
 
@@ -282,7 +289,11 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
         if(view.getId() == R.id.resultLayoutKey) {
             Log.i(LOG_TAG, "Display Edit!!");
             editView = DISPLAY_EDIT;
-            showPickerDialog(view.getId(), getDisplay().getDrawingCacheBackgroundColor());
+            int color = Color.TRANSPARENT;
+            Drawable background = view.getBackground();
+            if (background instanceof ColorDrawable)
+                color = ((ColorDrawable) background).getColor();
+            showPickerDialog(view.getId(), color);
         } else {
             editView = 0;
             if(editMode == BACKGROUND_EDIT) {
@@ -304,13 +315,14 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getDisplay().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleKeypad(getDisplay());
             }
         });
-
+        mActivity = (MainActivity) getActivity();
         newTheme = getCurrentTheme();
     }
 

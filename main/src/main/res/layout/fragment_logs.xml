@@ -10,10 +10,12 @@
     >
 
     <it.gmariotti.cardslib.library.view.CardListView
-        android:paddingTop="@dimen/activity_vertical_margin"
         android:id="@+id/logList"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fadingEdge="none"
         card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"
         style="@style/list_card.thumbnail"
     />

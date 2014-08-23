@@ -1,11 +1,11 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +28,8 @@ import java.util.HashMap;
  */
 public class KeypadFunctionsFragment extends Fragment {
 
-    private DefaultButton btnSqrt, btnLog,  btnLn, btnSin, btnCos, btnTan, btnE, btnPi, btnInf, btnArcSin, btnArcCos, btnArcTan, btnFactorial;
-    private DefaultButton degreeRad, btnDel, btnStr, btnRel, btnPercent, btnPower;
-    private DefaultButton empty1, empty2, empty3, empty4, empty5, empty6, empty7, empty8, empty9, empty10, empty11, empty12, empty13;
+    private DefaultButton btnSqrt, btnLog,  btnLn, btnSin, btnCos, btnTan, btnE, btnPi, btnTax, btnArcSin, btnArcCos, btnArcTan, btnFactorial;
+    private DefaultButton degreeRad, btnDel, btnStr, btnRel, btnPercent, btnPower, cubeRoot;
     private HashMap<Integer, DefaultButton> mKeypadFunctionButtons;
     private ArrayList<DefaultButton> mButtonsArray;
     private ArrayList<DefaultButton> mSecondaryButtonsArray;
@@ -70,7 +69,7 @@ public class KeypadFunctionsFragment extends Fragment {
 
         btnFactorial = (DefaultButton) rootView.findViewById(R.id.btnFact);
         mKeypadFunctionButtons.put(R.id.btnFact, btnFactorial);
-        mSecondaryButtonsArray.add(btnFactorial);
+        mButtonsArray.add(btnFactorial);
 
         btnSqrt = (DefaultButton) rootView.findViewById(R.id.keypadSqrt);
         mKeypadFunctionButtons.put(R.id.keypadSqrt, btnSqrt);
@@ -104,9 +103,9 @@ public class KeypadFunctionsFragment extends Fragment {
         mKeypadFunctionButtons.put(R.id.varPi, btnPi);
         mSecondaryButtonsArray.add(btnPi);
 
-        btnInf = (DefaultButton) rootView.findViewById(R.id.keypadInfinity);
-        mKeypadFunctionButtons.put(R.id.keypadInfinity, btnInf);
-        mSecondaryButtonsArray.add(btnInf);
+        btnTax = (DefaultButton) rootView.findViewById(R.id.keypadTax);
+        mKeypadFunctionButtons.put(R.id.keypadTax, btnTax);
+        mSecondaryButtonsArray.add(btnTax);
 
         degreeRad = (DefaultButton) rootView.findViewById(R.id.degreeRad);
         mKeypadFunctionButtons.put(R.id.degreeRad, degreeRad);
@@ -127,6 +126,22 @@ public class KeypadFunctionsFragment extends Fragment {
         btnRel = (DefaultButton) rootView.findViewById(R.id.keypadRelease);
         mKeypadFunctionButtons.put(R.id.keypadRelease, btnRel);
         mButtonsArray.add(btnRel);
+
+        cubeRoot = (DefaultButton) rootView.findViewById(R.id.cubeRoot);
+        mKeypadFunctionButtons.put(R.id.cubeRoot, cubeRoot);
+        mButtonsArray.add(cubeRoot);
+
+        btnArcSin = (DefaultButton) rootView.findViewById(R.id.btnArcSin);
+        mKeypadFunctionButtons.put(R.id.cubeRoot, cubeRoot);
+        mButtonsArray.add(btnArcSin);
+
+        btnArcCos = (DefaultButton) rootView.findViewById(R.id.btnArcCos);
+        mKeypadFunctionButtons.put(R.id.cubeRoot, cubeRoot);
+        mButtonsArray.add(btnArcCos);
+
+        btnArcTan = (DefaultButton) rootView.findViewById(R.id.btnArcTan);
+        mKeypadFunctionButtons.put(R.id.cubeRoot, cubeRoot);
+        mButtonsArray.add(btnArcTan);
 
         /*
         btnFrac = (DefaultButton) rootView.findViewById(R.id.fraction);

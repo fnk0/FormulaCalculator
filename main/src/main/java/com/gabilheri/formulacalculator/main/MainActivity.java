@@ -1,6 +1,8 @@
 package com.gabilheri.formulacalculator.main;
 
 import android.annotation.TargetApi;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -10,8 +12,9 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -57,7 +60,8 @@ import java.util.HashMap;
  * @since May 2014.
  */
 
-public class MainActivity extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends FragmentActivity
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     /**
      * DEBUG VARIABLE IN CONTROL OF DEBUG FOR THE ENTIRE APP
@@ -117,6 +121,7 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
 
     private DatabaseHelper mHelper;
     private SystemBarTintManager tintManager;
+    private int mActionBarColor;
 
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
@@ -146,10 +151,10 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             defaultTheme.setPrimaryHighlightColor(getResources().getColor(R.color.def_button_pressed));
             defaultTheme.setPrimaryButtonTextColor(getResources().getColor(R.color.def_button_text));
             defaultTheme.setSecondaryColor(getResources().getColor(R.color.button_2));
-            defaultTheme.setSecondaryHighlightColor(getResources().getColor(R.color.def_button_pressed));
-            defaultTheme.setSecondaryButtonTextColor(getResources().getColor(R.color.def_button_text));
+            defaultTheme.setSecondaryHighlightColor(getResources().getColor(R.color.button_2_pressed));
+            defaultTheme.setSecondaryButtonTextColor(getResources().getColor(R.color.button2_text));
             defaultTheme.setDisplayColor(getResources().getColor(R.color.display_color));
-            defaultTheme.setDisplayTextColor(getResources().getColor(R.color.def_button_text));
+            defaultTheme.setDisplayTextColor(getResources().getColor(R.color.display_text));
             defaultTheme.setSelectedColor(getResources().getColor(R.color.light_orange));
             mHelper.createTheme(defaultTheme);
 
@@ -157,14 +162,14 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
             secondaryTheme.setUsername(null);
             secondaryTheme.setThemeName(Theme.SECONDARY_THEME);
             secondaryTheme.setThemeType(Theme.THEME_SYSTEM);
-            secondaryTheme.setPrimaryColor(getResources().getColor(R.color.green));
-            secondaryTheme.setPrimaryHighlightColor(getResources().getColor(R.color.green_highlight));
-            secondaryTheme.setPrimaryButtonTextColor(getResources().getColor(R.color.def_button_text));
-            secondaryTheme.setSecondaryColor(getResources().getColor(R.color.button_2));
-            secondaryTheme.setSecondaryHighlightColor(getResources().getColor(R.color.green_highlight));
-            secondaryTheme.setSecondaryButtonTextColor(getResources().getColor(R.color.def_button_text));
+            secondaryTheme.setPrimaryColor(getResources().getColor(R.color.def_button2));
+            secondaryTheme.setPrimaryHighlightColor(getResources().getColor(R.color.def_button_pressed2));
+            secondaryTheme.setPrimaryButtonTextColor(getResources().getColor(R.color.def_button_text2));
+            secondaryTheme.setSecondaryColor(getResources().getColor(R.color.button2_2));
+            secondaryTheme.setSecondaryHighlightColor(getResources().getColor(R.color.button2_2_pressed));
+            secondaryTheme.setSecondaryButtonTextColor(getResources().getColor(R.color.button2_text2));
             secondaryTheme.setDisplayColor(getResources().getColor(R.color.display_color2));
-            secondaryTheme.setDisplayTextColor(getResources().getColor(R.color.def_button_text));
+            secondaryTheme.setDisplayTextColor(getResources().getColor(R.color.display_text2));
             secondaryTheme.setSelectedColor(getResources().getColor(R.color.def_button));
             mHelper.createTheme(secondaryTheme);
 
@@ -296,10 +301,17 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     private class DrawerListener implements ListView.OnItemClickListener {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            displayView(position, null);
+        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            mDrawerLayout.closeDrawer(mDrawerList);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    displayView(position, null);
+                }
+            }, 300);
         }
     }
+
 
     /**
      * Displaying fragment view for selected nav drawer list item
@@ -308,12 +320,11 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
     public void displayView(int position, Bundle fragBundle) {
         // update the main content by replacing fragments
         Theme currentTheme = Utils.getCurrentTheme(this);
+
         activeFragment = null;
         switch (position) {
             case CALCULATOR_FRAG:
-
-                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
-                tintManager.setTintColor(currentTheme.getDisplayColor());
+                updateActionBar(currentTheme.getDisplayColor());
                 activeFragment = new CalculatorFragment();
 
                 if(fragBundle != null) {
@@ -322,27 +333,24 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 keypadFragment = (CalculatorFragment) activeFragment;
                 break;
             case FORMULAS_FRAG:
-                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
-                tintManager.setTintColor(currentTheme.getDisplayColor());
+                updateActionBar(currentTheme.getDisplayColor());
                 activeFragment = new CardsFormulasFragment();
                 break;
             case LOG_FRAG:
                 activeFragment = new LogFragment();
-                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getSecondaryColor()));
-                tintManager.setTintColor(currentTheme.getSecondaryColor());
+                updateActionBar(currentTheme.getSecondaryColor());
                 break;
             case UNIT_CONVERTER_FRAG:
-                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
-                tintManager.setTintColor(currentTheme.getDisplayColor());
+                updateActionBar(currentTheme.getDisplayColor());
                 activeFragment = new UnitConverterFragment();
                 keypadFragment = (UnitConverterFragment) activeFragment;
                 break;
             case SETTINGS_FRAG:
+                updateActionBar(currentTheme.getSecondaryColor());
                 activeFragment = new SettingsFragment();
                 break;
             case THEMES_FRAG:
-                getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getPrimaryColor()));
-                tintManager.setTintColor(currentTheme.getPrimaryColor());
+                updateActionBar(currentTheme.getPrimaryColor());
                 activeFragment = new ThemesFragment();
                 break;
             case GOOGLE_PLUS:
@@ -358,18 +366,28 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 activeFragment = new TestFragment();
                 break;
             case THEME_CREATOR:
+                updateActionBar(currentTheme.getDisplayColor());
                 activeFragment = new FragmentThemeCreator();
                 keypadFragment = (FragmentThemeCreator) activeFragment;
                 break;
             default:
                 break;
         }
-
         if(position != GOOGLE_PLUS) {
             if (activeFragment != null) {
-                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+                FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container, activeFragment).commit();
+                        .setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out)
+                        .replace(R.id.frame_container, activeFragment)
+                        .commit();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setActionBarColor();
+                    }
+                }, 200);
 
                 // update selected item and title, then close the drawer
                 mDrawerList.setItemChecked(position, true);
@@ -392,8 +410,6 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
                 navDrawerItems.get(7).setTitle("Sign Out");
             }
         }
-        mDrawerLayout.closeDrawer(mDrawerList);
-
     }
 
     @Override
@@ -625,5 +641,23 @@ public class MainActivity extends FragmentActivity implements GoogleApiClient.Co
         }
 
         return userProfile;
+    }
+
+    /**
+     * Handy method to update the Action Bar and the status bar
+     * @param color
+     *          Color to change to
+     */
+    public void updateActionBar(int color) {
+        mActionBarColor = color;
+    }
+
+    public void setActionBarColor() {
+        getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
+        tintManager.setTintColor(mActionBarColor);
+    }
+
+    public ActionBarDrawerToggle getDrawerToggle() {
+        return mDrawerToggle;
     }
 }

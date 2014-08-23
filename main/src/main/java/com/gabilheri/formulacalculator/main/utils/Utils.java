@@ -1,11 +1,18 @@
 package com.gabilheri.formulacalculator.main.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
@@ -23,6 +30,51 @@ import java.math.BigInteger;
 public class Utils {
 
     public static final String LOG_TAG = "UtilsLog";
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static String[] getParenthesisKeys(Context context) {
+        Resources res = context.getResources();
+        String[] keys = {
+                res.getString(R.string.par1),
+                res.getString(R.string.par2),
+                res.getString(R.string.par3),
+                res.getString(R.string.par4),
+                res.getString(R.string.par5),
+                res.getString(R.string.par6),
+                res.getString(R.string.par7),
+                res.getString(R.string.par8),
+        };
+
+        return keys;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isKeypadStandard(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(context.getString(R.string.calc_layout_key),
+                context.getString(R.string.keypad_standard_value))
+                .equals(context.getString(R.string.keypad_standard_value));
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static double getTaxVaue(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String taxValue = prefs.getString(context.getString(R.string.tax_key), context.getString(R.string.tax_def_value));
+
+        return 1 + (Double.parseDouble(taxValue.replaceAll("%", "")) / 100);
+    }
 
     /**
      * Simple method with a regular expression to strip the HTML of a String
@@ -131,6 +183,19 @@ public class Utils {
         }
     }
 
+    /*
+    public static Dialog setDialogColors(Dialog dialog, Context context) {
+        Button okButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        // set OK button color here
+        okButton.setBackgroundColor(context.getResources().getColor(R.color.color_picker_dialog));
+
+        Button noButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        // set NO button color here
+        noButton.setBackgroundColor(context.getResources().getColor(R.color.color_picker_dialog));
+
+        return dialog;
+    }
+    */
 
     public static void setInsets(Activity context, View view) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;

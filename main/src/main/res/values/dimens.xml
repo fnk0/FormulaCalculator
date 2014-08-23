@@ -5,4 +5,24 @@
     <dimen name="button_padding">2dip</dimen>
     <dimen name="button_text_size">7sp</dimen>
     <dimen name="delete_button_text_size">10sp</dimen>
+
+    <dimen name="circle_par">25dip</dimen>
+
+    <!-- Card -->
+    <dimen name="card_base_empty_height">96dp</dimen>
+    <dimen name="card_background_default_radius">2dip</dimen>
+
+    <!-- Card Shadow -->
+    <dimen name="card_shadow_height">5dp</dimen>
+    <dimen name="card_shadow_view_margin_top">0dp</dimen>
+    <dimen name="card_shadow_view_margin_left">@dimen/card_background_default_radius</dimen>
+    <dimen name="card_shadow_view_margin_bottom">0dp</dimen>
+    <dimen name="card_shadow_view_margin_right">@dimen/card_background_default_radius</dimen>
+
+    <!-- List -->
+    <dimen name="list_card_padding_left">8dp</dimen>
+    <dimen name="list_card_padding_right">8dp</dimen>
+    <dimen name="list_card_padding_bottom">6dp</dimen>
+    <dimen name="list_card_padding_top">2dp</dimen>
+
 </resources>

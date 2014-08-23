@@ -1,9 +1,10 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -51,7 +52,6 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
 
         View rootView = inflater.inflate(R.layout.fragment_unit_converter, container, false);
 
-
         return rootView;
     }
 
@@ -64,10 +64,10 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         LinearLayout settingsFrag = (LinearLayout) view.findViewById(R.id.unitConverter);
         Utils.setInsets(getActivity(), settingsFrag);
-
-
 
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
         view.setBackgroundColor(currentTheme.getDisplayColor());

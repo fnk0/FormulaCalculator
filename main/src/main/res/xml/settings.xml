@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory
+        android:title="@string/ui_settings"
+    />
+
+        <PreferenceScreen
+            android:icon="@drawable/ic_parenthesis"
+            android:title="@string/par_colors"
+            android:key="@string/par_key"
+            android:fragment="com.gabilheri.formulacalculator.main.fragments.ParenthesisPrefs"
+        />
+
+        <ListPreference
+            android:icon="@drawable/ic_launcher"
+            android:title="@string/calc_layout"
+            android:key="@string/calc_layout_key"
+            android:defaultValue="@string/keypad_standard"
+            android:entries="@array/layout_types"
+            android:entryValues="@array/layout_types_values"
+    />
+    <PreferenceCategory
+        android:title="Calculator Settings"
+    />
+        <EditTextPreference
+            android:title="@string/tax_description"
+            android:key="@string/tax_key"
+            android:defaultValue="@string/tax_def_value"
+            android:inputType="numberDecimal"
+            android:icon="@drawable/ic_money"
+            android:summary="%s%"
+            android:singleLine="true" />
+    <!--
+    <EditTextPreference
+        android:title="@string/pref_location_label"
+        android:key="@string/pref_location_key"
+        android:defaultValue="@string/pref_location_default"
+        android:inputType="text"
+        android:singleLine="true" />
+
+    <ListPreference
+        android:title="@string/pref_units_label"
+        android:key="@string/pref_units_key"
+        android:defaultValue="@string/pref_units_metric"
+        android:entryValues="@array/pref_units_values"
+        android:entries="@array/pref_units_options" />
+
+    <CheckBoxPreference
+        android:title="@string/pref_enable_notifications_label"
+        android:key="@string/pref_enable_notifications_key"
+        android:summaryOff="@string/pref_enable_notifications_false"
+        android:summaryOn="@string/pref_enable_notifications_true"
+        android:defaultValue="@string/pref_enable_notifications_default" />
+    -->
+
+</PreferenceScreen>

@@ -13,23 +13,30 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
-            android:name="com.gabilheri.formulacalculator.main.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            >
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data android:name="com.revmob.app.id" android:value="537d798281d7eed52d9822b7" />
+
+            <meta-data
+                android:name="com.revmob.app.id"
+                android:value="537d798281d7eed52d9822b7" />
         </activity>
+
         <application>
-            <activity android:name="com.revmob.ads.fullscreen.FullscreenActivity"
-                android:theme="@android:style/Theme.Translucent"
-                android:configChanges="keyboardHidden|orientation">
+            <activity
+                android:name="com.revmob.ads.fullscreen.FullscreenActivity"
+                android:configChanges="keyboardHidden|orientation"
+                android:theme="@android:style/Theme.Translucent" >
             </activity>
         </application>
     </application>

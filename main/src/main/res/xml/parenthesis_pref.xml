@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Parenthesis Colors"
+    >
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar1"
+        android:key="@string/par1"
+        android:summary="Color: %s"
+        android:defaultValue="#FF673ab7"
+        />
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar2"
+        android:key="@string/par2"
+        android:summary="Color: %s"
+        android:defaultValue="#FF84ffff"
+        />
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar3"
+        android:key="@string/par3"
+        android:summary="Color: %s"
+        android:defaultValue="#FF259b24"
+        />
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar4"
+        android:key="@string/par4"
+        android:summary="Color: %s"
+        android:defaultValue="#FFffd54f"
+        />
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar5"
+        android:key="@string/par5"
+        android:summary="Color: %s"
+        android:defaultValue="#FF607d8b"
+        />
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar6"
+        android:key="@string/par6"
+        android:summary="Color: %s"
+        android:defaultValue="#FFff5722"
+        />
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar7"
+        android:key="@string/par7"
+        android:summary="Color: %s"
+        android:defaultValue="#FF0091ea"
+        />
+
+    <com.gabilheri.formulacalculator.main.preference.ColorPreference
+        android:title="@string/namePar8"
+        android:key="@string/par8"
+        android:summary="Color: %s"
+        android:defaultValue="#FF00695c"
+        />
+
+</PreferenceScreen>

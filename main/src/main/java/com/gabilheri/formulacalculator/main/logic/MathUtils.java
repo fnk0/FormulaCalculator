@@ -41,4 +41,31 @@ public class MathUtils  {
     public static double tanDegrees(double v) {
         return Math.tan(Math.toRadians(v));
     }
+
+    /**
+     *
+     * @param v
+     * @return
+     */
+    public static double arcSinDegrees(double v) {
+        return Math.toDegrees(Math.asin(v));
+    }
+
+    /**
+     *
+     * @param v
+     * @return
+     */
+    public static double arcCosDegrees(double v) {
+        return Math.toDegrees(Math.acos(v));
+    }
+
+    /**
+     *
+     * @param v
+     * @return
+     */
+    public static double arcTanDegrees(double v) {
+        return Math.toDegrees(Math.atan(v));
+    }
 }

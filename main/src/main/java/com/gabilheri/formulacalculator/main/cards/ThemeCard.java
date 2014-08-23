@@ -11,6 +11,7 @@ import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 import it.gmariotti.cardslib.library.internal.Card;
 
@@ -81,7 +82,12 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
         dbHelper.deleteTheme(themeID, username);
         SharedPreferences mPref = mContext.getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mPref.edit();
-        editor.putString(MainActivity.CURRENT_THEME, Theme.DEFAULT_THEME);
+        if(Utils.getCurrentTheme(mContext).getThemeName().equals(themeName)) {
+            editor.putString(MainActivity.CURRENT_THEME, Theme.DEFAULT_THEME);
+        } else {
+            editor.putString(MainActivity.CURRENT_THEME, Utils.getCurrentTheme(mContext).getThemeName());
+        }
+
         editor.apply();
     }
 
