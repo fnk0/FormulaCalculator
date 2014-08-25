@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="48dip">
+
+    <ImageView
+        android:id="@+id/unitIcon"
+        android:layout_marginTop="4dip"
+        android:paddingBottom="4dip"
+        android:paddingRight="8dip"
+        android:paddingLeft="8dip"
+        android:src="@drawable/ic_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="unit converter thumbnail image"
+    />
+
+    <TextView
+        android:id="@+id/unitName"
+        android:textColor="@color/button_2"
+        android:text="@string/placeholder"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="UnitConverter">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/main/libs/UnitConverter.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

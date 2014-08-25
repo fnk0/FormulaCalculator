@@ -3,10 +3,10 @@ package com.gabilheri.formulacalculator.main.fragments;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.pm.ActivityInfo;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +16,27 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.gabilheri.formulacalculator.main.R;
-import com.gabilheri.formulacalculator.main.adapters.SpinnerAdapter;
+import com.gabilheri.formulacalculator.main.adapters.UnitSpinnerAdapter;
+import com.gabilheri.formulacalculator.main.adapters.UnitTypeSpinnerAdapter;
 import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
+import com.gabilheri.formulacalculator.main.logic.unit.Unit;
+import com.gabilheri.formulacalculator.main.logic.unit.UnitSpinnerItem;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
+
+import conversionUnits.ArrayConstants;
+import conversionUnits.ConversionUnit;
+import conversionUnits.UnitConstants;
 
 /**
  * @author Marcus Gabilheri
  * @version 1.0
  * @since 5/29/14
  */
-public class UnitConverterFragment extends Fragment implements FragmentWithKeypad {
+public class UnitConverterFragment extends Fragment implements FragmentWithKeypad, View.OnClickListener {
 
     private static final String LOG_TAG = "UnitConverter";
 
@@ -41,10 +48,15 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
     private ActionBar mActionBar;
     private Spinner typeSpinner, fromSpinner, toSpinner;
     private EditText fromType, toType;
-
+    private int unitGroup, fromUnit, toUnit;
+    private ConversionUnit conversionUnit;
     private BaseInputConnection textFieldInputConnection;
 
-    public UnitConverterFragment() {}
+
+    private UnitSpinnerAdapter massAdapter, speedAdapter, lengthAdapter, temperatureAdapter, volumeAdapter, areaAdapter, dataAdapter;
+
+    public UnitConverterFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,10 +68,8 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
     }
 
     /**
-     * @param view
-     *         The View returned by {@link #onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}.
-     * @param savedInstanceState
-     *         If non-null, this fragment is being re-constructed
+     * @param view               The View returned by {@link #onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -88,7 +98,20 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         fromSpinner = (Spinner) view.findViewById(R.id.from_unit);
         toSpinner = (Spinner) view.findViewById(R.id.to_unit);
 
-        SpinnerAdapter typeSpinnerAdapter = new SpinnerAdapter(getActivity(), getResources().getStringArray(R.array.unit_types));
+        String[] unitNames = getResources().getStringArray(R.array.unit_types);
+        TypedArray unitIcons = getResources().obtainTypedArray(R.array.unit_convert_icons);
+        int[] unitTypes = ArrayConstants.UNIT_TYPES;
+        ArrayList<UnitSpinnerItem> spinnerItems = new ArrayList<>();
+
+
+        for (int i = 0; i < unitNames.length; i++) {
+            Log.i(LOG_TAG, unitNames[i]);
+            spinnerItems.add(new UnitSpinnerItem(unitNames[i], unitIcons.getResourceId(i, -1), unitTypes[i]));
+        }
+
+
+
+        UnitTypeSpinnerAdapter typeSpinnerAdapter = new UnitTypeSpinnerAdapter(getActivity(), spinnerItems);
         typeSpinner.setAdapter(typeSpinnerAdapter);
 
         btn0 = (DefaultButton) view.findViewById(R.id.btn0);
@@ -147,13 +170,15 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
 
         //textFieldInputConnection = new BaseInputConnection(fromType, true);
 
-        for(DefaultButton b : mDefaultButtons) {
+        for (DefaultButton b : mDefaultButtons) {
             b.setBackgroundColor(currentTheme.getPrimaryColor());
         }
 
-        for(DefaultButton b : mSecondaryButtons) {
+        for (DefaultButton b : mSecondaryButtons) {
             b.setBackgroundColor(currentTheme.getSecondaryColor());
         }
+
+        initAdapters();
 
     }
 
@@ -178,16 +203,45 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
                 fromType.append(((DefaultButton) view).getText().toString());
                 break;
             case R.id.btnDel:
-                //fromType.requestFocus();
-                //KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
-                //fromType.dispatchKeyEvent(event);
-                //textFieldInputConnection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
-                Log.i(LOG_TAG, "Del Pressed");
-                fromType.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
+                fromType.setText(fromType.getText().toString().substring(0, fromType.getText().toString().length() - 1));
                 break;
             default:
                 break;
 
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.unit_type:
+                setUnitType(((UnitSpinnerItem)typeSpinner.getSelectedItem()).getUnitType());
+                break;
+        }
+    }
+
+
+    private void setUnitType(int unitType) {
+
+        switch (unitType) {
+
+        }
+    }
+
+    private void initAdapters() {
+
+        int[] massUnits = ArrayConstants.MASS_UNITS;
+        String[] massUnitNames = getResources().getStringArray(R.array.mass_units);
+        ArrayList<Unit> massUnitsList = new ArrayList<>();
+
+        for(int i = 0; i < massUnitNames.length; i++) {
+            massUnitsList.add(new Unit(massUnitNames[i], massUnits[i], UnitConstants.MASS));
+        }
+
+        massAdapter = new UnitSpinnerAdapter(getActivity(), massUnitsList);
+
+        fromSpinner.setAdapter(massAdapter);
+        toSpinner.setAdapter(massAdapter);
+    }
+
 }

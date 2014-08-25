@@ -38,6 +38,38 @@
         <!-- <item name="icon_debug">@drawable/ic_debug</item> -->
     </array>
 
+    <!-- Unit converter Stuff -->
+
+    <string-array name="unit_types">
+        <item name="mass">Mass</item>
+        <item name="speed">Speed</item>
+        <item name="length">Length</item>
+        <item name="temperature">Temperature</item>
+        <item name="volume">Volume</item>
+        <item name="area">Area</item>
+        <item name="data">Data</item>
+    </string-array>
+
+    <array name="unit_convert_icons">
+        <item name="icon_mass">@drawable/ic_mass</item>
+        <item name="icon_speed">@drawable/ic_speed</item>
+        <item name="icon_length">@drawable/ic_length</item>
+        <item name="icon_temp">@drawable/ic_temperature</item>
+        <item name="icon_volume">@drawable/ic_volume</item>
+        <item name="icon_volume">@drawable/ic_length</item>
+        <item name="icon_data">@drawable/ic_data</item>
+    </array>
+
+    <array name="mass_units">
+        <item>oz - Ounces (US)</item>
+        <item>lb - Pounds (US)</item>
+        <item>S/T - Short Tons (US)</item>
+        <item>L/T Long Ton (UK)</item>
+        <item>mg - Milligrams</item>
+        <item>g - Grams</item>
+        <item>Kg - Kilograms</item>
+    </array>
+
 
     <!-- Math Formulas -->
 
@@ -141,16 +173,6 @@
     <string name="input_arccos">arcCos</string>
     <string name="input_arctan">arcTan</string>
 
-    <string-array name="unit_types">
-        <item name="mass">Mass</item>
-        <item name="speed">Speed</item>
-        <item name="length">Length</item>
-        <item name="temperature">Temperature</item>
-        <item name="volume">Volume</item>
-        <item name="area">Area</item>
-        <item name="data">Data</item>
-    </string-array>
-
     <!-- Parenthesis Preferences -->
     <string name="par1">par1</string>
     <string name="par2">par2</string>
@@ -199,6 +221,9 @@
     <string name="par_colors">Parenthesis Colors</string>
     <string name="calc_layout">Calculator Layout</string>
     <string name="sales_tax">Tax</string>
+    <string name="placeholder">Some Text here</string>
+
+
 
 
 </resources>
