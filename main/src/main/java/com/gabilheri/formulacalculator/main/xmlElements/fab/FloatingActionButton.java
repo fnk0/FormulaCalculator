@@ -61,6 +61,7 @@ public class FloatingActionButton extends Button {
         mTextPaint.setTextAlign(Paint.Align.CENTER);
         mTextPaint.setTextSize(100);
         mTextPaint.setColor(Utils.getCurrentTheme(context).getDisplayTextColor());
+
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.FloatingActionButton);
         mColor = a.getColor(R.styleable.FloatingActionButton_color, Color.WHITE);
         mButtonPaint.setStyle(Paint.Style.FILL);
