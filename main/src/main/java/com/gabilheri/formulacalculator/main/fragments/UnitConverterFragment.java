@@ -34,6 +34,7 @@ import conversionUnits.ConversionUnit;
 import conversionUnits.UnitConstants;
 import conversionUnits.mass.Mass;
 import conversionUnits.speed.Speed;
+import conversionUnits.temperature.Temperature;
 
 /**
  * @author Marcus Gabilheri
@@ -294,6 +295,20 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         speedAdapter = new UnitSpinnerAdapter(getActivity(), speedUnitsList);
         adapterMap.put(UnitConstants.SPEED, speedAdapter);
 
+        /**
+         * Temperature Adapter
+         */
+        int[] temperatureUnits = ArrayConstants.TEMPERATURE_UNITS;
+        String[] temperatureUnitNames = getResources().getStringArray(R.array.temperature_units);
+        ArrayList<Unit> temperatureUnitsList = new ArrayList<>();
+
+        for(int i = 0; i < temperatureUnits.length; i++) {
+            temperatureUnitsList.add(new Unit(temperatureUnitNames[i], temperatureUnits[i], UnitConstants.TEMPERATURE));
+        }
+
+        temperatureAdapter = new UnitSpinnerAdapter(getActivity(), temperatureUnitsList);
+        adapterMap.put(UnitConstants.TEMPERATURE, temperatureAdapter);
+
         fromSpinner.setAdapter(massAdapter);
         toSpinner.setAdapter(massAdapter);
         setGroupType(UnitConstants.MASS);
@@ -305,6 +320,8 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
                 return new Mass(unitType, value).getConversionUnit();
             case UnitConstants.SPEED:
                 return new Speed(unitType, value).getConversionUnit();
+            case UnitConstants.TEMPERATURE:
+                return new Temperature(unitType, value).getConversionUnit();
             default:
                 return null;
         }

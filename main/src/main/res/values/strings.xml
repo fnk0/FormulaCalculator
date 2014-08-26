@@ -81,6 +81,13 @@
         <item>kn - Knots</item>
     </array>
 
+    <array name="temperature_units">
+        <item>\u00B0F - Fahrenheit</item>
+        <item>\u00B0C - Celsius</item>
+        <item>K - Kelvin</item>
+        <item>\u00B0R - Rankine </item>
+    </array>
+
 
     <!-- Math Formulas -->
 
