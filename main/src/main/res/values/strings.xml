@@ -70,6 +70,17 @@
         <item>Kg - Kilograms</item>
     </array>
 
+    <array name="speed_units">
+        <item>ft/s - Foots per Second</item>
+        <item>ft/min - Foots per Minute</item>
+        <item>mp/min - Miles per Minute</item>
+        <item>mph - Miles per Hour</item>
+        <item>m/s - Meters per Second</item>
+        <item>km/min - Kilometers per Minute</item>
+        <item>km/h - Kilometers per Hour</item>
+        <item>kn - Knots</item>
+    </array>
+
 
     <!-- Math Formulas -->
 
@@ -222,8 +233,10 @@
     <string name="calc_layout">Calculator Layout</string>
     <string name="sales_tax">Tax</string>
     <string name="placeholder">Some Text here</string>
-
-
+    <string name="fromHint">From...</string>
+    <string name="toHint">To...</string>
+    <string name="placeholder_result_input">2 + 5 / 10</string>
+    <string name="placeholder_result">2.2</string>
 
 
 </resources>

@@ -1,7 +1,6 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
 import android.app.ActionBar;
-
 import android.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.cards.LogCard;
@@ -90,7 +89,7 @@ public class LogFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        LinearLayout logFrag = (LinearLayout) view.findViewById(R.id.logFragment);
+        FrameLayout logFrag = (FrameLayout) view.findViewById(R.id.logFragment);
         Utils.setInsets(getActivity(), logFrag);
 
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
@@ -105,9 +104,10 @@ public class LogFragment extends Fragment {
 
         for(ResultLog r : resultLogs) {
             LogCard mCard = new LogCard(getActivity());
+            mCard.setCardLog(r);
             mCard.setId("" + r.getId());
-            mCard.setmInput(r.getInput());
-            mCard.setmResult(r.getResult());
+            mCard.setInput(r.getInput());
+            mCard.setResult(r.getResult());
             mCard.setLogID(r.getId());
             mCardsList.add(mCard);
         }

@@ -11,9 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.BaseInputConnection;
-import android.widget.EditText;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.adapters.UnitSpinnerAdapter;
@@ -26,17 +27,20 @@ import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import conversionUnits.ArrayConstants;
 import conversionUnits.ConversionUnit;
 import conversionUnits.UnitConstants;
+import conversionUnits.mass.Mass;
+import conversionUnits.speed.Speed;
 
 /**
  * @author Marcus Gabilheri
  * @version 1.0
  * @since 5/29/14
  */
-public class UnitConverterFragment extends Fragment implements FragmentWithKeypad, View.OnClickListener {
+public class UnitConverterFragment extends Fragment implements FragmentWithKeypad {
 
     private static final String LOG_TAG = "UnitConverter";
 
@@ -47,10 +51,12 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
     private ArrayList<DefaultButton> mSecondaryButtons;
     private ActionBar mActionBar;
     private Spinner typeSpinner, fromSpinner, toSpinner;
-    private EditText fromType, toType;
-    private int unitGroup, fromUnit, toUnit;
+    private TextView fromType, toType;
+    private int groupType, fromUnit, toUnit;
     private ConversionUnit conversionUnit;
     private BaseInputConnection textFieldInputConnection;
+    private HashMap<Integer, UnitSpinnerAdapter> adapterMap;
+    private boolean isNegative = false;
 
 
     private UnitSpinnerAdapter massAdapter, speedAdapter, lengthAdapter, temperatureAdapter, volumeAdapter, areaAdapter, dataAdapter;
@@ -67,10 +73,6 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         return rootView;
     }
 
-    /**
-     * @param view               The View returned by {@link #onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -88,8 +90,12 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         mDefaultButtons = new ArrayList<>();
         mSecondaryButtons = new ArrayList<>();
 
-        fromType = (EditText) view.findViewById(R.id.from_unit_input);
-        toType = (EditText) view.findViewById(R.id.to_unit_input);
+        fromType = (TextView) view.findViewById(R.id.from_unit_input);
+        fromType.setTextColor(currentTheme.getDisplayTextColor());
+        fromType.setHintTextColor(currentTheme.getDisplayTextColor());
+        toType = (TextView) view.findViewById(R.id.to_unit_input);
+        toType.setHintTextColor(currentTheme.getDisplayTextColor());
+        toType.setTextColor(currentTheme.getDisplayTextColor());
 
         //fromType.setInputType(InputType.TYPE_NULL);
         //toType.setInputType(InputType.TYPE_NULL);
@@ -109,10 +115,20 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
             spinnerItems.add(new UnitSpinnerItem(unitNames[i], unitIcons.getResourceId(i, -1), unitTypes[i]));
         }
 
-
-
         UnitTypeSpinnerAdapter typeSpinnerAdapter = new UnitTypeSpinnerAdapter(getActivity(), spinnerItems);
         typeSpinner.setAdapter(typeSpinnerAdapter);
+
+        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setGroupType(((UnitSpinnerItem) typeSpinner.getSelectedItem()).getUnitType());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btn0 = (DefaultButton) view.findViewById(R.id.btn0);
         mDefaultButtons.add(btn0);
@@ -145,37 +161,42 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         mDefaultButtons.add(btn9);
 
         btnDot = (DefaultButton) view.findViewById(R.id.btnDot);
-        mSecondaryButtons.add(btnDot);
+        mDefaultButtons.add(btnDot);
 
         btnPlusMinus = (DefaultButton) view.findViewById(R.id.btnpLusMinus);
-        mSecondaryButtons.add(btnPlusMinus);
+        mDefaultButtons.add(btnPlusMinus);
 
         btnConvert = (DefaultButton) view.findViewById(R.id.btnConvert);
         mSecondaryButtons.add(btnConvert);
+        btnConvert.setTextSize(32);
 
         btnDel = (DefaultButton) view.findViewById(R.id.btnDel);
         mSecondaryButtons.add(btnDel);
 
         Typeface mFont = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(), "icons.ttf");
         btnDel.setTypeface(mFont);
-        btnDel.setTextSize(35);
+        btnDel.setTextSize(60);
 
         btnDel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 fromType.setText("");
+                toType.setText("");
                 return true;
             }
         });
 
         //textFieldInputConnection = new BaseInputConnection(fromType, true);
-
         for (DefaultButton b : mDefaultButtons) {
-            b.setBackgroundColor(currentTheme.getPrimaryColor());
+            b.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());
+            b.setCustomBackgroundColor(currentTheme.getPrimaryColor());
+            b.setCustomHighlightColor(currentTheme.getPrimaryHighlightColor());
         }
 
         for (DefaultButton b : mSecondaryButtons) {
-            b.setBackgroundColor(currentTheme.getSecondaryColor());
+            b.setCustomTextColor(currentTheme.getSecondaryButtonTextColor());
+            b.setCustomBackgroundColor(currentTheme.getSecondaryColor());
+            b.setCustomHighlightColor(currentTheme.getSecondaryHighlightColor());
         }
 
         initAdapters();
@@ -200,36 +221,57 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
             case R.id.btn7:
             case R.id.btn8:
             case R.id.btn9:
+            case R.id.btnDot:
                 fromType.append(((DefaultButton) view).getText().toString());
                 break;
             case R.id.btnDel:
-                fromType.setText(fromType.getText().toString().substring(0, fromType.getText().toString().length() - 1));
+                if(fromType.getText().length() > 0) {
+                    fromType.setText(fromType.getText().toString().substring(0, fromType.getText().toString().length() - 1));
+                }
+                break;
+            case R.id.btnpLusMinus:
+                if(isNegative) {
+                    fromType.setText(fromType.getText().toString().substring(1, fromType.getText().toString().length()));
+                } else {
+                    if(fromType.getText().toString().length() > 0) {
+                        fromType.setText("-" + fromType.getText().toString());
+                    } else {
+                        fromType.append("-");
+                    }
+                    isNegative = true;
+                }
+                break;
+            case R.id.btnConvert:
+                if(fromType.getText().toString().length() == 0) {
+                    return;
+                }
+                Unit fromUnit = (Unit) fromSpinner.getSelectedItem();
+                Unit toUnit = (Unit) toSpinner.getSelectedItem();
+                //Log.i(LOG_TAG, "Title: " + fromUnit.getName());
+                //Log.i(LOG_TAG, "Type: " + fromUnit.getType());
+                //Log.i(LOG_TAG, "To Unit Title: " + toUnit.getName());
+                //Log.i(LOG_TAG, "To Unit Type: " + toUnit.getType());
+                conversionUnit = instantiateConversionUnit(fromUnit.getType(), Double.parseDouble(fromType.getText().toString()));
+                double result = conversionUnit.convertTo(toUnit.getType());
+                Log.i(LOG_TAG, "Result: " + result);
+                toType.setText("" + result);
                 break;
             default:
                 break;
-
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.unit_type:
-                setUnitType(((UnitSpinnerItem)typeSpinner.getSelectedItem()).getUnitType());
-                break;
-        }
-    }
-
-
-    private void setUnitType(int unitType) {
-
-        switch (unitType) {
-
-        }
+    private void setGroupType(int groupType) {
+        fromSpinner.setAdapter(adapterMap.get(groupType));
+        toSpinner.setAdapter(adapterMap.get(groupType));
+        this.groupType = groupType;
     }
 
     private void initAdapters() {
-
+        adapterMap = new HashMap<>();
+        /**
+         * Mass Adapter
+         */
         int[] massUnits = ArrayConstants.MASS_UNITS;
         String[] massUnitNames = getResources().getStringArray(R.array.mass_units);
         ArrayList<Unit> massUnitsList = new ArrayList<>();
@@ -237,11 +279,34 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
         for(int i = 0; i < massUnitNames.length; i++) {
             massUnitsList.add(new Unit(massUnitNames[i], massUnits[i], UnitConstants.MASS));
         }
-
         massAdapter = new UnitSpinnerAdapter(getActivity(), massUnitsList);
+        adapterMap.put(UnitConstants.MASS, massAdapter);
+        /**
+         * Speed Adapter
+         */
+        int[] speedUnits = ArrayConstants.SPEED_UNITS;
+        String[] speedUnitNames = getResources().getStringArray(R.array.speed_units);
+        ArrayList<Unit> speedUnitsList = new ArrayList<>();
+
+        for(int i = 0; i < speedUnits.length; i++) {
+            speedUnitsList.add(new Unit(speedUnitNames[i], speedUnits[i], UnitConstants.SPEED));
+        }
+        speedAdapter = new UnitSpinnerAdapter(getActivity(), speedUnitsList);
+        adapterMap.put(UnitConstants.SPEED, speedAdapter);
 
         fromSpinner.setAdapter(massAdapter);
         toSpinner.setAdapter(massAdapter);
+        setGroupType(UnitConstants.MASS);
     }
 
+    private ConversionUnit instantiateConversionUnit(int unitType, double value) {
+        switch (groupType) {
+            case UnitConstants.MASS:
+                return new Mass(unitType, value).getConversionUnit();
+            case UnitConstants.SPEED:
+                return new Speed(unitType, value).getConversionUnit();
+            default:
+                return null;
+        }
+    }
 }

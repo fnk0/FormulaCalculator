@@ -66,7 +66,7 @@
         jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/backend/build/libs/backend-endpoints-android.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="aef4cf841a7d1757369c478a65151b3f258a05b9"/>
+        sha1="812481ae8bcb3229b3b0218e37c47c5c39b9f5cd"/>
     <item
         dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/revmob-6.9.1-86524a6d65af973ba0af6747d09c1fed3490180b.jar"
         jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/libs/revmob-6.9.1.jar"
@@ -138,7 +138,7 @@
         jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/libs/UnitConverter.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="1ec59e6c04fef55ce839325a65ea2d3d80017cbe"/>
+        sha1="de14b9826f327527da5365ba86a1e9d9df92063c"/>
     <item
         dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/google-api-client-1.18.0-rc-d8279c8c67867d8b3bd7c7840294997b55142413.jar"
         jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.18.0-rc/45b0d00b78197d8a3047751443c09538117d188b/google-api-client-1.18.0-rc.jar"

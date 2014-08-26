@@ -29,7 +29,7 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
     private int primaryColor, secondaryColor, selectedColor, displayColor;
     private Context mContext;
     private DatabaseHelper dbHelper;
-    private Theme currentTheme;
+    private Theme currentTheme, cardTheme;
     private SharedPreferences mPreferences;
 
     public ThemeCard(Context context) {
@@ -41,6 +41,7 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
         currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
         setOnClickListener(this);
         setOnSwipeListener(this);
+        setOnUndoSwipeListListener(this);
     }
 
     public ThemeCard(Context context, int innerLayout) {
@@ -79,6 +80,7 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
 
     @Override
     public void onSwipe(Card card) {
+        //Log.i("SWIPE", cardTheme.getThemeName());
         dbHelper.deleteTheme(themeID, username);
         SharedPreferences mPref = mContext.getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mPref.edit();
@@ -93,7 +95,9 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
 
     @Override
     public void onUndoSwipe(Card card) {
-
+        //Log.i("UNDO SWIPE!", cardTheme.getThemeName());
+        DatabaseHelper db = new DatabaseHelper(mContext.getApplicationContext());
+        db.createTheme(cardTheme);
     }
 
     public String getThemeName() {
@@ -158,5 +162,13 @@ public class ThemeCard extends Card implements Card.OnSwipeListener, Card.OnCard
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Theme getCardTheme() {
+        return cardTheme;
+    }
+
+    public void setCardTheme(Theme cardTheme) {
+        this.cardTheme = cardTheme;
     }
 }

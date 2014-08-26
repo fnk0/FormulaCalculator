@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -103,6 +102,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         LinearLayout mLayout = (LinearLayout) view.findViewById(R.id.calculatorFrag);
         Utils.setInsets(getActivity(), mLayout);
 
+        TextView blinkingText = (TextView) view.findViewById(R.id.blinkingText);
+        blinkingText.setBackgroundColor(currentTheme.getDisplayTextColor());
+        Utils.blink(blinkingText);
+
         angleType = EvaluateExpression.DEGREE;
         rootView = view;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
@@ -147,7 +150,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             textInputBox1 = String.valueOf(extraBundle.getDouble("logResult"));
             inputBoxKey.setText(textInputBox1);
         } else {
-            textInputBox1 = getString(R.string._0);
+            textInputBox1 = "";
 
         }
         instantiateColors();
@@ -263,10 +266,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         if (inputSize > 35) {
             inputBoxKey.setTextSize(15);
             Log.i("INPUT SIZE: ", "" + inputSize);
-        }
-
-        if (textInputBox1.equals(getString(R.string._0))) {
-            textInputBox1 = "";
         }
 
         for (int i = 0; i < textInputBox1.length(); i++) {
@@ -431,7 +430,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
         if (result == null) {
             Log.i(LOG_TAG, "Empty Input");
-            inputBoxKey.setText(getString(R.string._0));
+            inputBoxKey.setText("");
             resultBoxKey.setText("");
             return;
         }
@@ -474,7 +473,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
      * Clears the Display.
      */
     public void clearDisplay() {
-        textInputBox1 = getString(R.string._0);
+        textInputBox1 = "";
         resultBoxKey.setText("");
         inputBoxKey.setTextSize(35);
         clearResult = false;
@@ -495,7 +494,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         }
 
         if (textInputBox1.length() <= 1) {
-            textInputBox1 = getString(R.string._0);
+            textInputBox1 = "";
         } else {
             if (textInputBox1.charAt(textInputBox1.length() - 1) == '>') {
                 Log.i("INSIDE PAR", "I'M A PAR!");

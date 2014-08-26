@@ -25,6 +25,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_vertical"
         android:text="@string/create_theme"
+        android:fontFamily="sans-serif-light"
         android:layout_weight="7"
         android:layout_width="0dip"
         android:layout_height="match_parent" />

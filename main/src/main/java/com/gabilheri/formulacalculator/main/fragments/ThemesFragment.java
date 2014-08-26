@@ -10,14 +10,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
-import com.gabilheri.formulacalculator.main.cards.AddThemeCard;
 import com.gabilheri.formulacalculator.main.cards.ThemeCard;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.utils.Utils;
+import com.gabilheri.formulacalculator.main.xmlElements.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
  * @version 1.0
  *          since 6/29/14.
  */
-public class ThemesFragment extends Fragment {
+public class ThemesFragment extends Fragment implements View.OnClickListener {
 
     private List<Card> mCardList;
     private DatabaseHelper dbHelper;
@@ -76,22 +77,25 @@ public class ThemesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        view.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getPrimaryColor());
 
-        LinearLayout themesFrag = (LinearLayout) view.findViewById(R.id.themesFrag);
+        Theme currentTheme = Utils.getCurrentTheme(getActivity());
+
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        view.setBackgroundColor(currentTheme.getPrimaryColor());
+
+        FrameLayout themesFrag = (FrameLayout) view.findViewById(R.id.themesFrag);
         Utils.setInsets(getActivity(), themesFrag);
 
         mCardsListView = (CardListView) view.findViewById(R.id.themesList);
         mCardList = new ArrayList<>();
 
         themesList = dbHelper.getAllThemesForUser("user");
-
-        mCardList.add(new AddThemeCard(getActivity()));
+        //mCardList.add(new AddThemeCard(getActivity()));
 
         if(themesList != null) {
             for(Theme mTheme : themesList) {
                 ThemeCard mCard = new ThemeCard(getActivity());
+                mCard.setCardTheme(mTheme);
                 mCard.setId("" + mTheme.getId());
                 mCard.setThemeName(mTheme.getThemeName());
                 mCard.setPrimaryColor(mTheme.getPrimaryColor());
@@ -104,7 +108,12 @@ public class ThemesFragment extends Fragment {
             }
         }
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.addNewThemeFab);
+        fab.setColor(currentTheme.getDisplayColor());
+        fab.setOnClickListener(this);
+
         mCardAdapter = new CardArrayAdapter(getActivity(), mCardList);
+        mCardAdapter.setEnableUndo(true);
         mCardsListView.setAdapter(mCardAdapter);
 
     }
@@ -117,5 +126,11 @@ public class ThemesFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        MainActivity mActivity = (MainActivity) getActivity();
+        mActivity.displayView(MainActivity.THEME_CREATOR, null);
     }
 }

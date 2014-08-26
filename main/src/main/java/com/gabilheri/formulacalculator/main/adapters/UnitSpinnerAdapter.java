@@ -1,11 +1,13 @@
 package com.gabilheri.formulacalculator.main.adapters;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.logic.unit.Unit;
 import com.gabilheri.formulacalculator.main.utils.Utils;
@@ -50,8 +52,8 @@ public class UnitSpinnerAdapter extends ArrayAdapter<Unit> {
         text.setText(units.get(position).getName());
         text.setBackgroundColor(currentTheme.getDisplayColor());
         text.setTextColor(currentTheme.getDisplayTextColor());
-        text.setPadding(25, 20, 25, 20);
-
+        text.setHeight((int) context.getResources().getDimension(R.dimen.text_spinner_height));
+        text.setGravity(Gravity.CENTER_VERTICAL);
         return view;
     }
 }

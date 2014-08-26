@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
+import com.gabilheri.formulacalculator.main.database.ResultLog;
 
 import it.gmariotti.cardslib.library.internal.Card;
 
@@ -26,6 +27,7 @@ public class LogCard extends Card implements Card.OnSwipeListener, Card.OnCardCl
     private long logID;
     private DatabaseHelper dbHelper;
     private Context mContext;
+    private ResultLog cardLog;
     public static final String LOG_TAG = "LogCard";
 
 
@@ -36,26 +38,27 @@ public class LogCard extends Card implements Card.OnSwipeListener, Card.OnCardCl
         setSwipeable(true);
         setOnSwipeListener(this);
         setOnClickListener(this);
+        setOnUndoSwipeListListener(this);
     }
 
     public LogCard(Context context, int innerLayout) {
         super(context, innerLayout);
     }
 
-    public String getmInput() {
+    public String getInput() {
         return mInput;
     }
 
-    public LogCard setmInput(String mInput) {
+    public LogCard setInput(String mInput) {
         this.mInput = mInput;
         return this;
     }
 
-    public String getmResult() {
+    public String setResult() {
         return mResult;
     }
 
-    public LogCard setmResult(String mResult) {
+    public LogCard setResult(String mResult) {
         this.mResult = mResult;
         return this;
     }
@@ -96,6 +99,14 @@ public class LogCard extends Card implements Card.OnSwipeListener, Card.OnCardCl
 
     @Override
     public void onUndoSwipe(Card card) {
+        dbHelper.createResultLog(cardLog);
+    }
 
+    public ResultLog getCardLog() {
+        return cardLog;
+    }
+
+    public void setCardLog(ResultLog cardLog) {
+        this.cardLog = cardLog;
     }
 }
