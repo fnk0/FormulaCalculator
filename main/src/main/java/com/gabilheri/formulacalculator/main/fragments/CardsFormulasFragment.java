@@ -8,12 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gabilheri.formulacalculator.main.R;
-import com.gabilheri.formulacalculator.main.cards.CircleCard;
-import com.gabilheri.formulacalculator.main.cards.CustomCard;
 import com.gabilheri.formulacalculator.main.cards.FormulaCard;
-import com.gabilheri.formulacalculator.main.cards.SquareCard;
+import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.formulas.Formula;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 
@@ -65,7 +64,11 @@ public class CardsFormulasFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getDisplayColor());
+        Theme currentTheme = Utils.getCurrentTheme(getActivity());
+        view.setBackgroundColor(currentTheme.getDisplayColor());
+
+        TextView comingSoon = (TextView) view.findViewById(R.id.comingSoonText);
+        comingSoon.setTextColor(currentTheme.getDisplayTextColor());
 
         mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_formula);

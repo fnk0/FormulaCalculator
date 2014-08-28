@@ -6,8 +6,6 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.util.Log;
-import android.view.MenuItem;
 
 import com.gabilheri.formulacalculator.main.R;
 
@@ -38,7 +36,7 @@ public class PreferencesFrag extends PreferenceFragment implements Preference.On
         if (preference.getKey().equals(getActivity().getResources().getString(R.string.par_key))) {
             // Display the fragment as the main content.
             // If the user has clicked on a preference screen, set up the action bar
-            getFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out).replace(R.id.fragHolder, new ParenthesisPrefs())
+            getFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out, R.animator.alpha_in, R.animator.alpha_out ).replace(R.id.fragHolder, new ParenthesisPrefs())
                     .addToBackStack(null).commit();
             return true;
         }
