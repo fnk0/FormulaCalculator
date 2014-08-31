@@ -53,7 +53,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
     private static ExpandableListView listView;
     private static List<String> formulaTitles;
     private static HashMap<String, List<String>> formulas;
-    private static TextView inputBoxKey, resultBoxKey;
+    private static TextView inputBoxKey, resultBoxKey, blinkingText;
     private String textInputBox1, previousResult;
     private int angleType;
     private int parCounter = 0;
@@ -102,7 +102,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         LinearLayout mLayout = (LinearLayout) view.findViewById(R.id.calculatorFrag);
         Utils.setInsets(getActivity(), mLayout);
 
-        TextView blinkingText = (TextView) view.findViewById(R.id.blinkingText);
+        blinkingText = (TextView) view.findViewById(R.id.blinkingText);
         blinkingText.setBackgroundColor(currentTheme.getDisplayTextColor());
         Utils.blink(blinkingText);
 
@@ -618,4 +618,14 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         return currentTheme;
     }
 
+    /**
+     *
+     * Gets the view that is currently blinking while waiting for input
+     *
+     * @return
+     *      The TextView that represents the blinking view
+     */
+    public static TextView getBlinkingText() {
+        return blinkingText;
+    }
 }

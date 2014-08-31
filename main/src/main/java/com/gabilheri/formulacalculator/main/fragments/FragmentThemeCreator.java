@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +24,6 @@ import com.gabilheri.formulacalculator.main.dialogs.ColorPickDialog;
 import com.gabilheri.formulacalculator.main.dialogs.SaveDialog;
 import com.gabilheri.formulacalculator.main.dialogs.ThemePartDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
-import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
@@ -88,6 +88,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                             getDisplay().setBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
                             mActivity.updateActionBar(mBundle.getInt(ColorPickDialog.COLOR), newTheme.getDisplayTextColor());
                             mActivity.setActionBarColor();
+                            mActivity.setActionBarColor();
                             buttonGroup = DISPLAY_EDIT;
                         } else {
                             for(DefaultButton mButton : getArrayForType(buttonGroup)) {
@@ -100,9 +101,13 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                         }
                     } else if(editMode == TEXT_EDIT) {
                         if(editView == DISPLAY_EDIT) {
+                            Log.i(LOG_TAG, "Is this working? !");
                             buttonGroup = DISPLAY_EDIT;
+                            mActivity.updateActionBar(newTheme.getDisplayColor(), mBundle.getInt(ColorPickDialog.COLOR));
+                            mActivity.setActionBarColor();
                             getInputBoxKey().setTextColor(mBundle.getInt(ColorPickDialog.COLOR));
                             getResultBoxKey().setTextColor(mBundle.getInt(ColorPickDialog.COLOR));
+                            getBlinkingText().setBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
                         } else {
                             for(DefaultButton mButton : getArrayForType(buttonGroup)) {
                                 mButton.setCustomTextColor(mBundle.getInt(ColorPickDialog.COLOR));
@@ -288,12 +293,23 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
 
     private void getPickerDialog(View view) {
         if(view.getId() == R.id.resultLayoutKey) {
-            Log.i(LOG_TAG, "Display Edit!!");
             editView = DISPLAY_EDIT;
             int color = Color.TRANSPARENT;
-            Drawable background = view.getBackground();
-            if (background instanceof ColorDrawable)
-                color = ((ColorDrawable) background).getColor();
+            if(editMode == BACKGROUND_EDIT) {
+                Log.i(LOG_TAG, "Display Edit!!");
+                Drawable background = view.getBackground();
+                if (background instanceof PaintDrawable) {
+                    color = ((PaintDrawable) background).getPaint().getColor();
+                    Log.i(LOG_TAG, "Paint Drawable!! --> color: " + color);
+                } else if(background instanceof ColorDrawable) {
+                    color = ((ColorDrawable) background).getColor();
+                    Log.i(LOG_TAG, "Color Drawable!! --> color: " + color);
+                }
+            } else if(editMode == TEXT_EDIT) {
+                Log.i(LOG_TAG, "TextView Edit!!");
+                color = newTheme.getDisplayTextColor();
+            }
+
             showPickerDialog(view.getId(), color);
         } else {
             editView = 0;

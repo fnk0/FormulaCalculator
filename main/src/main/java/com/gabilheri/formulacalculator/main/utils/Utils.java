@@ -125,7 +125,10 @@ public class Utils {
      * @return
      */
     public static int getHexColor(String hexString) {
-        String filtered = hexString.replaceAll("#", "");
+        String filtered = hexString.replaceAll("#", "").replaceAll(" ", "");
+        if(filtered.length() == 6) {
+            filtered = "FF" + filtered;
+        }
         return new BigInteger(filtered, 16).intValue();
     }
 
@@ -152,7 +155,7 @@ public class Utils {
      * @return
      */
     public static boolean isOperator(char c, Context mContext) {
-        if (c == '+' || c == '-' || c == '/' || c == '*' || c == mContext.getString(R.string.sqrt).charAt(0)) {
+        if (c == '+' || c == '-' || c == '/' || c == '*' || c == mContext.getString(R.string.sqrt).charAt(0) || c == mContext.getResources().getString(R.string.exp_symbol).charAt(0) || c == '%' ) {
             return true;
         }
         if (c != 'e' && Character.isLetter(c)) {
@@ -172,7 +175,6 @@ public class Utils {
             case R.id.plus:
             case R.id.minus:
             case R.id.keypadSqrt:
-            //case R.id.fraction:
             case R.id.multiply:
             case R.id.divide:
             case R.id.keypadPwr:
