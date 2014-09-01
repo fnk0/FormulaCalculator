@@ -36,7 +36,7 @@ import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
 import com.gabilheri.formulacalculator.main.fragments.CardsFormulasFragment;
 import com.gabilheri.formulacalculator.main.fragments.FragmentThemeCreator;
 import com.gabilheri.formulacalculator.main.fragments.LogFragment;
-import com.gabilheri.formulacalculator.main.fragments.SettingsFragment;
+import com.gabilheri.formulacalculator.main.fragments.preferences.SettingsFragment;
 import com.gabilheri.formulacalculator.main.fragments.ThemesFragment;
 import com.gabilheri.formulacalculator.main.fragments.UnitConverterFragment;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
@@ -665,5 +665,14 @@ public class MainActivity extends FragmentActivity
 
     public ActionBarDrawerToggle getDrawerToggle() {
         return mDrawerToggle;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
     }
 }

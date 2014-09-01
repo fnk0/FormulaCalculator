@@ -3,9 +3,7 @@
     <dimen name="activity_horizontal_margin">16dip</dimen>
     <dimen name="activity_vertical_margin">16dip</dimen>
     <dimen name="button_padding">2dip</dimen>
-    <dimen name="button_text_size">7sp</dimen>
-    <dimen name="delete_button_text_size">10sp</dimen>
-    <dimen name="text_spinner_height">48dp</dimen>
+
 
     <dimen name="circle_par">25dip</dimen>
 
@@ -25,5 +23,16 @@
     <dimen name="list_card_padding_right">8dp</dimen>
     <dimen name="list_card_padding_bottom">6dp</dimen>
     <dimen name="list_card_padding_top">2dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="button_text_size">8sp</dimen>
+    <dimen name="delete_button_text_size">14sp</dimen>
+    <dimen name="text_spinner_height">48dp</dimen>
+
+
+    <dimen name="button_text_size_large">10sp</dimen>
+    <dimen name="button_text_size_xlarge">12sp</dimen>
+
+    <dimen name="fab_button">36sp</dimen>
 
 </resources>

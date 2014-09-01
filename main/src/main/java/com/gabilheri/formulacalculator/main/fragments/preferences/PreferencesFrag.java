@@ -1,4 +1,4 @@
-package com.gabilheri.formulacalculator.main.fragments;
+package com.gabilheri.formulacalculator.main.fragments.preferences;
 
 import android.os.Bundle;
 import android.preference.ListPreference;

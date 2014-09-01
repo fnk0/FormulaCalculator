@@ -1,14 +1,11 @@
-package com.gabilheri.formulacalculator.main.fragments;
+package com.gabilheri.formulacalculator.main.fragments.preferences;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.MenuItem;
 
-import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 

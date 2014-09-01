@@ -59,7 +59,7 @@ public class FloatingActionButton extends Button {
         Typeface mFont = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "icons.ttf");
         mTextPaint.setTypeface(mFont);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
-        mTextPaint.setTextSize(100);
+        mTextPaint.setTextSize(context.getResources().getDimension(R.dimen.fab_button));
         mTextPaint.setColor(Utils.getCurrentTheme(context).getDisplayTextColor());
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.FloatingActionButton);

@@ -1,21 +1,10 @@
-package com.gabilheri.formulacalculator.main.fragments;
+package com.gabilheri.formulacalculator.main.fragments.preferences;
 
 import android.app.ActionBar;
-
-import android.app.AlarmManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +13,8 @@ import android.widget.LinearLayout;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
-import com.gabilheri.formulacalculator.main.preference.ColorPreference;
+import com.gabilheri.formulacalculator.main.fragments.XmlFragment;
 import com.gabilheri.formulacalculator.main.utils.Utils;
-
-import java.util.Calendar;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -115,4 +102,6 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

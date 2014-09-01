@@ -113,7 +113,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                                 mButton.setCustomTextColor(mBundle.getInt(ColorPickDialog.COLOR));
                             }
                         }
-
                     }
                     setThemeColorForType(buttonGroup, mBundle.getInt(ColorPickDialog.COLOR));
                 }
