@@ -237,7 +237,11 @@
     <!-- Font size settings -->
 
     <string name="font_pref_title">Font Sizes</string>
+    <string name="button_font_pref_title">Button Font Sizes</string>
+
     <string name="font_size_key">fontSizeKey</string>
+    <string name="buttons_font_size_key">buttonFontSizeKey</string>
+
     <string name="font_size_def">Small</string>
 
     <string-array name="font_sizes">
@@ -251,6 +255,17 @@
         <item>10</item>
         <item>12</item>
     </string-array>
+
+
+    <string name="display_font_pref_title">Display Text Size</string>
+    <string name="display_font_key">displayFontSizeKey</string>
+
+    <string-array name="display_font_size_values">
+        <item>10</item>
+        <item>12</item>
+        <item>14</item>
+    </string-array>
+
     <!--
         <array name="font_sizes_values">
             <item>@dimen/button_text_size</item>

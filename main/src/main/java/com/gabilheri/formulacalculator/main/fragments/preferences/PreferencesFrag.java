@@ -39,6 +39,9 @@ public class PreferencesFrag extends PreferenceFragment implements Preference.On
             getFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out, R.animator.alpha_in, R.animator.alpha_out ).replace(R.id.fragHolder, new ParenthesisPrefs())
                     .addToBackStack(null).commit();
             return true;
+        } else if(preference.getKey().equals(getActivity().getResources().getString(R.string.font_size_key))) {
+            getFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out, R.animator.alpha_in, R.animator.alpha_out ).replace(R.id.fragHolder, new FontSizePrefs())
+                    .addToBackStack(null).commit();
         }
         return false;
     }

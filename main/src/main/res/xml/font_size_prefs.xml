@@ -5,11 +5,20 @@
 
     <ListPreference
         android:icon="@drawable/ic_font_size"
-        android:title="@string/font_pref_title"
-        android:key="@string/font_size_key"
+        android:title="@string/button_font_pref_title"
+        android:key="@string/buttons_font_size_key"
         android:defaultValue="@string/font_size_def"
         android:entries="@array/font_sizes"
         android:entryValues="@array/font_size_values"
+    />
+
+    <ListPreference
+        android:icon="@drawable/ic_display"
+        android:title="@string/display_font_pref_title"
+        android:key="@string/display_font_key"
+        android:defaultValue="@string/font_size_def"
+        android:entries="@array/font_sizes"
+        android:entryValues="@array/display_font_size_values"
     />
 
 </PreferenceScreen>
