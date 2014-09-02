@@ -25,6 +25,7 @@ public class PreferencesFrag extends PreferenceFragment implements Preference.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
+
         bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.calc_layout_key)));
         bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.tax_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.precision_key)));

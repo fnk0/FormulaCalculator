@@ -11,6 +11,7 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
+    <string name="settings_title">Settings</string>
 
     <!-- Navigation Drawer Titles -->
     <array name="drawer_items">
@@ -242,8 +243,9 @@
     </string-array>
 
     <!-- Font size settings -->
+    <string name="font_pref_title">Font Settings</string>
 
-    <string name="font_pref_title">Font Sizes</string>
+    <string name="font_size_pref_title">Font Sizes</string>
     <string name="button_font_pref_title">Button Font Sizes</string>
 
     <string name="font_size_key">fontSizeKey</string>
@@ -251,27 +253,47 @@
 
     <string name="font_size_def">Small</string>
 
-    <string-array name="font_sizes">
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Large</item>
-    </string-array>
-
-    <string-array name="font_size_values">
-        <item>8</item>
-        <item>10</item>
-        <item>12</item>
-    </string-array>
-
-
     <string name="display_font_pref_title">Display Text Size</string>
     <string name="display_font_key">displayFontSizeKey</string>
 
-    <string-array name="display_font_size_values">
-        <item>10</item>
-        <item>12</item>
-        <item>14</item>
+
+    <!-- Font Family -->
+    <string name="font_family_title">Font Style</string>
+    <string name="font_family_key" translatable="false">font_family_key</string>
+    <string name="font_family_default_value" translatable="false">light</string>
+
+    <string-array name="font_family">
+        <item>Normal</item>
+        <item>Monospace</item>
+        <item>Condensed</item>
+        <item>Light</item>
     </string-array>
+
+    <string-array name="font_family_values">
+        <item>normal</item>
+        <item>monospace</item>
+        <item>condensed</item>
+        <item>light</item>
+    </string-array>
+
+
+    <!-- Common Font size arrays -->
+    <string-array name="font_sizes">
+        <item>X-Small</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>X-Large</item>
+    </string-array>
+
+    <string-array name="font_size_values">
+        <item>xsmall</item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>xlarge</item>
+    </string-array>
+
 
     <!--
         <array name="font_sizes_values">

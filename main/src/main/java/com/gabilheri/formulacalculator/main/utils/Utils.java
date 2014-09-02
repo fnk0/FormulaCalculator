@@ -77,6 +77,10 @@ public class Utils {
         return 1 + (Double.parseDouble(taxValue.replaceAll("%", "")) / 100);
     }
 
+    public static float getButtonTextSize(Context context) {
+        return 0;
+    }
+
     /**
      *
      * @param context

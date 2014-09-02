@@ -79,6 +79,7 @@ public class DefaultButton extends Button {
          * This is necessary so the Layout editor can render this button in real time.
          */
         if(!this.isInEditMode()) {
+            //this.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
             this.mActivity = (MainActivity) context;
             this.setTextSize(getResources().getDimension(R.dimen.button_text_size));
             this.setTextColor(textColor);

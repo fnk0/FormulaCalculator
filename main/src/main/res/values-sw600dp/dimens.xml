@@ -31,4 +31,6 @@
 
     <dimen name="fab_button">42sp</dimen>
 
+    <dimen name="action_bar_size">56dip</dimen>
+
 </resources>

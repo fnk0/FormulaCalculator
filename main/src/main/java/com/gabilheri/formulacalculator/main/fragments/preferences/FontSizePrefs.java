@@ -25,8 +25,12 @@ public class FontSizePrefs extends PreferenceFragment implements Preference.OnPr
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.font_size_prefs);
 
+        getActivity().getActionBar().setIcon(getResources().getDrawable(R.drawable.ic_typeface));
+        getActivity().getActionBar().setTitle(getString(R.string.font_pref_title));
+
         bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.buttons_font_size_key)));
         bindPreferenceSummaryToValue(findPreference(getResources().getString(R.string.display_font_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.font_family_key)));
     }
 
     /**

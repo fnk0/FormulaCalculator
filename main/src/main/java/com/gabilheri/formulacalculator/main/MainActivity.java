@@ -9,6 +9,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,9 +39,11 @@ import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.ThemesFragment;
 import com.gabilheri.formulacalculator.main.fragments.UnitConverterFragment;
 import com.gabilheri.formulacalculator.main.fragments.preferences.SettingsFragment;
+import com.gabilheri.formulacalculator.main.interfaces.FragmentWithDrawable;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
 import com.gabilheri.formulacalculator.main.tests.TestFragment;
+import com.gabilheri.formulacalculator.main.utils.FontsOverride;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -123,6 +126,7 @@ public class MainActivity extends FragmentActivity
     private SystemBarTintManager tintManager;
     private int mActionBarColor, mActionBarTextColor, titleID;
     private TextView mActionBarTitle;
+    private FragmentWithDrawable mDrawableFragment;
 
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
@@ -132,6 +136,8 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
 
         mIntent = getIntent();
+
+        FontsOverride.replaceFont("MONOSPACE", Typeface.create("sans-serif-light", Typeface.NORMAL));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
@@ -350,6 +356,7 @@ public class MainActivity extends FragmentActivity
             case SETTINGS_FRAG:
                 updateActionBar(currentTheme.getSecondaryColor(), currentTheme.getSecondaryButtonTextColor());
                 activeFragment = new SettingsFragment();
+                mDrawableFragment = (SettingsFragment) activeFragment;
                 break;
             case THEMES_FRAG:
                 updateActionBar(currentTheme.getPrimaryColor(), currentTheme.getPrimaryButtonTextColor());
@@ -658,7 +665,12 @@ public class MainActivity extends FragmentActivity
         if(getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
         } else {
-            getFragmentManager().popBackStack();
+            if(mDrawableFragment != null) {
+                getFragmentManager().popBackStack();
+                getActionBar().setIcon(mDrawableFragment.getDrawable());
+                getActionBar().setTitle(mTitle);
+            }
+
         }
     }
 }

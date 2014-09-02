@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.fragments.XmlFragment;
+import com.gabilheri.formulacalculator.main.interfaces.FragmentWithDrawable;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 
 /**
@@ -23,7 +25,7 @@ import com.gabilheri.formulacalculator.main.utils.Utils;
  * @version 1.0
  * @since 5/7/14.
  */
-public class SettingsFragment extends XmlFragment implements FragmentManager.OnBackStackChangedListener {
+public class SettingsFragment extends XmlFragment implements FragmentManager.OnBackStackChangedListener, FragmentWithDrawable {
 
     private ActionBar mActionBar;
     private MainActivity mainActivity;
@@ -75,6 +77,15 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         mActionBar.setIcon(R.drawable.ic_settings);
     }
 
+    /**
+     * Gets the drawable for this fragment
+     * @return
+     */
+    @Override
+    public Drawable getDrawable() {
+        return getResources().getDrawable(R.drawable.ic_settings);
+    }
+
     @Override
     public void onBackStackChanged() {
         shouldDisplayHomeUp();
@@ -98,6 +109,8 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         switch (item.getItemId()) {
             case android.R.id.home:
                 getFragmentManager().popBackStack();
+                getActivity().getActionBar().setIcon(getResources().getDrawable(R.drawable.ic_settings));
+                getActivity().getActionBar().setTitle(getString(R.string.settings_title));
                 return true;
         }
         return super.onOptionsItemSelected(item);
