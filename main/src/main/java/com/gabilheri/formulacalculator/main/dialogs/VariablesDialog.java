@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.utils.Utils;
@@ -32,6 +33,7 @@ public class VariablesDialog extends DialogFragment implements View.OnClickListe
     public static int STORE_DIALOG = 0;
     public static int RELEASE_DIALOG = 1;
     private DefaultButton var0, var1, var2, var3, var4, var5, var6, var7, var8, var9;
+    private DefaultButton num0, num1, num2, num3, num4, num5, num6, num7, num8, num9;
     private int type;
     private String resultString;
     private ArrayList<DefaultButton> mButtons, mNumbers;
@@ -75,6 +77,9 @@ public class VariablesDialog extends DialogFragment implements View.OnClickListe
     private void initializeViews(View view) {
         SharedPreferences preferences = getActivity().getSharedPreferences("storeVar", Context.MODE_PRIVATE);
 
+        /**
+         * Instantiate the primary Buttons
+         */
         var0 = (DefaultButton) view.findViewById(R.id.storeVar0);
         var0.setText(preferences.getString("var0", "Empty"));
         var1 = (DefaultButton) view.findViewById(R.id.storeVar1);
@@ -115,13 +120,30 @@ public class VariablesDialog extends DialogFragment implements View.OnClickListe
             b.setCustomBackgroundColor(currentTheme.getPrimaryColor());
             b.setHighlightColor(currentTheme.getPrimaryHighlightColor());
             b.setTextColor(currentTheme.getPrimaryButtonTextColor());
+            counter++;
         }
 
-    }
+        /**
+         * Instantiate the secondary Buttons
+         */
+        mNumbers.add(num0 = (DefaultButton) view.findViewById(R.id.num0));
+        mNumbers.add(num1 = (DefaultButton) view.findViewById(R.id.num1));
+        mNumbers.add(num2 = (DefaultButton) view.findViewById(R.id.num2));
+        mNumbers.add(num3 = (DefaultButton) view.findViewById(R.id.num3));
+        mNumbers.add(num4 = (DefaultButton) view.findViewById(R.id.num4));
+        mNumbers.add(num5 = (DefaultButton) view.findViewById(R.id.num5));
+        mNumbers.add(num6 = (DefaultButton) view.findViewById(R.id.num6));
+        mNumbers.add(num7 = (DefaultButton) view.findViewById(R.id.num7));
+        mNumbers.add(num8 = (DefaultButton) view.findViewById(R.id.num8));
+        mNumbers.add(num9 = (DefaultButton) view.findViewById(R.id.num9));
 
-    @Override
-    public void onClick(View v) {
-        handleVar(v);
+        for(DefaultButton b : mNumbers) {
+            b.setTextColor(currentTheme.getSecondaryButtonTextColor());
+            b.setCustomBackgroundColor(currentTheme.getSecondaryColor());
+            b.setHighlightColor(currentTheme.getSecondaryHighlightColor());
+            b.setTextSize(getResources().getDimension(R.dimen.button_text_size_small));
+        }
+
     }
 
     /**
@@ -130,13 +152,13 @@ public class VariablesDialog extends DialogFragment implements View.OnClickListe
      *          If is a store dialog returns null
      *          Otherwise returns var(storedVar)
      */
-    public String handleVar(View view) {
+    @Override
+    public void onClick(View view) {
         if (type == STORE_DIALOG) {
-            return storeVar(view);
+            storeVar(view);
         } else if (type == RELEASE_DIALOG) {
-            return releaseVar(view);
+            releaseVar(view);
         }
-        return null;
     }
 
     /**
@@ -146,7 +168,7 @@ public class VariablesDialog extends DialogFragment implements View.OnClickListe
      * @param view the pressed button
      * @return null
      */
-    public String storeVar(View view) {
+    public void storeVar(View view) {
 
         int id = view.getId();
 
@@ -192,7 +214,6 @@ public class VariablesDialog extends DialogFragment implements View.OnClickListe
         }
         editor.apply();
         dismiss();
-        return null;
     }
 
     /**
@@ -202,15 +223,15 @@ public class VariablesDialog extends DialogFragment implements View.OnClickListe
      * @param view the pressed button
      * @return the String result that will be pasted to the inputbox
      */
-    public String releaseVar(View view) {
+    public void releaseVar(View view) {
 
         String result = (((Button) view).getText().toString());
         dismiss();
         if (result.equals("Empty")) {
-            return "";
-        } else {
-            return result;
+            result =  "";
         }
+
+        ((MainActivity) getActivity()).getVarFromDialog(result);
     }
 }
 

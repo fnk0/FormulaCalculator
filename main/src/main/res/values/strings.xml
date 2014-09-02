@@ -217,6 +217,12 @@
     <string name="tax_key">tax_key</string>
     <string name="tax_description">Tax Percentage</string>
     <string name="tax_def_value">8.81</string>
+    
+    <!-- PrecisioN Preference -->
+    <string name="precision_key">precision_key</string>
+    <string name="precision_title">Precision.</string>
+    <string name="precision_def_value">6</string>
+    <string name="precision_description">The number of decimals. 0 = System Default.</string>
 
     <!-- Calc Layout types -->
     <string name="calc_layout_key">calcLayout</string>

@@ -14,7 +14,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
-
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -36,9 +35,9 @@ import com.gabilheri.formulacalculator.main.fragments.CalculatorFragment;
 import com.gabilheri.formulacalculator.main.fragments.CardsFormulasFragment;
 import com.gabilheri.formulacalculator.main.fragments.FragmentThemeCreator;
 import com.gabilheri.formulacalculator.main.fragments.LogFragment;
-import com.gabilheri.formulacalculator.main.fragments.preferences.SettingsFragment;
 import com.gabilheri.formulacalculator.main.fragments.ThemesFragment;
 import com.gabilheri.formulacalculator.main.fragments.UnitConverterFragment;
+import com.gabilheri.formulacalculator.main.fragments.preferences.SettingsFragment;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
 import com.gabilheri.formulacalculator.main.tests.TestFragment;
@@ -461,14 +460,6 @@ public class MainActivity extends FragmentActivity
         ((CalculatorFragment) activeFragment).clearDisplay();
     }
 
-    /**
-     *
-     * @param view
-     */
-    public void handleVar(View view) {
-        ((CalculatorFragment) keypadFragment).handleVar(view);
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -636,6 +627,10 @@ public class MainActivity extends FragmentActivity
         }
 
         return userProfile;
+    }
+
+    public void getVarFromDialog(String result) {
+        ((CalculatorFragment) activeFragment).getVarFromDialog(result);
     }
 
     /**

@@ -21,6 +21,7 @@ import com.gabilheri.formulacalculator.main.database.Theme;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 
 /**
  * @author Marcus Gabilheri
@@ -74,6 +75,30 @@ public class Utils {
         String taxValue = prefs.getString(context.getString(R.string.tax_key), context.getString(R.string.tax_def_value));
 
         return 1 + (Double.parseDouble(taxValue.replaceAll("%", "")) / 100);
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static int getPrecisionValue(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String precisionValue = prefs.getString(context.getString(R.string.precision_key), context.getString(R.string.precision_def_value));
+
+        return Integer.parseInt(precisionValue);
+    }
+
+    public static DecimalFormat getDecimalFormatForPrecision(int precision) {
+        StringBuilder precisionBuilder = new StringBuilder();
+        precisionBuilder.append("#0.");
+
+
+        for(int i = 0; i < precision; i++) {
+            precisionBuilder.append("#");
+        }
+
+        return new DecimalFormat(precisionBuilder.toString());
     }
 
     /**

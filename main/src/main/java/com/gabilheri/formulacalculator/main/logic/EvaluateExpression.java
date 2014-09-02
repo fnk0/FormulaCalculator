@@ -2,8 +2,6 @@ package com.gabilheri.formulacalculator.main.logic;
 
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.gabilheri.formulacalculator.main.R;
@@ -32,6 +30,7 @@ public class EvaluateExpression {
     private Fragment fragment;
     private DecimalFormat df;
     public static String LOG_TAG = "EVALUATE EXPRESSION";
+    private int precision;
 
     /**
      * Default constructor.
@@ -50,8 +49,9 @@ public class EvaluateExpression {
         this.expression = expression;
         this.fragment = fragment;
         this.angleType = angleType;
-        // TODO implement this precision as a setting feature.
-        df = new DecimalFormat("#0.#########"); // Current precision = 9
+
+        precision = Utils.getPrecisionValue(fragment.getActivity());
+        df = Utils.getDecimalFormatForPrecision(precision);
     }
 
     /**
@@ -95,7 +95,6 @@ public class EvaluateExpression {
         CustomFunction sqrt = null;
         CustomFunction cbrt = null;
         CustomFunction fact = null;
-        CustomFunction release = null;
         CustomOperator percent = null;
         double varPi = Math.PI;
         double varE = Math.E;
@@ -197,14 +196,6 @@ public class EvaluateExpression {
                 }
             };
 
-            release = new CustomFunction("var") {
-                @Override
-                public double applyFunction(double... doubles) {
-                    SharedPreferences storedVar = fragment.getActivity().getSharedPreferences("storeVar", Context.MODE_PRIVATE);
-                    return Double.parseDouble(storedVar.getString("var" + (int) doubles[0], "0"));
-                }
-            };
-
             taxFunc = new CustomFunction("tax") {
                 @Override
                 public double applyFunction(double... doubles) {
@@ -298,14 +289,16 @@ public class EvaluateExpression {
                     .withCustomFunction(arcCosFunc)
                     .withCustomFunction(arcTanFunc)
                     .withCustomFunction(fact)
-                    .withCustomFunction(release)
                     .withCustomFunction(taxFunc)
                     .withVariable(fragment.getString(R.string.pi), varPi)
                     .withVariable(fragment.getString(R.string.var_e), varE)
                     .withVariable(fragment.getString(R.string.ans), Double.parseDouble(previousResult))
                     .build();
             double result = calc.calculate();
-            result = Double.parseDouble(df.format(result));
+
+            if(precision != 0) {
+                result = Double.parseDouble(df.format(result));
+            }
 
             if(result % 1 == 0) {
                 Log.i("RESULT: ", "IS INTEGER!");

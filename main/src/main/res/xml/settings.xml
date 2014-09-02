@@ -23,8 +23,10 @@
         />
     -->
         <ListPreference
+            android:dialogIcon="@drawable/ic_launcher"
             android:icon="@drawable/ic_launcher"
             android:title="@string/calc_layout"
+            android:dialogTitle="@string/calc_layout"
             android:key="@string/calc_layout_key"
             android:defaultValue="@string/keypad_standard"
             android:entries="@array/layout_types"
@@ -42,8 +44,22 @@
             android:defaultValue="@string/tax_def_value"
             android:inputType="numberDecimal"
             android:icon="@drawable/ic_money"
-            android:summary="%s%"
+            android:summary="Current tax setting: %s%"
+            android:dialogIcon="@drawable/ic_money"
+            android:dialogTitle="@string/tax_description"
             android:singleLine="true" />
+
+        <EditTextPreference
+            android:title="@string/precision_title"
+            android:key="@string/precision_key"
+            android:defaultValue="@string/precision_def_value"
+            android:dialogMessage="@string/precision_description"
+            android:dialogIcon="@drawable/ic_precision"
+            android:inputType="number"
+            android:icon="@drawable/ic_precision"
+            android:summary="Current precision: %s%"
+            android:singleLine="true" />
+
     <!--
     <EditTextPreference
         android:title="@string/pref_location_label"

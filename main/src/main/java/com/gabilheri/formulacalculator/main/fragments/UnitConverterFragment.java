@@ -25,6 +25,7 @@ import com.gabilheri.formulacalculator.main.logic.unit.UnitSpinnerItem;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,7 +58,8 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
     private BaseInputConnection textFieldInputConnection;
     private HashMap<Integer, UnitSpinnerAdapter> adapterMap;
     private boolean isNegative = false;
-
+    private DecimalFormat df;
+    private int precision;
 
     private UnitSpinnerAdapter massAdapter, speedAdapter, lengthAdapter, temperatureAdapter, volumeAdapter, areaAdapter, dataAdapter;
 
@@ -69,6 +71,8 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_unit_converter, container, false);
+        precision = Utils.getPrecisionValue(getActivity());
+        df = Utils.getDecimalFormatForPrecision(precision);
 
         return rootView;
     }
@@ -251,7 +255,11 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
                 conversionUnit = instantiateConversionUnit(fromUnit.getType(), Double.parseDouble(fromType.getText().toString()));
                 double result = conversionUnit.convertTo(toUnit.getType());
                 Log.i(LOG_TAG, "Result: " + result);
-                toType.setText("" + result);
+                String resultString = String.valueOf(result);
+                if(precision != 0) {
+                    resultString = df.format(result);
+                }
+                toType.setText(resultString);
                 break;
             default:
                 break;
