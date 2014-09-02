@@ -9,8 +9,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.database.Theme;
+import com.gabilheri.formulacalculator.main.utils.Utils;
+import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
+
+import java.util.ArrayList;
 
 
 /**
@@ -20,13 +27,15 @@ import com.gabilheri.formulacalculator.main.R;
  * @version 1.0
  * @since May, 2014
  */
-public class VariablesDialog extends DialogFragment {
+public class VariablesDialog extends DialogFragment implements View.OnClickListener {
 
     public static int STORE_DIALOG = 0;
     public static int RELEASE_DIALOG = 1;
-    private Button var0, var1, var2, var3, var4, var5, var6, var7, var8, var9;
+    private DefaultButton var0, var1, var2, var3, var4, var5, var6, var7, var8, var9;
     private int type;
     private String resultString;
+    private ArrayList<DefaultButton> mButtons, mNumbers;
+    private Theme currentTheme;
 
     /**
      * Default Constructor
@@ -38,16 +47,21 @@ public class VariablesDialog extends DialogFragment {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.dialog_storevar, null);
 
+        currentTheme = Utils.getCurrentTheme(getActivity());
+
+        TextView dialogTitle = (TextView) layout.findViewById(R.id.dialogTitle);
+        dialogTitle.setTextColor(currentTheme.getDisplayTextColor());
+
+        LinearLayout dialogRoot = (LinearLayout) layout.findViewById(R.id.dialogRoot);
+        dialogRoot.setBackgroundColor(currentTheme.getDisplayColor());
+
+        mButtons = new ArrayList<>();
+        mNumbers = new ArrayList<>();
+
         Bundle bundle = this.getArguments();
         resultString = bundle.getString("result");
         type = bundle.getInt("type");
         initializeViews(layout);
-
-        Button resetVars = (Button) layout.findViewById(R.id.resetStoreVar);
-
-        if (type == RELEASE_DIALOG) {
-            resetVars.setText("Dismiss");
-        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(layout);
@@ -60,26 +74,54 @@ public class VariablesDialog extends DialogFragment {
      */
     private void initializeViews(View view) {
         SharedPreferences preferences = getActivity().getSharedPreferences("storeVar", Context.MODE_PRIVATE);
-        var0 = (Button) view.findViewById(R.id.storeVar0);
+
+        var0 = (DefaultButton) view.findViewById(R.id.storeVar0);
         var0.setText(preferences.getString("var0", "Empty"));
-        var1 = (Button) view.findViewById(R.id.storeVar1);
+        var1 = (DefaultButton) view.findViewById(R.id.storeVar1);
         var1.setText(preferences.getString("var1", "Empty"));
-        var2 = (Button) view.findViewById(R.id.storeVar2);
+        var2 = (DefaultButton) view.findViewById(R.id.storeVar2);
         var2.setText(preferences.getString("var2", "Empty"));
-        var3 = (Button) view.findViewById(R.id.storeVar3);
+        var3 = (DefaultButton) view.findViewById(R.id.storeVar3);
         var3.setText(preferences.getString("var3", "Empty"));
-        var4 = (Button) view.findViewById(R.id.storeVar4);
+        var4 = (DefaultButton) view.findViewById(R.id.storeVar4);
         var4.setText(preferences.getString("var4", "Empty"));
-        var5 = (Button) view.findViewById(R.id.storeVar5);
+        var5 = (DefaultButton) view.findViewById(R.id.storeVar5);
         var5.setText(preferences.getString("var5", "Empty"));
-        var6 = (Button) view.findViewById(R.id.storeVar6);
+        var6 = (DefaultButton) view.findViewById(R.id.storeVar6);
         var6.setText(preferences.getString("var6", "Empty"));
-        var7 = (Button) view.findViewById(R.id.storeVar7);
+        var7 = (DefaultButton) view.findViewById(R.id.storeVar7);
         var7.setText(preferences.getString("var7", "Empty"));
-        var8 = (Button) view.findViewById(R.id.storeVar8);
+        var8 = (DefaultButton) view.findViewById(R.id.storeVar8);
         var8.setText(preferences.getString("var8", "Empty"));
-        var9 = (Button) view.findViewById(R.id.storeVar9);
+        var9 = (DefaultButton) view.findViewById(R.id.storeVar9);
         var9.setText(preferences.getString("var9", "Empty"));
+
+        mButtons.add(var0);
+        mButtons.add(var1);
+        mButtons.add(var2);
+        mButtons.add(var3);
+        mButtons.add(var4);
+        mButtons.add(var5);
+        mButtons.add(var6);
+        mButtons.add(var7);
+        mButtons.add(var8);
+        mButtons.add(var9);
+
+        int counter = 0;
+        for(DefaultButton b : mButtons) {
+            b.setText(preferences.getString("var" + counter, "Empty"));
+            b.setOnClickListener(this);
+            b.setTextSize(getResources().getDimension(R.dimen.button_text_size_small));
+            b.setCustomBackgroundColor(currentTheme.getPrimaryColor());
+            b.setHighlightColor(currentTheme.getPrimaryHighlightColor());
+            b.setTextColor(currentTheme.getPrimaryButtonTextColor());
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        handleVar(v);
     }
 
     /**
@@ -146,12 +188,9 @@ public class VariablesDialog extends DialogFragment {
                 case R.id.storeVar9:
                     editor.putString("var9", resultString);
                     break;
-                case R.id.resetStoreVar:
-                    editor.clear();
-                    break;
             }
         }
-        editor.commit();
+        editor.apply();
         dismiss();
         return null;
     }
@@ -165,49 +204,13 @@ public class VariablesDialog extends DialogFragment {
      */
     public String releaseVar(View view) {
 
-        int id = view.getId();
-        String result = "";
-
-        switch (id) {
-            case R.id.storeVar0:
-                result += 0;
-                break;
-            case R.id.storeVar1:
-                result += 1;
-                break;
-            case R.id.storeVar2:
-                result += 2;
-                break;
-            case R.id.storeVar3:
-                result += 3;
-                break;
-            case R.id.storeVar4:
-                result += 4;
-                break;
-            case R.id.storeVar5:
-                result += 5;
-                break;
-            case R.id.storeVar6:
-                result += 6;
-                break;
-            case R.id.storeVar7:
-                result += 7;
-                break;
-            case R.id.storeVar8:
-                result += 8;
-                break;
-            case R.id.storeVar9:
-                result += 9;
-                break;
-            case R.id.resetStoreVar:
-                dismiss();
-                return "";
-        }
+        String result = (((Button) view).getText().toString());
         dismiss();
         if (result.equals("Empty")) {
             return "";
+        } else {
+            return result;
         }
-        return "var(" + result + ")";
     }
 }
 

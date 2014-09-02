@@ -45,6 +45,9 @@ public class ThemePartDialog extends DialogFragment implements View.OnClickListe
         Button mButton = (Button) layout.findViewById(R.id.selectPart);
         mButton.setOnClickListener(this);
 
+        Button cancelButton = (Button) layout.findViewById(R.id.cancelDialog);
+        cancelButton.setOnClickListener(this);
+
         RadioButton mRadio = (RadioButton) layout.findViewById(R.id.highLightEdit);
 
         if(extras.getBoolean(DISPLAY)) {
@@ -60,12 +63,20 @@ public class ThemePartDialog extends DialogFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent();
-        Bundle extras = new Bundle();
-        extras.putInt(EDIT_TYPE, getSelectedType(mGroup.getCheckedRadioButtonId()));
-        intent.putExtras(extras);
-        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-        dismiss();
+
+        switch (v.getId()) {
+            case R.id.selectPart:
+                Intent intent = new Intent();
+                Bundle extras = new Bundle();
+                extras.putInt(EDIT_TYPE, getSelectedType(mGroup.getCheckedRadioButtonId()));
+                intent.putExtras(extras);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                dismiss();
+                break;
+            case R.id.cancelDialog:
+                dismiss();
+                break;
+        }
     }
 
     private int getSelectedType(int id) {

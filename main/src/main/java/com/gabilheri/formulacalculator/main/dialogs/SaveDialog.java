@@ -41,6 +41,9 @@ public class SaveDialog extends DialogFragment implements View.OnClickListener {
         Button mButton = (Button) layout.findViewById(R.id.saveThemeFromDialog);
         mButton.setOnClickListener(this);
 
+        Button cancelButton = (Button) layout.findViewById(R.id.cancelDialog);
+        cancelButton.setOnClickListener(this);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(layout);
         return builder.create();
@@ -55,6 +58,9 @@ public class SaveDialog extends DialogFragment implements View.OnClickListener {
                 extras.putString(THEME_NAME, themeName.getText().toString());
                 intent.putExtras(extras);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                dismiss();
+                break;
+            case R.id.cancelDialog:
                 dismiss();
                 break;
         }

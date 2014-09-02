@@ -3,11 +3,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialogRoot"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
-    android:background="@color/counter_text_color"
     tools:context="com.gabilheri.formulacalculator.main.dialogs.VariablesDialog"
     >
 
@@ -17,8 +17,6 @@
         android:textSize="20sp"
         android:gravity="center_vertical|center_horizontal"
         android:padding="10dip"
-        android:textColor="@android:color/white"
-        android:background="@color/awesome_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.005"
@@ -41,54 +39,49 @@
             android:layout_weight="0.1"
         >
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num1"
                 android:text="@string/_1"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
             />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar1"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
             />
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num2"
                 android:text="@string/_2"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
             />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar2"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
         </TableRow>
+
         <TableRow
             android:weightSum="1"
             android:orientation="horizontal"
@@ -98,54 +91,49 @@
             android:layout_weight="0.1"
             >
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num3"
                 android:text="@string/_3"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar3"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num4"
                 android:text="@string/_4"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar4"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
         </TableRow>
+
         <TableRow
             android:weightSum="1"
             android:orientation="horizontal"
@@ -155,54 +143,49 @@
             android:layout_weight="0.1"
             >
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num5"
                 android:text="@string/_5"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar5"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num6"
                 android:text="@string/_6"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar6"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
         </TableRow>
+
         <TableRow
             android:weightSum="1"
             android:orientation="horizontal"
@@ -212,54 +195,49 @@
             android:layout_weight="0.1"
             >
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num7"
                 android:text="@string/_7"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar7"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num8"
                 android:text="@string/_8"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar8"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
         </TableRow>
+
         <TableRow
             android:weightSum="1"
             android:orientation="horizontal"
@@ -269,77 +247,48 @@
             android:layout_weight="0.1"
             >
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num9"
                 android:text="@string/_9"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar9"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
 
-            <TextView
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
+                android:id="@+id/num0"
                 android:text="@string/_0"
                 android:layout_weight="0.07"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:textColor="@android:color/white"
-                android:background="@color/def_button"
                 />
 
-            <Button
+            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
                 android:id="@+id/storeVar0"
                 android:layout_weight="0.44"
                 android:layout_height="match_parent"
                 android:layout_width="0dip"
                 android:padding="3dip"
                 android:gravity="center_horizontal|center_vertical"
-                android:background="@drawable/button_2"
-                android:textColor="@android:color/white"
                 android:layout_marginRight="4dip"
                 android:onClick="handleVar"
                 />
         </TableRow>
-
-        <TableRow
-            android:weightSum="1"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dip"
-            android:layout_weight="0.1"
-            android:gravity="center_vertical|center_horizontal"
-            >
-
-            <com.gabilheri.formulacalculator.main.xmlElements.DefaultButton
-                android:id="@+id/resetStoreVar"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:padding="10dip"
-                android:gravity="center_horizontal|center_vertical"
-                android:onClick="handleVar"
-                android:text="@string/reset_vars"
-                />
-
-        </TableRow>
-
 
     </TableLayout>
 </LinearLayout>

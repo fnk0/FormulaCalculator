@@ -22,6 +22,7 @@
     <dimen name="list_card_padding_top">2dp</dimen>
 
     <!-- Text Sizes -->
+    <dimen name="button_text_size_small">18sp</dimen>
     <dimen name="button_text_size">26sp</dimen>
     <dimen name="delete_button_text_size">18sp</dimen>
     <dimen name="text_spinner_height">48dp</dimen>

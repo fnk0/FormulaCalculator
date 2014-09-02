@@ -20,7 +20,6 @@ import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.adapters.UnitSpinnerAdapter;
 import com.gabilheri.formulacalculator.main.adapters.UnitTypeSpinnerAdapter;
 import com.gabilheri.formulacalculator.main.database.Theme;
-import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.unit.Unit;
 import com.gabilheri.formulacalculator.main.logic.unit.UnitSpinnerItem;
 import com.gabilheri.formulacalculator.main.utils.Utils;
@@ -41,7 +40,7 @@ import conversionUnits.temperature.Temperature;
  * @version 1.0
  * @since 5/29/14
  */
-public class UnitConverterFragment extends Fragment implements FragmentWithKeypad {
+public class UnitConverterFragment extends Fragment implements View.OnClickListener {
 
     private static final String LOG_TAG = "UnitConverter";
 
@@ -189,12 +188,14 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
 
         //textFieldInputConnection = new BaseInputConnection(fromType, true);
         for (DefaultButton b : mDefaultButtons) {
+            b.setOnClickListener(this);
             b.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());
             b.setCustomBackgroundColor(currentTheme.getPrimaryColor());
             b.setCustomHighlightColor(currentTheme.getPrimaryHighlightColor());
         }
 
         for (DefaultButton b : mSecondaryButtons) {
+            b.setOnClickListener(this);
             b.setCustomTextColor(currentTheme.getSecondaryButtonTextColor());
             b.setCustomBackgroundColor(currentTheme.getSecondaryColor());
             b.setCustomHighlightColor(currentTheme.getSecondaryHighlightColor());
@@ -205,13 +206,8 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
     }
 
     @Override
-    public int getType() {
-        return 0;
-    }
-
-    @Override
-    public void handleKeypad(View view) {
-        switch (view.getId()) {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.btn0:
             case R.id.btn1:
             case R.id.btn2:
@@ -223,7 +219,7 @@ public class UnitConverterFragment extends Fragment implements FragmentWithKeypa
             case R.id.btn8:
             case R.id.btn9:
             case R.id.btnDot:
-                fromType.append(((DefaultButton) view).getText().toString());
+                fromType.append(((DefaultButton) v).getText().toString());
                 break;
             case R.id.btnDel:
                 if(fromType.getText().length() > 0) {

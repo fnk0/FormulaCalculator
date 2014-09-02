@@ -14,14 +14,14 @@
             android:key="@string/par_key"
             android:fragment="com.gabilheri.formulacalculator.main.fragments.preferences.ParenthesisPrefs"
         />
-
+    <!--
     <PreferenceScreen
         android:icon="@drawable/ic_font_size"
         android:title="@string/font_pref_title"
         android:key="@string/font_size_key"
         android:fragment="com.gabilheri.formulacalculator.main.fragments.preferences.FontSizePrefs"
         />
-
+    -->
         <ListPreference
             android:icon="@drawable/ic_launcher"
             android:title="@string/calc_layout"

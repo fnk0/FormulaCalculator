@@ -1,7 +1,5 @@
 package com.gabilheri.formulacalculator.main.interfaces;
 
-import android.view.View;
-
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
  *
@@ -15,6 +13,4 @@ public interface FragmentWithKeypad {
     public static int THEME_CREATOR_FRAGMENT = 1;
 
     public int getType();
-    public void handleKeypad(View view);
-
 }

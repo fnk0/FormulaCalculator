@@ -3,7 +3,6 @@ package com.gabilheri.formulacalculator.main.xmlElements;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RadialGradient;
@@ -11,10 +10,7 @@ import android.graphics.Region;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
@@ -25,7 +21,7 @@ import com.gabilheri.formulacalculator.main.R;
  * @version 1.0
  * @since 6/15/14
  */
-public class DefaultButton extends Button implements View.OnClickListener {
+public class DefaultButton extends Button {
 
     public static final String RADIUS = "radius";
     private int textColor, backgroundColor, highlightColor, selectedColor;
@@ -83,7 +79,6 @@ public class DefaultButton extends Button implements View.OnClickListener {
          * This is necessary so the Layout editor can render this button in real time.
          */
         if(!this.isInEditMode()) {
-            this.setOnClickListener(this);
             this.mActivity = (MainActivity) context;
             this.setTextSize(getResources().getDimension(R.dimen.button_text_size));
             this.setTextColor(textColor);
@@ -165,11 +160,6 @@ public class DefaultButton extends Button implements View.OnClickListener {
 
         this.setBackground(new CustomStateList(mContext, backgroundColor, highlightColor, selectedColor));
         return this;
-    }
-
-    @Override
-    public void onClick(View v) {
-        mActivity.handleKeypad(this);
     }
 
     @Override

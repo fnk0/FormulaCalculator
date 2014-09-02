@@ -35,11 +35,16 @@ public class KeypadFragment extends Fragment {
     private ArrayList<DefaultButton> mButtonsArray;
     private ArrayList<DefaultButton> mSecondButtonsArray;
     private static final String LOG_TAG = "Keypad Fragment";
+    private View.OnClickListener listener;
 
     public KeypadFragment() {
         mKeypadButtons = new HashMap<>();
         mButtonsArray = new ArrayList<>();
         mSecondButtonsArray = new ArrayList<>();
+    }
+
+    public void setListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -58,8 +63,6 @@ public class KeypadFragment extends Fragment {
         } else {
             rootView = inflater.inflate(R.layout.keypad_layout, container, false);
         }
-
-
 
         btnDel = (DefaultButton) rootView.findViewById(R.id.keypadDel);
         mKeypadButtons.put(R.id.keypadDel, btnDel);
@@ -156,12 +159,14 @@ public class KeypadFragment extends Fragment {
             mButton.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());
             mButton.setCustomBackgroundColor(currentTheme.getPrimaryColor());
             mButton.setCustomHighlightColor(currentTheme.getPrimaryHighlightColor());
+            mButton.setOnClickListener(listener);
         }
 
         for(DefaultButton mButton: mSecondButtonsArray) {
             mButton.setCustomTextColor(currentTheme.getSecondaryButtonTextColor());
             mButton.setCustomBackgroundColor(currentTheme.getSecondaryColor());
             mButton.setCustomHighlightColor(currentTheme.getSecondaryHighlightColor());
+            mButton.setOnClickListener(listener);
         }
 
         return rootView;

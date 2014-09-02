@@ -36,7 +36,7 @@ import java.util.ArrayList;
  * @since May 2014
  *
  */
-public class FragmentThemeCreator extends CalculatorFragment implements FragmentWithKeypad {
+public class FragmentThemeCreator extends CalculatorFragment implements FragmentWithKeypad, View.OnClickListener {
 
     private String LOG_TAG = "ThemeCreator";
     public static final String VIEW = "view";
@@ -272,6 +272,11 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
     @Override
     public int getType() {
         return FragmentWithKeypad.THEME_CREATOR_FRAGMENT;
+    }
+
+    @Override
+    public void onClick(View v) {
+        handleKeypad(v);
     }
 
     @Override

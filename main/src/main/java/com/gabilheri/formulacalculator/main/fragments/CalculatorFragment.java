@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
+public class CalculatorFragment extends Fragment implements FragmentWithKeypad, View.OnClickListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -73,7 +73,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
 
     public CalculatorFragment() {
         mKeypadFragment = new KeypadFragment();
+        mKeypadFragment.setListener(this);
         mKeypadFunctionsFragment = new KeypadFunctionsFragment();
+        mKeypadFunctionsFragment.setListener(this);
     }
 
     @Override
@@ -153,6 +155,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             textInputBox1 = "";
 
         }
+
         instantiateColors();
     }
 
@@ -195,12 +198,16 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        handleKeypad(v);
+    }
+
     /**
      * Handles the keypad press.
      *
      * @param view The View being pressed.
      */
-    @Override
     public void handleKeypad(View view) {
 
         int id = view.getId();
@@ -246,7 +253,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad {
             }
             isAnswerInserted = true;
             clearResult = false;
-        } else if (clearResult && id != R.id.keypadStore) {
+        } else if (clearResult && id != R.id.keypadStore && id != R.id.keypadRelease) {
             clearDisplay();
             clearResult = false;
         }

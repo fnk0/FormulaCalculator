@@ -34,12 +34,16 @@ public class KeypadFunctionsFragment extends Fragment {
     private ArrayList<DefaultButton> mButtonsArray;
     private ArrayList<DefaultButton> mSecondaryButtonsArray;
     private Theme currentTheme;
-
+    private View.OnClickListener listener;
 
     public KeypadFunctionsFragment() {
         mButtonsArray = new ArrayList<>();
         mSecondaryButtonsArray = new ArrayList<>();
         mKeypadFunctionButtons = new HashMap<>();
+    }
+
+    public void setListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -153,12 +157,14 @@ public class KeypadFunctionsFragment extends Fragment {
             mButton.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());
             mButton.setCustomBackgroundColor(currentTheme.getPrimaryColor());
             mButton.setCustomHighlightColor(currentTheme.getPrimaryHighlightColor());
+            mButton.setOnClickListener(listener);
         }
 
         for(DefaultButton mButton: mSecondaryButtonsArray) {
             mButton.setCustomTextColor(currentTheme.getSecondaryButtonTextColor());
             mButton.setCustomBackgroundColor(currentTheme.getSecondaryColor());
             mButton.setCustomHighlightColor(currentTheme.getSecondaryHighlightColor());
+            mButton.setOnClickListener(listener);
         }
 
         return rootView;

@@ -20,7 +20,7 @@
         <item name="unit_converter">Unit Converter</item>
         <item name="themes">Themes</item>
         <item name="settings">Settings</item>
-        <item name="about">About</item>
+        <!-- <item name="about">About</item> -->
         <!-- <item name="sign_in">Sign In</item> -->
         <!-- <item name="debug">Test</item> -->
     </array>
@@ -33,7 +33,7 @@
         <item name="icon_share">@drawable/ic_convert</item>
         <item name="icon_themes">@drawable/ic_themes</item>
         <item name="icon_settings">@drawable/ic_settings</item>
-        <item name="icon_info">@drawable/ic_info</item>
+        <!-- <item name="icon_info">@drawable/ic_info</item> -->
         <!-- <item name="icon_gplius">@drawable/ic_google_plus</item> -->
         <!-- <item name="icon_debug">@drawable/ic_debug</item> -->
     </array>
@@ -176,6 +176,7 @@
     <string name="ans">Ans</string>
     <string name="frac">Frac</string>
     <string name="save_theme">Save Theme</string>
+    <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="select">Select</string>
     <string name="create_theme">Create New Theme</string>

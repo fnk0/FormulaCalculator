@@ -347,7 +347,6 @@ public class MainActivity extends FragmentActivity
             case UNIT_CONVERTER_FRAG:
                 updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new UnitConverterFragment();
-                keypadFragment = (UnitConverterFragment) activeFragment;
                 break;
             case SETTINGS_FRAG:
                 updateActionBar(currentTheme.getSecondaryColor(), currentTheme.getSecondaryButtonTextColor());
@@ -456,14 +455,6 @@ public class MainActivity extends FragmentActivity
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void handleKeypad(View view) {
-        keypadFragment.handleKeypad(view);
     }
 
     public void clearDisplay() {
