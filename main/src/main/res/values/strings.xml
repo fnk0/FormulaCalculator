@@ -15,6 +15,7 @@
 
     <!-- Navigation Drawer Titles -->
     <array name="drawer_items">
+        <item name="first"></item>
         <item name="calculator">Calculator</item>
         <item name="logs">Recents</item>
         <item name="formulas">Formulas</item>
@@ -28,6 +29,7 @@
 
     <!-- Navigation Drawer Resource Strings -->
     <array name="drawer_icons">
+        <item name="icon_empty"></item>
         <item name="icon_calculator">@drawable/ic_launcher</item>
         <item name="icon_logs">@drawable/ic_log</item>
         <item name="icon_formulas">@drawable/ic_formula</item>
@@ -262,16 +264,21 @@
     <string name="font_family_key" translatable="false">font_family_key</string>
     <string name="font_family_default_value" translatable="false">light</string>
 
+    <string name="font_normal">normal</string>
+    <string name="font_thin">thin</string>
+    <string name="font_cond">condensed</string>
+    <string name="font_light">light</string>
+
     <string-array name="font_family">
         <item>Normal</item>
-        <item>Monospace</item>
+        <item>Thin</item>
         <item>Condensed</item>
         <item>Light</item>
     </string-array>
 
     <string-array name="font_family_values">
         <item>normal</item>
-        <item>monospace</item>
+        <item>thin</item>
         <item>condensed</item>
         <item>light</item>
     </string-array>

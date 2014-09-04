@@ -9,7 +9,6 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -97,15 +96,15 @@ public class MainActivity extends FragmentActivity
     private CharSequence mTitle;
 
     //Constants for the Fragments
-    public static final int CALCULATOR_FRAG = 0;
-    public static final int LOG_FRAG = 1;
-    public static final int FORMULAS_FRAG = 2;
-    public static final int UNIT_CONVERTER_FRAG = 3;
-    public static final int THEMES_FRAG = 4;
-    public static final int SETTINGS_FRAG = 5;
-    public static final int ABOUT_FRAG = 6;
-    public static final int GOOGLE_PLUS = 7;
-    public static final int DEBUG_FRAG = 8;
+    public static final int CALCULATOR_FRAG = 1;
+    public static final int LOG_FRAG = 2;
+    public static final int FORMULAS_FRAG = 3;
+    public static final int UNIT_CONVERTER_FRAG = 4;
+    public static final int THEMES_FRAG = 5;
+    public static final int SETTINGS_FRAG = 6;
+    public static final int ABOUT_FRAG = 7;
+    public static final int GOOGLE_PLUS = 8;
+    public static final int DEBUG_FRAG = 9;
     public static final int THEME_CREATOR = 15;
 
     // Shared Pref stuff
@@ -124,9 +123,10 @@ public class MainActivity extends FragmentActivity
 
     private DatabaseHelper mHelper;
     private SystemBarTintManager tintManager;
-    private int mActionBarColor, mActionBarTextColor, titleID;
+    private int mActionBarColor, mActionBarTextColor, titleID, currentPosition;
     private TextView mActionBarTitle;
     private FragmentWithDrawable mDrawableFragment;
+    private ColorDrawable drawerFirstItem;
 
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
@@ -137,7 +137,7 @@ public class MainActivity extends FragmentActivity
 
         mIntent = getIntent();
 
-        FontsOverride.replaceFont("MONOSPACE", Typeface.create("sans-serif-light", Typeface.NORMAL));
+        FontsOverride.replaceFont("SERIF", Utils.getTypeface(this));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
@@ -188,7 +188,7 @@ public class MainActivity extends FragmentActivity
 
         // Enabling action bar app and Icon , and behaving it as a toggle button.
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
+        //getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
         getActionBar().setHomeButtonEnabled(true);
         titleID = getResources().getIdentifier("action_bar_title", "id", "android");
         mActionBarTitle = (TextView) findViewById(titleID);
@@ -207,6 +207,7 @@ public class MainActivity extends FragmentActivity
         navMenuTitles = getResources().getStringArray(R.array.drawer_items);
         navMenuIcons = getResources().obtainTypedArray(R.array.drawer_icons);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+        //Utils.setInsets(this, mDrawerList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navDrawerItems = new ArrayList<>();
 
@@ -224,12 +225,16 @@ public class MainActivity extends FragmentActivity
 
         for(int i = 0; i < navMenuTitles.length; i++) {
 
-            if(i == navMenuTitles.length - 1 && !DEBUG) {
-                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+            if(i == 0) {
+                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], new ColorDrawable(currentTheme.getDisplayColor())));
             } else {
-                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
-            }
+                if(i == navMenuTitles.length - 1 && !DEBUG) {
+                    navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+                } else {
+                    navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+                }
 
+            }
         }
 
         // Recycle the typed array to avoid wast resources
@@ -252,12 +257,14 @@ public class MainActivity extends FragmentActivity
                 R.string.app_name // Nav drawer close.
         ) {
             public void onDrawerClosed(View view) {
+                getActionBar().setBackgroundDrawable(new ColorDrawable(0x00FFFFFF));
                 getActionBar().setTitle(mTitle);
                 // Calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
+                getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
                 getActionBar().setTitle(mTitle);
                 // Calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
@@ -266,7 +273,8 @@ public class MainActivity extends FragmentActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if(savedInstanceState == null) {
-            displayView(0, null);
+            currentPosition = 1;
+            displayView(1, null);
         }
 
         //revMob = RevMob.start(this, APPLICATION_ID);
@@ -311,6 +319,7 @@ public class MainActivity extends FragmentActivity
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
             mDrawerLayout.closeDrawer(mDrawerList);
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -329,7 +338,7 @@ public class MainActivity extends FragmentActivity
     public void displayView(int position, Bundle fragBundle) {
         // update the main content by replacing fragments
         Theme currentTheme = Utils.getCurrentTheme(this);
-
+        currentPosition = 1;
         activeFragment = null;
         switch (position) {
             case CALCULATOR_FRAG:
@@ -375,6 +384,7 @@ public class MainActivity extends FragmentActivity
                 activeFragment = new TestFragment();
                 break;
             case THEME_CREATOR:
+                currentPosition = 1;
                 updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new FragmentThemeCreator();
                 keypadFragment = (FragmentThemeCreator) activeFragment;
@@ -652,7 +662,8 @@ public class MainActivity extends FragmentActivity
 
     public void setActionBarColor() {
         mActionBarTitle.setTextColor(mActionBarTextColor);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
+        getActionBar().setBackgroundDrawable(new ColorDrawable(0x00FFFFFF));
+        navAdapter.getmConvertView().setBackground(new ColorDrawable(mActionBarColor));
         tintManager.setTintColor(mActionBarColor);
     }
 

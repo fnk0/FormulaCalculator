@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -65,6 +66,15 @@ public class Utils {
                 .equals(context.getString(R.string.keypad_standard_value));
     }
 
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     /**
      *
      * @param context
@@ -74,7 +84,27 @@ public class Utils {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String taxValue = prefs.getString(context.getString(R.string.tax_key), context.getString(R.string.tax_def_value));
 
-        return 1 + (Double.parseDouble(taxValue.replaceAll("%", "")) / 100);
+        return 1 + (Double.parseDouble(taxValue.replaceAll("%", "").replaceAll(" ", "")) / 100);
+    }
+
+    public static Typeface getTypeface(Context context) {
+        Typeface selectedTypeface = null;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getString(R.string.font_family_key), context.getString(R.string.font_family_default_value));
+        Log.i(LOG_TAG, "Pref Value: " + prefValue);
+        if(prefValue.equals(context.getString(R.string.font_light))) {
+            selectedTypeface = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        } else if(prefValue.equals(context.getString(R.string.font_normal))) {
+            selectedTypeface = Typeface.create("sans-serif", Typeface.NORMAL);
+        } else if(prefValue.equals(context.getString(R.string.font_thin))) {
+            selectedTypeface = Typeface.create("sans-serif-thin", Typeface.NORMAL);
+        } else if(prefValue.equals(context.getString(R.string.font_cond))) {
+            selectedTypeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
+        } else {
+            selectedTypeface = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        }
+
+        return selectedTypeface;
     }
 
     public static float getButtonTextSize(Context context) {

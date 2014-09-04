@@ -102,7 +102,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
 
         LinearLayout mLayout = (LinearLayout) view.findViewById(R.id.calculatorFrag);
-        Utils.setInsets(getActivity(), mLayout);
+        //Utils.setInsets(getActivity(), mLayout);
 
         blinkingText = (TextView) view.findViewById(R.id.blinkingText);
         blinkingText.setBackgroundColor(currentTheme.getDisplayTextColor());

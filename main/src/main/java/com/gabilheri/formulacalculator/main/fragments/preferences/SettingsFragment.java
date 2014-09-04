@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -60,7 +61,9 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LinearLayout settingsFrag = (LinearLayout) view.findViewById(R.id.settingsFrag);
-        Utils.setInsets(getActivity(), settingsFrag);
+        //Utils.setInsets(getActivity(), settingsFrag);
+        LinearLayout actionBarSettings = (LinearLayout) view.findViewById(R.id.actionBarSettings);
+        actionBarSettings.setBackground(new ColorDrawable(Utils.getCurrentTheme(getActivity()).getSecondaryColor()));
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         FragmentManager fm = getFragmentManager();
         try {

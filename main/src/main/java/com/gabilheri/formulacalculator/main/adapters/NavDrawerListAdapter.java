@@ -5,14 +5,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
-
-import org.w3c.dom.Text;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -26,6 +26,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
+    private View mConvertView;
 
     public NavDrawerListAdapter() {
     }
@@ -77,10 +78,20 @@ public class NavDrawerListAdapter extends BaseAdapter {
         ImageView imageIcon = (ImageView) convertView.findViewById(R.id.navDrawerIcon);
         TextView title = (TextView) convertView.findViewById(R.id.navDrawerTitle);
 
-        imageIcon.setImageResource(navDrawerItems.get(position).getIcon());
-        title.setText(navDrawerItems.get(position).getTitle());
+        if(position == 0) {
+            mConvertView = convertView;
+            mConvertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, context.getResources().getDimensionPixelSize(R.dimen.action_bar_size) + Utils.getStatusBarHeight(context)));
+            mConvertView.setBackground(navDrawerItems.get(position).getDrawable());
+        } else {
+            title.setText(navDrawerItems.get(position).getTitle());
+            imageIcon.setImageResource(navDrawerItems.get(position).getIcon());
 
+        }
 
         return convertView;
+    }
+
+    public View getmConvertView() {
+        return mConvertView;
     }
 }
