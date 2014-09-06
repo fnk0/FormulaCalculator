@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_display"
         android:title="@string/display_font_pref_title"
         android:key="@string/display_font_key"
-        android:defaultValue="@string/font_size_def"
+        android:defaultValue="@string/display_font_size_def"
         android:entries="@array/font_sizes"
         android:entryValues="@array/font_size_values"
     />

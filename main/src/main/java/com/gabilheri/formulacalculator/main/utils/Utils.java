@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -32,6 +33,11 @@ import java.text.DecimalFormat;
 public class Utils {
 
     public static final String LOG_TAG = "UtilsLog";
+
+    public static final int NOT_RESIZE = 0;
+    public static final int RESIZE_ONCE = 1;
+    public static final int RESIZE_TWICE = 2;
+    public static final int RESIZE_THIRD = 3;
 
     /**
      *
@@ -135,6 +141,137 @@ public class Utils {
         }
 
         return 0;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static float getDisplayTextSize(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.display_font_key), context.getResources().getString(R.string.display_font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.display_text_xsmall);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.display_text_small);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.display_text_default);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.display_text_large);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.display_text_xlarge);
+        }
+
+        return 0;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static float getDisplayResizedText(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.display_font_key), context.getResources().getString(R.string.display_font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.display_text_xsmall_resized);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.display_text_small_resized);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.display_text_default_resized);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.display_text_large_resized);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.display_text_xlarge_resized);
+        }
+
+        return 0;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static float getDisplayResizedTextTwice(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.display_font_key), context.getResources().getString(R.string.display_font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.display_text_xsmall_resized_twice);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.display_text_small_resized_twice);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.display_text_default_resized_twice);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.display_text_large_resized_twice);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.display_text_xlarge_resized_twice);
+        }
+
+        return 0;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static float getDisplayResizedTextThird(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.display_font_key), context.getResources().getString(R.string.display_font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.display_text_xsmall_resized_third);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.display_text_small_resized_third);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.display_text_default_resized_third);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.display_text_large_resized_third);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.display_text_xlarge_resized_third);
+        }
+
+        return 0;
+    }
+
+    public static float getDisplayResizedTextFourth(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.display_font_key), context.getResources().getString(R.string.display_font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.display_text_xsmall_resized_fourth);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.display_text_small_resized_fourth);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.display_text_default_resized_fourth);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.display_text_large_resized_fourth);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.display_text_xlarge_resized_fourth);
+        }
+
+        return 0;
+    }
+
+
+    public static boolean shouldResizeText(Context context, int textWidth) {
+
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int displayWidth = displayMetrics.widthPixels;
+
+        //Log.i(LOG_TAG, "Display Width: " + displayWidth + " --- Text Size: " + textWidth);
+
+        if(displayWidth - textWidth < 80) {
+            //Log.i(LOG_TAG, "Resizing!!");
+            return true;
+        }
+
+        return false;
     }
 
     /**

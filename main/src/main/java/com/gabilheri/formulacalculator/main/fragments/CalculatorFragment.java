@@ -65,6 +65,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
     private KeypadFunctionsFragment mKeypadFunctionsFragment;
     private View rootView;
     private Theme currentTheme;
+    private int resizeType = Utils.NOT_RESIZE;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -117,7 +118,21 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         inputBoxKey = (TextView) view.findViewById(R.id.inputBox1);
         resultBoxKey = (TextView) view.findViewById(R.id.resultBox1);
 
+        inputBoxKey.setTextSize(Utils.getDisplayTextSize(getActivity()));
+        resultBoxKey.setTextSize(Utils.getDisplayTextSize(getActivity()));
+        blinkingText.setTextSize(Utils.getDisplayTextSize(getActivity()));
+
         inputBoxKey.setTextColor(currentTheme.getDisplayTextColor());
+
+        inputBoxKey.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                final int textViewWidth = right - left;
+                Utils.shouldResizeText(getActivity(), textViewWidth);
+            }
+        });
+
+
         resultBoxKey.setTextColor(currentTheme.getDisplayTextColor());
 
         // Set up the ViewPager with the sections adapter.
@@ -258,23 +273,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
             clearResult = false;
         }
 
-        int inputSize = Utils.stripHTML(textInputBox1).length();
-
-        if (inputSize > 15) {
-            inputBoxKey.setTextSize(25);
-            Log.i("INPUT SIZE: ", "" + inputSize);
-        }
-
-        if (inputSize > 25) {
-            inputBoxKey.setTextSize(20);
-            Log.i("INPUT SIZE: ", "" + inputSize);
-        }
-
-        if (inputSize > 35) {
-            inputBoxKey.setTextSize(15);
-            Log.i("INPUT SIZE: ", "" + inputSize);
-        }
-
         for (int i = 0; i < textInputBox1.length(); i++) {
             if (textInputBox1.charAt(i) == '(') {
                 parCounter++;
@@ -386,7 +384,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                     textInputBox1 += "log" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
                     break;
                 case R.id.btnLn:
-                    textInputBox1 += "ln(" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += "ln" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
                     break;
                 case R.id.degreeRad:
                     if (angleType == EvaluateExpression.DEGREE) {
@@ -421,8 +419,26 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                     break;
             }
         }
-
         inputBoxKey.setText(Html.fromHtml(textInputBox1));
+
+        if(Utils.shouldResizeText(getActivity(), inputBoxKey.getWidth())) {
+            if(resizeType == Utils.NOT_RESIZE) {
+                resizeType = Utils.RESIZE_ONCE;
+                inputBoxKey.setTextSize(Utils.getDisplayResizedText(getActivity()));
+                blinkingText.setTextSize(Utils.getDisplayResizedText(getActivity()));
+            } else if (resizeType == Utils.RESIZE_ONCE) {
+                resizeType = Utils.RESIZE_TWICE;
+                inputBoxKey.setTextSize(Utils.getDisplayResizedTextTwice(getActivity()));
+                blinkingText.setTextSize(Utils.getDisplayResizedTextTwice(getActivity()));
+            } else if(resizeType == Utils.RESIZE_TWICE) {
+                resizeType = Utils.RESIZE_THIRD;
+                inputBoxKey.setTextSize(Utils.getDisplayResizedTextThird(getActivity()));
+                blinkingText.setTextSize(Utils.getDisplayResizedTextThird(getActivity()));
+            } else if(resizeType == Utils.RESIZE_THIRD) {
+                inputBoxKey.setTextSize(Utils.getDisplayResizedTextFourth(getActivity()));
+                blinkingText.setTextSize(Utils.getDisplayResizedTextFourth(getActivity()));
+            }
+        }
         Log.d("FRAGMENT MAIN: ", "Text Input: " + textInputBox1);
     }
 
@@ -444,8 +460,9 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
 
         int resultSize = result.length();
 
+        /*
         if (resultSize > 15) {
-            resultBoxKey.setTextSize(25);
+            resultBoxKey.setTextSize(Utils.getButtonTextSize(getActivity()));
             Log.i("INPUT SIZE: ", "" + resultSize);
         }
 
@@ -458,6 +475,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
             resultBoxKey.setTextSize(15);
             Log.i("INPUT SIZE: ", "" + resultSize);
         }
+        */
 
         if (textInputBox1.equals(getString(R.string._0))) {
             textInputBox1 = "";
@@ -481,8 +499,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
      */
     public void clearDisplay() {
         textInputBox1 = "";
+        resizeType = Utils.NOT_RESIZE;
         resultBoxKey.setText("");
-        inputBoxKey.setTextSize(35);
+        inputBoxKey.setTextSize(Utils.getDisplayTextSize(getActivity()));
+        blinkingText.setTextSize(Utils.getDisplayTextSize(getActivity()));
         clearResult = false;
     }
 

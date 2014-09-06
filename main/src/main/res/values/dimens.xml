@@ -30,8 +30,45 @@
     <dimen name="button_text_size">10sp</dimen>
     <dimen name="button_text_size_large">12sp</dimen>
     <dimen name="button_text_size_xlarge">14sp</dimen>
-
     <dimen name="delete_button_text_size">14sp</dimen>
+
+    <!-- Display Text Size -->
+    <dimen name="display_text_xsmall">10sp</dimen>
+    <dimen name="display_text_small">12sp</dimen>
+    <dimen name="display_text_default">14sp</dimen>
+    <dimen name="display_text_large">16sp</dimen>
+    <dimen name="display_text_xlarge">18sp</dimen>
+
+    <!-- Display dimen Resized -->
+    <dimen name="display_text_xsmall_resized">8sp</dimen>
+    <dimen name="display_text_small_resized">10sp</dimen>
+    <dimen name="display_text_default_resized">12sp</dimen>
+    <dimen name="display_text_large_resized">14sp</dimen>
+    <dimen name="display_text_xlarge_resized">16sp</dimen>
+
+    <!-- Display dimen Resized twice -->
+    <dimen name="display_text_xsmall_resized_twice">6sp</dimen>
+    <dimen name="display_text_small_resized_twice">8sp</dimen>
+    <dimen name="display_text_default_resized_twice">10sp</dimen>
+    <dimen name="display_text_large_resized_twice">12sp</dimen>
+    <dimen name="display_text_xlarge_resized_twice">14sp</dimen>
+
+    <!-- Display dimen Resized 3 times -->
+    <dimen name="display_text_xsmall_resized_third">4sp</dimen>
+    <dimen name="display_text_small_resized_third">6sp</dimen>
+    <dimen name="display_text_default_resized_third">8sp</dimen>
+    <dimen name="display_text_large_resized_third">10sp</dimen>
+    <dimen name="display_text_xlarge_resized_third">12sp</dimen>
+
+    <!-- Display dimen Resized 4 times-->
+    <dimen name="display_text_xsmall_resized_fourth">2sp</dimen>
+    <dimen name="display_text_small_resized_fourth">4sp</dimen>
+    <dimen name="display_text_default_resized_fourth">6sp</dimen>
+    <dimen name="display_text_large_resized_fourth">8sp</dimen>
+    <dimen name="display_text_xlarge_resized_fourth">10sp</dimen>
+
+
+
     <dimen name="text_spinner_height">48dp</dimen>
 
 

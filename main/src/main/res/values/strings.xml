@@ -254,6 +254,7 @@
     <string name="font_size_def">default</string>
 
     <string name="display_font_pref_title">Display Text Size</string>
+    <string name="display_font_size_def">default</string>
     <string name="display_font_key">displayFontSizeKey</string>
 
 
@@ -280,7 +281,6 @@
         <item>condensed</item>
         <item>light</item>
     </string-array>
-
 
     <!-- Common Font size arrays -->
     <string-array name="font_sizes">
