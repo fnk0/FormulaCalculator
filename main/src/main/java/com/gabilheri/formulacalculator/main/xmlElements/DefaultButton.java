@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 /**
  * @author Marcus Gabilheri
@@ -81,7 +82,7 @@ public class DefaultButton extends Button {
         if(!this.isInEditMode()) {
             //this.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
             this.mActivity = (MainActivity) context;
-            this.setTextSize(getResources().getDimension(R.dimen.button_text_size));
+            this.setTextSize(Utils.getButtonTextSize(context));
             this.setTextColor(textColor);
             this.setBackground(new CustomStateList(context, backgroundColor, highlightColor, selectedColor));
         }

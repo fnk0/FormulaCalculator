@@ -64,6 +64,9 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         //Utils.setInsets(getActivity(), settingsFrag);
         LinearLayout actionBarSettings = (LinearLayout) view.findViewById(R.id.actionBarSettings);
         actionBarSettings.setBackground(new ColorDrawable(Utils.getCurrentTheme(getActivity()).getSecondaryColor()));
+        actionBarSettings.setLayoutParams(
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.action_bar_size) + Utils.getStatusBarHeight(getActivity())));
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         FragmentManager fm = getFragmentManager();
         try {

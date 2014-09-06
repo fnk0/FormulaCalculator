@@ -6,12 +6,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="8dip"
     android:background="@color/pref_frag" >
 
     <LinearLayout
         android:id="@+id/actionBarSettings"
         android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dip"
         android:layout_height="@dimen/action_bar_size">
 
     </LinearLayout>

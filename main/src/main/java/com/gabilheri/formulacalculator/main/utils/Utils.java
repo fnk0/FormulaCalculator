@@ -66,6 +66,11 @@ public class Utils {
                 .equals(context.getString(R.string.keypad_standard_value));
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     */
     public static int getStatusBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -107,7 +112,28 @@ public class Utils {
         return selectedTypeface;
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     */
     public static float getButtonTextSize(Context context) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.buttons_font_size_key), context.getResources().getString(R.string.font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.button_text_size_x_small);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.button_text_size_small);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.button_text_size);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.button_text_size_large);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.button_text_size_xlarge);
+        }
+
         return 0;
     }
 

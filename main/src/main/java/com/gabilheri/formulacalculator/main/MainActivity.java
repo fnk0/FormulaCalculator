@@ -96,15 +96,15 @@ public class MainActivity extends FragmentActivity
     private CharSequence mTitle;
 
     //Constants for the Fragments
-    public static final int CALCULATOR_FRAG = 1;
-    public static final int LOG_FRAG = 2;
-    public static final int FORMULAS_FRAG = 3;
-    public static final int UNIT_CONVERTER_FRAG = 4;
-    public static final int THEMES_FRAG = 5;
-    public static final int SETTINGS_FRAG = 6;
-    public static final int ABOUT_FRAG = 7;
-    public static final int GOOGLE_PLUS = 8;
-    public static final int DEBUG_FRAG = 9;
+    public static final int CALCULATOR_FRAG = 0;
+    public static final int LOG_FRAG = 1;
+    public static final int FORMULAS_FRAG = 2;
+    public static final int UNIT_CONVERTER_FRAG = 3;
+    public static final int THEMES_FRAG = 4;
+    public static final int SETTINGS_FRAG = 5;
+    public static final int ABOUT_FRAG = 6;
+    public static final int GOOGLE_PLUS = 7;
+    public static final int DEBUG_FRAG = 8;
     public static final int THEME_CREATOR = 15;
 
     // Shared Pref stuff
@@ -207,7 +207,7 @@ public class MainActivity extends FragmentActivity
         navMenuTitles = getResources().getStringArray(R.array.drawer_items);
         navMenuIcons = getResources().obtainTypedArray(R.array.drawer_icons);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-        //Utils.setInsets(this, mDrawerList);
+        Utils.setInsets(this, mDrawerList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navDrawerItems = new ArrayList<>();
 
@@ -225,15 +225,10 @@ public class MainActivity extends FragmentActivity
 
         for(int i = 0; i < navMenuTitles.length; i++) {
 
-            if(i == 0) {
-                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], new ColorDrawable(currentTheme.getDisplayColor())));
+            if(i == navMenuTitles.length - 1 && !DEBUG) {
+                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
             } else {
-                if(i == navMenuTitles.length - 1 && !DEBUG) {
-                    navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
-                } else {
-                    navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
-                }
-
+                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
             }
         }
 
@@ -256,25 +251,29 @@ public class MainActivity extends FragmentActivity
                 R.string.app_name, // Nav Drawer open - description for accessibility
                 R.string.app_name // Nav drawer close.
         ) {
+
+            @Override
             public void onDrawerClosed(View view) {
-                getActionBar().setBackgroundDrawable(new ColorDrawable(0x00FFFFFF));
                 getActionBar().setTitle(mTitle);
                 // Calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
 
+            @Override
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
+                //getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
                 getActionBar().setTitle(mTitle);
                 // Calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
+
+
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if(savedInstanceState == null) {
-            currentPosition = 1;
-            displayView(1, null);
+            currentPosition = 0;
+            displayView(0, null);
         }
 
         //revMob = RevMob.start(this, APPLICATION_ID);
@@ -656,14 +655,17 @@ public class MainActivity extends FragmentActivity
      *          Color to change to
      */
     public void updateActionBar(int color, int textColor) {
+        getActionBar().setBackgroundDrawable(new ColorDrawable(0x00FFFFFF));
         mActionBarTextColor = textColor;
         mActionBarColor = color;
     }
 
     public void setActionBarColor() {
         mActionBarTitle.setTextColor(mActionBarTextColor);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(0x00FFFFFF));
-        navAdapter.getmConvertView().setBackground(new ColorDrawable(mActionBarColor));
+        //navAdapter.getmConvertView().setBackground(new ColorDrawable(mActionBarColor));
+        getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
+        //refreshActionBar();
+
         tintManager.setTintColor(mActionBarColor);
     }
 
@@ -683,5 +685,14 @@ public class MainActivity extends FragmentActivity
             }
 
         }
+    }
+
+    public void refreshActionBar() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
+            }
+        }, 400);
     }
 }
