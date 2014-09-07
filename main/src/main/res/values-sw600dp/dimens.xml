@@ -22,15 +22,72 @@
     <dimen name="list_card_padding_top">2dp</dimen>
 
     <!-- Text Sizes -->
+    <dimen name="button_text_size_x_small">12sp</dimen>
     <dimen name="button_text_size_small">14sp</dimen>
-    <dimen name="button_text_size">18sp</dimen>
-    <dimen name="delete_button_text_size">14sp</dimen>
-    <dimen name="text_spinner_height">48dp</dimen>
-    <dimen name="button_text_size_large">10sp</dimen>
-    <dimen name="button_text_size_xlarge">12sp</dimen>
+    <dimen name="button_text_size">16sp</dimen>
+    <dimen name="button_text_size_large">18sp</dimen>
+    <dimen name="button_text_size_xlarge">20sp</dimen>
 
+    <!-- Special button dimensions used for the delete button and 3+ more character buttons -->
+    <dimen name="button_special_size_x_small">10sp</dimen>
+    <dimen name="button_special_size_small">12sp</dimen>
+    <dimen name="button_special_size">14sp</dimen>
+    <dimen name="button_special_size_large">16sp</dimen>
+    <dimen name="button_special_size_xlarge">18sp</dimen>
+
+    <dimen name="ans_button_text_size_x_small">11sp</dimen>
+    <dimen name="ans_button_text_size_small">13sp</dimen>
+    <dimen name="ans_button_text_size">15sp</dimen>
+    <dimen name="ans_button_text_size_large">17sp</dimen>
+    <dimen name="ans_button_text_size_xlarge">19sp</dimen>
+
+    <dimen name="delete_button_text_size_x_small">16sp</dimen>
+    <dimen name="delete_button_text_size_small">20sp</dimen>
+    <dimen name="delete_button_text_size">22sp</dimen>
+    <dimen name="delete_button_text_size_large">24sp</dimen>
+    <dimen name="delete_button_text_size_xlarge">26sp</dimen>
+
+    <!-- Display Text Size -->
+    <dimen name="display_text_xsmall">18sp</dimen>
+    <dimen name="display_text_small">20sp</dimen>
+    <dimen name="display_text_default">22sp</dimen>
+    <dimen name="display_text_large">24sp</dimen>
+    <dimen name="display_text_xlarge">26sp</dimen>
+
+    <!-- Display dimen Resized -->
+    <dimen name="display_text_xsmall_resized">16sp</dimen>
+    <dimen name="display_text_small_resized">18sp</dimen>
+    <dimen name="display_text_default_resized">20sp</dimen>
+    <dimen name="display_text_large_resized">22sp</dimen>
+    <dimen name="display_text_xlarge_resized">24sp</dimen>
+
+    <!-- Display dimen Resized twice -->
+    <dimen name="display_text_xsmall_resized_twice">14sp</dimen>
+    <dimen name="display_text_small_resized_twice">16sp</dimen>
+    <dimen name="display_text_default_resized_twice">18sp</dimen>
+    <dimen name="display_text_large_resized_twice">20sp</dimen>
+    <dimen name="display_text_xlarge_resized_twice">22sp</dimen>
+
+    <!-- Display dimen Resized 3 times -->
+    <dimen name="display_text_xsmall_resized_third">12.5sp</dimen>
+    <dimen name="display_text_small_resized_third">14sp</dimen>
+    <dimen name="display_text_default_resized_third">16sp</dimen>
+    <dimen name="display_text_large_resized_third">18sp</dimen>
+    <dimen name="display_text_xlarge_resized_third">20sp</dimen>
+
+    <!-- Display dimen Resized 4 times-->
+    <dimen name="display_text_xsmall_resized_fourth">10.5sp</dimen>
+    <dimen name="display_text_small_resized_fourth">12sp</dimen>
+    <dimen name="display_text_default_resized_fourth">14sp</dimen>
+    <dimen name="display_text_large_resized_fourth">16sp</dimen>
+    <dimen name="display_text_xlarge_resized_fourth">18sp</dimen>
+
+
+    <!-- Other dimensions -->
     <dimen name="fab_button">42sp</dimen>
-
+    <dimen name="text_spinner_height">48dp</dimen>
     <dimen name="action_bar_size">56dip</dimen>
+
+
 
 </resources>

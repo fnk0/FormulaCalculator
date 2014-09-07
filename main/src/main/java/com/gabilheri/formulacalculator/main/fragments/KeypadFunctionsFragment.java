@@ -14,6 +14,7 @@ import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.Theme;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class KeypadFunctionsFragment extends Fragment {
     private HashMap<Integer, DefaultButton> mKeypadFunctionButtons;
     private ArrayList<DefaultButton> mButtonsArray;
     private ArrayList<DefaultButton> mSecondaryButtonsArray;
+    private ArrayList<DefaultButton> specialButtons;
     private Theme currentTheme;
     private View.OnClickListener listener;
 
@@ -40,6 +42,7 @@ public class KeypadFunctionsFragment extends Fragment {
         mButtonsArray = new ArrayList<>();
         mSecondaryButtonsArray = new ArrayList<>();
         mKeypadFunctionButtons = new HashMap<>();
+        specialButtons = new ArrayList<>();
     }
 
     public void setListener(View.OnClickListener listener) {
@@ -61,8 +64,8 @@ public class KeypadFunctionsFragment extends Fragment {
 
         Typeface mFont = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(), "icons.ttf");
         btnDel.setTypeface(mFont);
-        btnDel.setTextSize(35);
-
+        btnDel.setLongClickable(true);
+        btnDel.setTextSize(Utils.getDeleteButtonTextSize(getActivity()));
         btnDel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -110,10 +113,12 @@ public class KeypadFunctionsFragment extends Fragment {
         btnTax = (DefaultButton) rootView.findViewById(R.id.keypadTax);
         mKeypadFunctionButtons.put(R.id.keypadTax, btnTax);
         mSecondaryButtonsArray.add(btnTax);
+        specialButtons.add(btnTax);
 
         degreeRad = (DefaultButton) rootView.findViewById(R.id.degreeRad);
         mKeypadFunctionButtons.put(R.id.degreeRad, degreeRad);
         mButtonsArray.add(degreeRad);
+        specialButtons.add(degreeRad);
 
         btnPercent = (DefaultButton) rootView.findViewById(R.id.btnPercent);
         mKeypadFunctionButtons.put(R.id.btnPercent, btnPercent);
@@ -138,20 +143,17 @@ public class KeypadFunctionsFragment extends Fragment {
         btnArcSin = (DefaultButton) rootView.findViewById(R.id.btnArcSin);
         mKeypadFunctionButtons.put(R.id.cubeRoot, cubeRoot);
         mButtonsArray.add(btnArcSin);
+        specialButtons.add(btnArcSin);
 
         btnArcCos = (DefaultButton) rootView.findViewById(R.id.btnArcCos);
         mKeypadFunctionButtons.put(R.id.cubeRoot, cubeRoot);
         mButtonsArray.add(btnArcCos);
+        specialButtons.add(btnArcCos);
 
         btnArcTan = (DefaultButton) rootView.findViewById(R.id.btnArcTan);
         mKeypadFunctionButtons.put(R.id.cubeRoot, cubeRoot);
         mButtonsArray.add(btnArcTan);
-
-        /*
-        btnFrac = (DefaultButton) rootView.findViewById(R.id.fraction);
-        mKeypadButtons.put(R.id.fraction, btnFrac);
-        mButtonsArray.add(btnFrac);
-        */
+        specialButtons.add(btnArcTan);
 
         for(DefaultButton mButton : mButtonsArray) {
             mButton.setCustomTextColor(currentTheme.getPrimaryButtonTextColor());
@@ -165,6 +167,10 @@ public class KeypadFunctionsFragment extends Fragment {
             mButton.setCustomBackgroundColor(currentTheme.getSecondaryColor());
             mButton.setCustomHighlightColor(currentTheme.getSecondaryHighlightColor());
             mButton.setOnClickListener(listener);
+        }
+
+        for(DefaultButton mButton : specialButtons) {
+            mButton.setTextSize(Utils.getSpecialButtonTextSize(getActivity()));
         }
 
         return rootView;

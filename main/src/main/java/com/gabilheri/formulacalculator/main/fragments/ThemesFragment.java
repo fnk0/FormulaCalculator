@@ -47,7 +47,6 @@ public class ThemesFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
-
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
 
         ActionBar mBar = getActivity().getActionBar();

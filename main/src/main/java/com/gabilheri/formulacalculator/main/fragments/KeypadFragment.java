@@ -70,7 +70,8 @@ public class KeypadFragment extends Fragment {
 
         Typeface mFont = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(), "icons.ttf");
         btnDel.setTypeface(mFont);
-        btnDel.setTextSize(35);
+        btnDel.setLongClickable(true);
+        btnDel.setTextSize(Utils.getDeleteButtonTextSize(getActivity()));
         btnDel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -82,6 +83,7 @@ public class KeypadFragment extends Fragment {
         btnAns = (DefaultButton) rootView.findViewById(R.id.answer);
         mKeypadButtons.put(R.id.answer, btnAns);
         mButtonsArray.add(btnAns);
+        btnAns.setTextSize(Utils.getAnswerButtonTextSize(getActivity()));
 
         btnParLeft = (DefaultButton) rootView.findViewById(R.id.parLeft);
         mKeypadButtons.put(R.id.parLeft, btnParLeft);

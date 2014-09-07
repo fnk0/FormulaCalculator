@@ -82,7 +82,6 @@ public class PreferencesFrag extends PreferenceFragment implements Preference.On
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
         } else {
-
             if(preference.getKey().equals(getString(R.string.tax_key))) {
                 preference.setSummary(stringValue + "%");
             } else {

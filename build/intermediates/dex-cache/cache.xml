@@ -44,17 +44,17 @@
         revision="19.1.0"
         sha1="dd59f15631a0446653bc4197a9afd6ee63eef42d"/>
     <item
-        dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-05018c1c55b8fcc178e9894fa01dbd0d7ca1a76d.jar"
-        jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
-    <item
         dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-df5bbaa13662bf93060861f7cb3e281bd5b359eb.jar"
         jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/support-v13/20.0.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="e128103d5281ddd26195a7f980b36d0d005a4e56"/>
+    <item
+        dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-05018c1c55b8fcc178e9894fa01dbd0d7ca1a76d.jar"
+        jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
         dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/systembartint-1.0.3-8a8fd55cacfe8ca3ab5b1f14d08ee745b15c4184.jar"
         jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.readystatesoftware.systembartint/systembartint/1.0.3/de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287/systembartint-1.0.3.jar"
@@ -110,16 +110,16 @@
         revision="19.1.0"
         sha1="cc519375a59b88327d65b79172798e7e6417bc78"/>
     <item
-        dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-0735653ae83380ad9bcb2a3164ceaee825c1a35d.jar"
-        jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
-    <item
         dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/google-api-client-1.18.0-rc-d8279c8c67867d8b3bd7c7840294997b55142413.jar"
         jar="/Users/marcus/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.18.0-rc/45b0d00b78197d8a3047751443c09538117d188b/google-api-client-1.18.0-rc.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="45b0d00b78197d8a3047751443c09538117d188b"/>
+    <item
+        dex="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/pre-dexed/debug/classes-0735653ae83380ad9bcb2a3164ceaee825c1a35d.jar"
+        jar="/Users/marcus/Google Drive/AndroidProjects/FormulaCalculator/main/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.77/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="b6a82434c1eca686607867cd906bcc80ed987837"/>
 
 </pre-dex-items>

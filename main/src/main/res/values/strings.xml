@@ -315,5 +315,20 @@
     <string name="placeholder_result_input">2 + 5 / 10</string>
     <string name="placeholder_result">2.2</string>
 
+    <!-- Shared Preferences -->
+    <string name="current_input_key">current_input_key</string>
+    <string name="current_input">current_input</string>
+
+
+    <!-- Undo Card Strings -->
+    <!-- Undo Controller-->
+
+    <string name="list_card_undo_title">Undo</string>
+    <!--<string name="undo_card">Card removed</string>-->
+
+    <plurals name="list_card_undo_items">
+        <item quantity="one">1 recent removed</item>
+        <item quantity="other">%d recent removed</item>
+    </plurals>
 
 </resources>

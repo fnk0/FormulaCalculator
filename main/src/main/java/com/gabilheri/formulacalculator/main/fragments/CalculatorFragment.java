@@ -97,7 +97,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         // primary sections of the activity.
         ActionBar mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_launcher);
-
         SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
         currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));
@@ -164,7 +163,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         }
 
         if (extraBundle != null) {
-            textInputBox1 = String.valueOf(extraBundle.getDouble("logResult"));
+            textInputBox1 = extraBundle.getString("logResult");
             inputBoxKey.setText(textInputBox1);
         } else {
             textInputBox1 = "";
@@ -230,7 +229,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         boolean isAnswerInserted = false;
 
         if (clearResult && Utils.isButtonOperator(id)) {
-            Log.i(LOG_TAG, "Here Inside Operators!!");
+            //Log.i(LOG_TAG, "Here Inside Operators!!");
             switch (id) {
                 case R.id.plus:
                     textInputBox1 = getString(R.string.ans) + getString(R.string.plus);
@@ -250,21 +249,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                 case R.id.keypadSqrt:
                     textInputBox1 = getString(R.string.sqrt) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>" + getString(R.string.ans);
                     break;
-                /*
-                case R.id.fraction:
-                    if (previousResult != null) {
-                        FractionBuilder mFractionBuilder = new FractionBuilder();
-                        try {
-                            double res = Double.parseDouble(previousResult);
-                            Log.i(LOG_TAG, "Res: " + res);
-                            Fraction mFraction = mFractionBuilder.createFraction(res);
-                            resultBoxKey.setText(mFraction.toString());
-                        } catch (IrrationalNumberException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                    break;
-                */
             }
             isAnswerInserted = true;
             clearResult = false;
@@ -286,6 +270,21 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         if (!isAnswerInserted) {
             switch (id) {
                 case R.id.equal:
+                    switch (resizeType) {
+                        case Utils.RESIZE_ONCE:
+                            resultBoxKey.setTextSize(Utils.getDisplayResizedText(getActivity()));
+                            break;
+                        case Utils.RESIZE_TWICE:
+                            resultBoxKey.setTextSize(Utils.getDisplayResizedTextTwice(getActivity()));;
+                            break;
+                        case Utils.RESIZE_THIRD:
+                            resultBoxKey.setTextSize(Utils.getDisplayResizedTextThird(getActivity()));
+                            break;
+                        case Utils.RESIZE_FOURTH:
+                            resultBoxKey.setTextSize(Utils.getDisplayResizedTextFourth(getActivity()));
+                            break;
+                    }
+
                     evaluateExpression();
                     break;
                 case R.id.keypadDel:
@@ -419,7 +418,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                     break;
             }
         }
-        inputBoxKey.setText(Html.fromHtml(textInputBox1));
 
         if(Utils.shouldResizeText(getActivity(), inputBoxKey.getWidth())) {
             if(resizeType == Utils.NOT_RESIZE) {
@@ -435,10 +433,12 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                 inputBoxKey.setTextSize(Utils.getDisplayResizedTextThird(getActivity()));
                 blinkingText.setTextSize(Utils.getDisplayResizedTextThird(getActivity()));
             } else if(resizeType == Utils.RESIZE_THIRD) {
+                resizeType = Utils.RESIZE_FOURTH;
                 inputBoxKey.setTextSize(Utils.getDisplayResizedTextFourth(getActivity()));
                 blinkingText.setTextSize(Utils.getDisplayResizedTextFourth(getActivity()));
             }
         }
+        inputBoxKey.setText(Html.fromHtml(textInputBox1));
         Log.d("FRAGMENT MAIN: ", "Text Input: " + textInputBox1);
     }
 
@@ -452,30 +452,11 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         String result = expression.evaluate();
 
         if (result == null) {
-            Log.i(LOG_TAG, "Empty Input");
+            //Log.i(LOG_TAG, "Empty Input");
             inputBoxKey.setText("");
             resultBoxKey.setText("");
             return;
         }
-
-        int resultSize = result.length();
-
-        /*
-        if (resultSize > 15) {
-            resultBoxKey.setTextSize(Utils.getButtonTextSize(getActivity()));
-            Log.i("INPUT SIZE: ", "" + resultSize);
-        }
-
-        if (resultSize > 25) {
-            resultBoxKey.setTextSize(20);
-            Log.i("INPUT SIZE: ", "" + resultSize);
-        }
-
-        if (resultSize > 35) {
-            resultBoxKey.setTextSize(15);
-            Log.i("INPUT SIZE: ", "" + resultSize);
-        }
-        */
 
         if (textInputBox1.equals(getString(R.string._0))) {
             textInputBox1 = "";
@@ -512,10 +493,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
     public void deleteFromDisplay() {
 
         boolean par = false;
-        Log.i("TEXT SIZE BEFORE!", "" + textInputBox1.length());
+        //Log.i("TEXT SIZE BEFORE!", "" + textInputBox1.length());
 
         if (clearResult) {
-            Log.i(LOG_TAG, "Here?");
+            //Log.i(LOG_TAG, "Here?");
             clearDisplay();
             return;
         }
@@ -524,7 +505,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
             textInputBox1 = "";
         } else {
             if (textInputBox1.charAt(textInputBox1.length() - 1) == '>') {
-                Log.i("INSIDE PAR", "I'M A PAR!");
+                //Log.i("INSIDE PAR", "I'M A PAR!");
                 textInputBox1 = textInputBox1.substring(0, textInputBox1.length() - 28);
                 par = true;
             }
@@ -532,7 +513,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                 textInputBox1 = textInputBox1.substring(0, textInputBox1.length() - 1);
             }
             //Log.i("TEXT SIZE!", "" + textInputBox1.length());
-            //inputBoxKey.setText(Html.fromHtml(textInputBox1));
         }
     }
 
@@ -624,6 +604,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
      */
     public static TextView getInputBoxKey() {
         return inputBoxKey;
+    }
+
+    public String getTextInputBox() {
+        return textInputBox1;
     }
 
     /**

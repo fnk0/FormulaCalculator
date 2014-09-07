@@ -60,9 +60,7 @@ public class LogFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-
         ActionBar mBar = getActivity().getActionBar();
-
         mBar.setIcon(R.drawable.ic_log);
 
         return inflater.inflate(R.layout.fragment_logs, container, false);
@@ -162,7 +160,6 @@ public class LogFragment extends Fragment {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.delete:
                 getActivity().runOnUiThread(run);

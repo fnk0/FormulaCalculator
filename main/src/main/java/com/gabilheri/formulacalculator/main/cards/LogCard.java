@@ -12,6 +12,7 @@ import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.database.DatabaseHelper;
 import com.gabilheri.formulacalculator.main.database.ResultLog;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 import it.gmariotti.cardslib.library.internal.Card;
 
@@ -91,7 +92,7 @@ public class LogCard extends Card implements Card.OnSwipeListener, Card.OnCardCl
     @Override
     public void onClick(Card card, View view) {
         Bundle resultBundle = new Bundle();
-        resultBundle.putDouble("logResult", Double.parseDouble(mResult));
+        resultBundle.putString("logResult", Utils.getCurrentCalcInput(mContext) + Double.parseDouble(mResult));
 
         MainActivity mActivity = (MainActivity) mContext;
         mActivity.displayView(MainActivity.CALCULATOR_FRAG, resultBundle);

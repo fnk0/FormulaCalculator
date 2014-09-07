@@ -87,7 +87,6 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
 
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
         view.setBackgroundColor(currentTheme.getDisplayColor());
-
         mActionBar = getActivity().getActionBar();
         mActionBar.setIcon(R.drawable.ic_convert);
 

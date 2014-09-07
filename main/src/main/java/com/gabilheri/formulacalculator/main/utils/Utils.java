@@ -38,6 +38,7 @@ public class Utils {
     public static final int RESIZE_ONCE = 1;
     public static final int RESIZE_TWICE = 2;
     public static final int RESIZE_THIRD = 3;
+    public static final int RESIZE_FOURTH = 4;
 
     /**
      *
@@ -98,10 +99,40 @@ public class Utils {
         return 1 + (Double.parseDouble(taxValue.replaceAll("%", "").replaceAll(" ", "")) / 100);
     }
 
+    /**
+     * Returns the typeface based on the stored value in Shared Preferences
+     * @param context
+     * @return
+     */
     public static Typeface getTypeface(Context context) {
         Typeface selectedTypeface = null;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String prefValue = prefs.getString(context.getString(R.string.font_family_key), context.getString(R.string.font_family_default_value));
+        Log.i(LOG_TAG, "Pref Value: " + prefValue);
+        if(prefValue.equals(context.getString(R.string.font_light))) {
+            selectedTypeface = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        } else if(prefValue.equals(context.getString(R.string.font_normal))) {
+            selectedTypeface = Typeface.create("sans-serif", Typeface.NORMAL);
+        } else if(prefValue.equals(context.getString(R.string.font_thin))) {
+            selectedTypeface = Typeface.create("sans-serif-thin", Typeface.NORMAL);
+        } else if(prefValue.equals(context.getString(R.string.font_cond))) {
+            selectedTypeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
+        } else {
+            selectedTypeface = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        }
+
+        return selectedTypeface;
+    }
+
+    /**
+     * Returns the typeface based on the passed string value
+     * @param context
+     * @param typefacename
+     * @return
+     */
+    public static Typeface getTypeface(Context context, String typefacename) {
+        Typeface selectedTypeface;
+        String prefValue = typefacename;
         Log.i(LOG_TAG, "Pref Value: " + prefValue);
         if(prefValue.equals(context.getString(R.string.font_light))) {
             selectedTypeface = Typeface.create("sans-serif-light", Typeface.NORMAL);
@@ -142,6 +173,83 @@ public class Utils {
 
         return 0;
     }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static float getSpecialButtonTextSize(Context context) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.buttons_font_size_key), context.getResources().getString(R.string.font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.button_special_size_x_small);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.button_special_size_small);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.button_special_size);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.button_special_size_large);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.button_special_size_xlarge);
+        }
+
+        return 0;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static float getDeleteButtonTextSize(Context context) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.buttons_font_size_key), context.getResources().getString(R.string.font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.delete_button_text_size_x_small);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.delete_button_text_size_small);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.delete_button_text_size);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.delete_button_text_size_large);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.delete_button_text_size_xlarge);
+        }
+
+        return 0;
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public static float getAnswerButtonTextSize(Context context) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String prefValue = prefs.getString(context.getResources().getString(R.string.buttons_font_size_key), context.getResources().getString(R.string.font_size_def));
+
+        if(prefValue.equals(context.getString(R.string.xsmall))) {
+            return context.getResources().getDimension(R.dimen.ans_button_text_size_x_small);
+        } else if(prefValue.equals(context.getString(R.string.small))) {
+            return context.getResources().getDimension(R.dimen.ans_button_text_size_small);
+        } else if(prefValue.equals(context.getResources().getString(R.string.font_size_def))) {
+            return context.getResources().getDimension(R.dimen.ans_button_text_size);
+        } else if(prefValue.equals(context.getString(R.string.large))) {
+            return context.getResources().getDimension(R.dimen.ans_button_text_size_large);
+        } else if(prefValue.equals(context.getResources().getString(R.string.xlarge))) {
+            return context.getResources().getDimension(R.dimen.ans_button_text_size_xlarge);
+        }
+
+        return 0;
+    }
+
+
 
     /**
      *
@@ -258,7 +366,13 @@ public class Utils {
         return 0;
     }
 
-
+    /**
+     * Handy method that will calculate the current size of the text and the display size.
+     * And them determine if the text should be resized or not
+     * @param context
+     * @param textWidth
+     * @return
+     */
     public static boolean shouldResizeText(Context context, int textWidth) {
 
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -272,6 +386,23 @@ public class Utils {
         }
 
         return false;
+    }
+
+    /**
+     *
+     * @param context
+     * @param input
+     */
+    public static void setCurrentCalcInput(Context context, String input) {
+        SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.current_input_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(context.getString(R.string.current_input), input);
+        editor.apply();
+    }
+
+    public static String getCurrentCalcInput(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.current_input_key), Context.MODE_PRIVATE);
+        return pref.getString(context.getString(R.string.current_input), "");
     }
 
     /**

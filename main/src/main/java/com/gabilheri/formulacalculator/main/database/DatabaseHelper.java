@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        Log.i(LOG_TAG, CREATE_TABLE_THEMES);
+        //Log.i(LOG_TAG, CREATE_TABLE_THEMES);
         // Creates the required tables
         db.execSQL(CREATE_TABLE_THEMES);
         db.execSQL(CREATE_TABLE_RESULTS);
@@ -314,7 +313,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<ResultLog> resultLogs = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_RESULTS;
-        Log.i(LOG_TAG, selectQuery);
+        //Log.i(LOG_TAG, selectQuery);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

@@ -7,6 +7,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.utils.FontsOverride;
+import com.gabilheri.formulacalculator.main.utils.Utils;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -57,7 +59,6 @@ public class FontSizePrefs extends PreferenceFragment implements Preference.OnPr
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String stringValue = newValue.toString();
-
         if (preference instanceof ListPreference) {
             // For list preferences, look up the correct display value in
             // the preference's 'entries' list (since they have separate labels/values).
@@ -66,10 +67,23 @@ public class FontSizePrefs extends PreferenceFragment implements Preference.OnPr
             if (prefIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
+
+            if(preference.getKey().equals(getString(R.string.font_family_key))) {
+                //Log.i(LOG_TAG, "Font family changed!!");
+                FontsOverride.replaceFont("SERIF", Utils.getTypeface(getActivity(), stringValue));
+
+            }
+
         } else {
             // For other preferences, set the summary to the value's simple string representation.
             preference.setSummary(stringValue);
         }
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Log.i(LOG_TAG, "On Resume is called!");
     }
 }

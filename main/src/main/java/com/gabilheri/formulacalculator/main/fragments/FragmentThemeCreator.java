@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -88,7 +87,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                             getDisplay().setBackgroundColor(mBundle.getInt(ColorPickDialog.COLOR));
                             mActivity.updateActionBar(mBundle.getInt(ColorPickDialog.COLOR), newTheme.getDisplayTextColor());
                             mActivity.setActionBarColor();
-                            mActivity.setActionBarColor();
                             buttonGroup = DISPLAY_EDIT;
                         } else {
                             for(DefaultButton mButton : getArrayForType(buttonGroup)) {
@@ -101,7 +99,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                         }
                     } else if(editMode == TEXT_EDIT) {
                         if(editView == DISPLAY_EDIT) {
-                            Log.i(LOG_TAG, "Is this working? !");
+                            //Log.i(LOG_TAG, "Is this working? !");
                             buttonGroup = DISPLAY_EDIT;
                             mActivity.updateActionBar(newTheme.getDisplayColor(), mBundle.getInt(ColorPickDialog.COLOR));
                             mActivity.setActionBarColor();
@@ -118,7 +116,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                 }
                 break;
             case ThemePartDialog.THEME_PART_DIALOG_CODE:
-
                 if(resultCode == Activity.RESULT_OK) {
                     Bundle mBundle = data.getExtras();
                     editMode =  mBundle.getInt(ThemePartDialog.EDIT_TYPE);
@@ -137,7 +134,6 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                     MainActivity mainActivity = (MainActivity) getActivity();
                     mainActivity.displayView(MainActivity.THEMES_FRAG, null);
                 }
-
                 break;
         }
     }
@@ -178,22 +174,22 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
      */
     public int getButtonType(int viewID) {
         if(viewID == R.id.resultLayoutKey) {
-            Log.i(LOG_TAG, "Button Type is Display!!!");
+            //Log.i(LOG_TAG, "Button Type is Display!!!");
             return -1;
         }
         DefaultButton mButton = (DefaultButton) getRootView().findViewById(viewID);
-        Log.i(LOG_TAG, "Button: " + mButton.getText().toString());
+        //Log.i(LOG_TAG, "Button: " + mButton.getText().toString());
         if(primaryKeypadButtons.contains(mButton)) {
-            Log.i(LOG_TAG, "Group: " + PRIMARY_KEYPAD);
+            //Log.i(LOG_TAG, "Group: " + PRIMARY_KEYPAD);
             return PRIMARY_KEYPAD;
         } else if(secondaryKeypadButtons.contains(mButton)) {
-            Log.i(LOG_TAG, "Group: " + SECONDARY_KEYPAD);
+            //Log.i(LOG_TAG, "Group: " + SECONDARY_KEYPAD);
             return SECONDARY_KEYPAD;
         } else if(primaryFunctionButtons.contains(mButton)) {
-            Log.i(LOG_TAG, "Group: " + PRIMARY_FUNCTIONS);
+            //Log.i(LOG_TAG, "Group: " + PRIMARY_FUNCTIONS);
             return PRIMARY_FUNCTIONS;
         } else if(secondaryFunctionButtons.contains(mButton)) {
-            Log.i(LOG_TAG, "Group: " + SECONDARY_FUNCTIONS);
+            //Log.i(LOG_TAG, "Group: " + SECONDARY_FUNCTIONS);
             return SECONDARY_FUNCTIONS;
         }
         return -1;
@@ -260,7 +256,7 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
                 if(editMode == BACKGROUND_EDIT) {
                     newTheme.setDisplayColor(color);
                 } else if (editMode == TEXT_EDIT) {
-                    Log.i(LOG_TAG, "Text editing...!!");
+                    //Log.i(LOG_TAG, "Text editing...!!");
                     newTheme.setDisplayTextColor(color);
                 }
                 break;
@@ -300,17 +296,17 @@ public class FragmentThemeCreator extends CalculatorFragment implements Fragment
             editView = DISPLAY_EDIT;
             int color = Color.TRANSPARENT;
             if(editMode == BACKGROUND_EDIT) {
-                Log.i(LOG_TAG, "Display Edit!!");
+                //Log.i(LOG_TAG, "Display Edit!!");
                 Drawable background = view.getBackground();
                 if (background instanceof PaintDrawable) {
                     color = ((PaintDrawable) background).getPaint().getColor();
-                    Log.i(LOG_TAG, "Paint Drawable!! --> color: " + color);
+                    //Log.i(LOG_TAG, "Paint Drawable!! --> color: " + color);
                 } else if(background instanceof ColorDrawable) {
                     color = ((ColorDrawable) background).getColor();
-                    Log.i(LOG_TAG, "Color Drawable!! --> color: " + color);
+                    //Log.i(LOG_TAG, "Color Drawable!! --> color: " + color);
                 }
             } else if(editMode == TEXT_EDIT) {
-                Log.i(LOG_TAG, "TextView Edit!!");
+                //Log.i(LOG_TAG, "TextView Edit!!");
                 color = newTheme.getDisplayTextColor();
             }
 

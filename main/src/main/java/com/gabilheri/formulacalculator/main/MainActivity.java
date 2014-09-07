@@ -9,6 +9,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,10 +124,10 @@ public class MainActivity extends FragmentActivity
 
     private DatabaseHelper mHelper;
     private SystemBarTintManager tintManager;
-    private int mActionBarColor, mActionBarTextColor, titleID, currentPosition;
+    private int mActionBarColor, mActionBarTextColor, titleID;
     private TextView mActionBarTitle;
     private FragmentWithDrawable mDrawableFragment;
-    private ColorDrawable drawerFirstItem;
+    private boolean isCalculatorFrag = false;
 
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
@@ -196,8 +197,8 @@ public class MainActivity extends FragmentActivity
 
         tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setNavigationBarTintEnabled(true);
-        tintManager.setTintColor(currentTheme.getDisplayColor());
+        //tintManager.setNavigationBarTintEnabled(true);
+        //tintManager.setTintColor(currentTheme.getDisplayColor());
 
         setContentView(R.layout.activity_main);
 
@@ -272,7 +273,6 @@ public class MainActivity extends FragmentActivity
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if(savedInstanceState == null) {
-            currentPosition = 0;
             displayView(0, null);
         }
 
@@ -335,15 +335,16 @@ public class MainActivity extends FragmentActivity
      *
      */
     public void displayView(int position, Bundle fragBundle) {
+        tintManager.setStatusBarTintColor(Color.TRANSPARENT);
         // update the main content by replacing fragments
+        Utils.setCurrentCalcInput(this, "");
         Theme currentTheme = Utils.getCurrentTheme(this);
-        currentPosition = 1;
-        activeFragment = null;
+        //activeFragment = null;
         switch (position) {
             case CALCULATOR_FRAG:
                 updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new CalculatorFragment();
-
+                isCalculatorFrag = true;
                 if(fragBundle != null) {
                     activeFragment.setArguments(fragBundle);
                 }
@@ -352,23 +353,31 @@ public class MainActivity extends FragmentActivity
             case FORMULAS_FRAG:
                 updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new CardsFormulasFragment();
+                isCalculatorFrag = false;
                 break;
             case LOG_FRAG:
+                if(isCalculatorFrag) {
+                    Log.i(LOG_TAG, "Is a Calc Fragment");
+                    Utils.setCurrentCalcInput(this, ((CalculatorFragment) activeFragment).getTextInputBox());
+                }
                 activeFragment = new LogFragment();
                 updateActionBar(currentTheme.getSecondaryColor(), currentTheme.getSecondaryButtonTextColor());
                 break;
             case UNIT_CONVERTER_FRAG:
                 updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new UnitConverterFragment();
+                isCalculatorFrag = false;
                 break;
             case SETTINGS_FRAG:
                 updateActionBar(currentTheme.getSecondaryColor(), currentTheme.getSecondaryButtonTextColor());
                 activeFragment = new SettingsFragment();
                 mDrawableFragment = (SettingsFragment) activeFragment;
+                isCalculatorFrag = false;
                 break;
             case THEMES_FRAG:
                 updateActionBar(currentTheme.getPrimaryColor(), currentTheme.getPrimaryButtonTextColor());
                 activeFragment = new ThemesFragment();
+                isCalculatorFrag = false;
                 break;
             case GOOGLE_PLUS:
                 if(mGoogleServices.isConnected()) {
@@ -381,16 +390,18 @@ public class MainActivity extends FragmentActivity
                 break;
             case DEBUG_FRAG:
                 activeFragment = new TestFragment();
+                isCalculatorFrag = false;
                 break;
             case THEME_CREATOR:
-                currentPosition = 1;
                 updateActionBar(currentTheme.getDisplayColor(), currentTheme.getDisplayTextColor());
                 activeFragment = new FragmentThemeCreator();
                 keypadFragment = (FragmentThemeCreator) activeFragment;
+                isCalculatorFrag = false;
                 break;
             default:
                 break;
         }
+
         if(position != GOOGLE_PLUS) {
             if (activeFragment != null) {
                 //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -405,7 +416,7 @@ public class MainActivity extends FragmentActivity
                     public void run() {
                         setActionBarColor();
                     }
-                }, 200);
+                }, 800);
 
                 // update selected item and title, then close the drawer
                 mDrawerList.setItemChecked(position, true);
@@ -666,7 +677,7 @@ public class MainActivity extends FragmentActivity
         getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
         //refreshActionBar();
 
-        tintManager.setTintColor(mActionBarColor);
+       tintManager.setTintColor(mActionBarColor);
     }
 
     public ActionBarDrawerToggle getDrawerToggle() {
@@ -687,12 +698,4 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-    public void refreshActionBar() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
-            }
-        }, 400);
-    }
 }
