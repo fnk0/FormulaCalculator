@@ -88,7 +88,7 @@ public class LogFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         FrameLayout logFrag = (FrameLayout) view.findViewById(R.id.logFragment);
-        Utils.setInsets(getActivity(), logFrag);
+        //Utils.setInsets(getActivity(), logFrag);
 
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
 

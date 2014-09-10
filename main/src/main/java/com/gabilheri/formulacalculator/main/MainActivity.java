@@ -1,6 +1,7 @@
 package com.gabilheri.formulacalculator.main;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -15,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -63,7 +63,7 @@ import java.util.HashMap;
  * @since May 2014.
  */
 
-public class MainActivity extends FragmentActivity
+public class MainActivity extends Activity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     /**
@@ -104,7 +104,6 @@ public class MainActivity extends FragmentActivity
     public static final int THEMES_FRAG = 4;
     public static final int SETTINGS_FRAG = 5;
     public static final int ABOUT_FRAG = 6;
-    public static final int GOOGLE_PLUS = 7;
     public static final int DEBUG_FRAG = 8;
     public static final int THEME_CREATOR = 15;
 
@@ -137,7 +136,7 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
 
         mIntent = getIntent();
-
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         FontsOverride.replaceFont("SERIF", Utils.getTypeface(this));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -219,13 +218,7 @@ public class MainActivity extends FragmentActivity
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN).build();
-
-        if(mGoogleServices.isConnected()) {
-            navMenuTitles[7] = "Sign Out";
-        }
-
         for(int i = 0; i < navMenuTitles.length; i++) {
-
             if(i == navMenuTitles.length - 1 && !DEBUG) {
                 navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
             } else {
@@ -252,7 +245,6 @@ public class MainActivity extends FragmentActivity
                 R.string.app_name, // Nav Drawer open - description for accessibility
                 R.string.app_name // Nav drawer close.
         ) {
-
             @Override
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
@@ -267,8 +259,6 @@ public class MainActivity extends FragmentActivity
                 // Calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
-
-
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -379,15 +369,6 @@ public class MainActivity extends FragmentActivity
                 activeFragment = new ThemesFragment();
                 isCalculatorFrag = false;
                 break;
-            case GOOGLE_PLUS:
-                if(mGoogleServices.isConnected()) {
-                    //signOutFromGplus();
-                    //navDrawerItems.get(7).setTitle("Sign In");
-                } else {
-                    //signInWithGPlus();
-                    //navDrawerItems.get(7).setTitle("Sign Out");
-                }
-                break;
             case DEBUG_FRAG:
                 activeFragment = new TestFragment();
                 isCalculatorFrag = false;
@@ -402,43 +383,32 @@ public class MainActivity extends FragmentActivity
                 break;
         }
 
-        if(position != GOOGLE_PLUS) {
-            if (activeFragment != null) {
-                //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out)
-                        .replace(R.id.frame_container, activeFragment)
-                        .commit();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        setActionBarColor();
-                    }
-                }, 800);
-
-                // update selected item and title, then close the drawer
-                mDrawerList.setItemChecked(position, true);
-                mDrawerList.setSelection(position);
-                if(position == THEME_CREATOR) {
-                    setTitle("Theme Creator");
-                } else {
-                    setTitle(navMenuTitles[position]);
+        if (activeFragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out)
+                    .replace(R.id.frame_container, activeFragment)
+                    .commit();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setActionBarColor();
                 }
+            }, 800);
+
+            // update selected item and title, then close the drawer
+            mDrawerList.setItemChecked(position, true);
+            mDrawerList.setSelection(position);
+            if(position == THEME_CREATOR) {
+                setTitle("Theme Creator");
             } else {
-                // error in creating fragment
-                Log.e("MainActivity", "Error in creating fragment");
+                setTitle(navMenuTitles[position]);
             }
         } else {
-            mDrawerList.setItemChecked(position, false);
-            //navDrawerItems.get(7).setTitle("Sign Out");
-            if(!mGoogleServices.isConnected()) {
-                navDrawerItems.get(7).setTitle("Sign In");
-            } else {
-                navDrawerItems.get(7).setTitle("Sign Out");
-            }
+            // error in creating fragment
+            Log.e("MainActivity", "Error in creating fragment");
         }
+
     }
 
     @Override
@@ -446,7 +416,6 @@ public class MainActivity extends FragmentActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -652,7 +621,6 @@ public class MainActivity extends FragmentActivity
             ex.printStackTrace();
 
         }
-
         return userProfile;
     }
 
@@ -673,10 +641,7 @@ public class MainActivity extends FragmentActivity
 
     public void setActionBarColor() {
         mActionBarTitle.setTextColor(mActionBarTextColor);
-        //navAdapter.getmConvertView().setBackground(new ColorDrawable(mActionBarColor));
         getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
-        //refreshActionBar();
-
        tintManager.setTintColor(mActionBarColor);
     }
 

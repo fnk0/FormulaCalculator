@@ -7,8 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:card="http://schemas.android.com/apk/res-auto"
+    
     >
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="72dip" />
+    
     <TextView
         android:id="@+id/comingSoonText"
         android:text="Coming Soon"

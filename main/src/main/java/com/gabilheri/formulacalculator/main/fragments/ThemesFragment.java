@@ -83,7 +83,7 @@ public class ThemesFragment extends Fragment implements View.OnClickListener {
         view.setBackgroundColor(currentTheme.getPrimaryColor());
 
         FrameLayout themesFrag = (FrameLayout) view.findViewById(R.id.themesFrag);
-        Utils.setInsets(getActivity(), themesFrag);
+        //Utils.setInsets(getActivity(), themesFrag);
 
         mCardsListView = (CardListView) view.findViewById(R.id.themesList);
         mCardList = new ArrayList<>();
@@ -110,10 +110,11 @@ public class ThemesFragment extends Fragment implements View.OnClickListener {
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.addNewThemeFab);
         fab.setColor(currentTheme.getDisplayColor());
         fab.setOnClickListener(this);
-
         mCardAdapter = new CardArrayAdapter(getActivity(), mCardList);
         mCardAdapter.setEnableUndo(true);
         mCardsListView.setAdapter(mCardAdapter);
+        //fab.listenTo(mCardsListView);
+
 
     }
 

@@ -28,7 +28,7 @@
 
     <!-- Navigation Drawer Resource Strings -->
     <array name="drawer_icons">
-        <item name="icon_calculator">@drawable/ic_launcher</item>
+        <item name="icon_calculator">@drawable/ic_calculator</item>
         <item name="icon_logs">@drawable/ic_log</item>
         <item name="icon_formulas">@drawable/ic_formula</item>
         <item name="icon_share">@drawable/ic_convert</item>

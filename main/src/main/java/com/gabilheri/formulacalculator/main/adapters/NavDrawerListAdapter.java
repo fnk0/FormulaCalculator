@@ -24,7 +24,6 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
-    private View mConvertView;
 
     public NavDrawerListAdapter() {
     }
@@ -72,28 +71,10 @@ public class NavDrawerListAdapter extends BaseAdapter {
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.drawer_list_item, null);
         }
-
         ImageView imageIcon = (ImageView) convertView.findViewById(R.id.navDrawerIcon);
         TextView title = (TextView) convertView.findViewById(R.id.navDrawerTitle);
-
-
-        /*
-        if(position == 0) {
-            mConvertView = convertView;
-            mConvertView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, context.getResources().getDimensionPixelSize(R.dimen.action_bar_size) + Utils.getStatusBarHeight(context)));
-            mConvertView.setBackground(navDrawerItems.get(position).getDrawable());
-        } else {
-        */
-
         title.setText(navDrawerItems.get(position).getTitle());
         imageIcon.setImageResource(navDrawerItems.get(position).getIcon());
-
-        //}
-
         return convertView;
-    }
-
-    public View getmConvertView() {
-        return mConvertView;
     }
 }

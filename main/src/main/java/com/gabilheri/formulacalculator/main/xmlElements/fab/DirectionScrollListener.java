@@ -48,5 +48,6 @@ public class DirectionScrollListener implements AbsListView.OnScrollListener {
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
+
     }
 }

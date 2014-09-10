@@ -22,8 +22,10 @@
         <item name="android:typeface">serif</item>
     </style>
 
-    <style name="action_bar" parent="android:Widget.Holo.ActionBar">
+    <style name="action_bar" parent="android:Widget.Holo.Light.ActionBar">
         <item name="android:height">@dimen/action_bar_size</item>
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
     </style>
 </resources>

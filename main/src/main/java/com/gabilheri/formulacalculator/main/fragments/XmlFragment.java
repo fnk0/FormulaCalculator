@@ -23,7 +23,6 @@ public class XmlFragment extends Fragment {
         if (fm != null) {
             fm.beginTransaction().remove(this).commit();
         }
-
         super.onInflate(activity, attrs, savedInstanceState);
     }
 }

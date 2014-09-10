@@ -143,6 +143,11 @@ public class FloatingActionButton extends Button {
         }
     }
 
+    @Override
+    public void setTextColor(int color) {
+        mTextPaint.setColor(color);
+    }
+
     public void listenTo(AbsListView listView) {
         if (null != listView) {
             listView.setOnScrollListener(new DirectionScrollListener(this));

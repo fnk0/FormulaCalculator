@@ -4,8 +4,8 @@ import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -41,7 +41,6 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +62,14 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         LinearLayout settingsFrag = (LinearLayout) view.findViewById(R.id.settingsFrag);
         //Utils.setInsets(getActivity(), settingsFrag);
         LinearLayout actionBarSettings = (LinearLayout) view.findViewById(R.id.actionBarSettings);
-        actionBarSettings.setBackground(new ColorDrawable(Utils.getCurrentTheme(getActivity()).getSecondaryColor()));
-        actionBarSettings.setLayoutParams(
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.action_bar_size) + Utils.getStatusBarHeight(getActivity())));
+        actionBarSettings.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getSecondaryColor());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            actionBarSettings.setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.action_bar_size) + Utils.getStatusBarHeight(getActivity())));
+        }
+
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         FragmentManager fm = getFragmentManager();
         try {

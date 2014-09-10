@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gabilheri.formulacalculator.main.R;
+import com.gabilheri.formulacalculator.main.adapters.SpinnerAdapter;
 import com.gabilheri.formulacalculator.main.adapters.UnitSpinnerAdapter;
 import com.gabilheri.formulacalculator.main.adapters.UnitTypeSpinnerAdapter;
 import com.gabilheri.formulacalculator.main.database.Theme;
@@ -60,7 +61,7 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
     private boolean isNegative = false;
     private DecimalFormat df;
     private int precision;
-
+    private SpinnerAdapter<String> defAdapter;
     private UnitSpinnerAdapter massAdapter, speedAdapter, lengthAdapter, temperatureAdapter, volumeAdapter, areaAdapter, dataAdapter;
 
     public UnitConverterFragment() {
@@ -83,7 +84,7 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         LinearLayout settingsFrag = (LinearLayout) view.findViewById(R.id.unitConverter);
-        Utils.setInsets(getActivity(), settingsFrag);
+        //Utils.setInsets(getActivity(), settingsFrag);
 
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
         view.setBackgroundColor(currentTheme.getDisplayColor());
@@ -266,12 +267,19 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
     }
 
     private void setGroupType(int groupType) {
-        fromSpinner.setAdapter(adapterMap.get(groupType));
-        toSpinner.setAdapter(adapterMap.get(groupType));
-        this.groupType = groupType;
+        if(adapterMap.get(groupType) != null) {
+            fromSpinner.setAdapter(adapterMap.get(groupType));
+            toSpinner.setAdapter(adapterMap.get(groupType));
+            this.groupType = groupType;
+        } else {
+            fromSpinner.setAdapter(defAdapter);
+            toSpinner.setAdapter(defAdapter);
+        }
     }
 
     private void initAdapters() {
+        String[] temp = {""};
+        defAdapter = new SpinnerAdapter<>(getActivity(), temp);
         adapterMap = new HashMap<>();
         /**
          * Mass Adapter

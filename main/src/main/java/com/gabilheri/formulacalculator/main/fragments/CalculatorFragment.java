@@ -164,7 +164,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
 
         if (extraBundle != null) {
             textInputBox1 = extraBundle.getString("logResult");
-            inputBoxKey.setText(textInputBox1);
+            inputBoxKey.setText(Html.fromHtml(textInputBox1));
         } else {
             textInputBox1 = "";
 
