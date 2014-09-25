@@ -542,6 +542,10 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         }
     }
 
+    /**
+     *
+     * @param result
+     */
     public void getVarFromDialog(String result) {
         if (result != null) {
             if (textInputBox1.equals(getString(R.string._0))) {
