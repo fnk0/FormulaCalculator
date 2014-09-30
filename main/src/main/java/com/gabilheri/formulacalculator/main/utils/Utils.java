@@ -485,8 +485,6 @@ public class Utils {
         return new BigInteger(filtered, 16).intValue();
     }
 
-    int z = getHexColor("#FFFFFF");
-
     /**
      * Helper method to get the current Theme for the app
      * @param mContext
