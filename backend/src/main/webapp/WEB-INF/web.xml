@@ -5,7 +5,8 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.gabilheri.formulacalculator.backend.MyEndpoint</param-value>
+            <param-value>com.gabilheri.formulacalculator.backend.MyEndpoint,
+                com.gabilheri.formulacalculator.backend.ThemeBeanEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

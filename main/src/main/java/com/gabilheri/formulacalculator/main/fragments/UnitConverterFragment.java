@@ -1,6 +1,5 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.content.res.TypedArray;
@@ -51,7 +50,6 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
 
     private ArrayList<DefaultButton> mDefaultButtons;
     private ArrayList<DefaultButton> mSecondaryButtons;
-    private ActionBar mActionBar;
     private Spinner typeSpinner, fromSpinner, toSpinner;
     private TextView fromType, toType;
     private int groupType, fromUnit, toUnit;
@@ -88,8 +86,6 @@ public class UnitConverterFragment extends Fragment implements View.OnClickListe
 
         Theme currentTheme = Utils.getCurrentTheme(getActivity());
         view.setBackgroundColor(currentTheme.getDisplayColor());
-        mActionBar = getActivity().getActionBar();
-        mActionBar.setIcon(R.drawable.ic_convert);
 
         mDefaultButtons = new ArrayList<>();
         mSecondaryButtons = new ArrayList<>();

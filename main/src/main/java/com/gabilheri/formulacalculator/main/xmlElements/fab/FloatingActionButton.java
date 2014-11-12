@@ -63,7 +63,7 @@ public class FloatingActionButton extends Button {
         mTextPaint.setColor(Utils.getCurrentTheme(context).getDisplayTextColor());
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.FloatingActionButton);
-        mColor = a.getColor(R.styleable.FloatingActionButton_color, Color.WHITE);
+        mColor = Color.WHITE;
         mButtonPaint.setStyle(Paint.Style.FILL);
         mButtonPaint.setColor(mColor);
         float radius, dx, dy;

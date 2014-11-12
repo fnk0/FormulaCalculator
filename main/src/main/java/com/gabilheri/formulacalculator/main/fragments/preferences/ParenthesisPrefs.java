@@ -26,9 +26,6 @@ public class ParenthesisPrefs extends PreferenceFragment implements Preference.O
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.parenthesis_pref);
 
-        getActivity().getActionBar().setIcon(getResources().getDrawable(R.drawable.ic_parenthesis));
-        getActivity().getActionBar().setTitle(getString(R.string.par_colors));
-
         for(String s : Utils.getParenthesisKeys(getActivity())) {
             bindPreferenceSummaryToValue(findPreference(s));
         }

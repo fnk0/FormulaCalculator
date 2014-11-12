@@ -1,29 +1,37 @@
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
-    android:background="@color/pref_frag"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mainLayout"
     >
 
-    <!-- Framelayout to display Fragments -->
-    <FrameLayout
-        android:id="@+id/frame_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-    <!-- Listview to display slider menu -->
-    <ListView
-        android:id="@+id/list_slidermenu"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start|bottom"
-        android:choiceMode="singleChoice"
-        android:divider="@color/list_background"
-        android:dividerHeight="1dp"
-        android:clipToPadding="false"
-        android:fitsSystemWindows="true"
-        android:listSelector="@drawable/list_selector"
-        android:background="@color/list_background"/>
-</android.support.v4.widget.DrawerLayout>
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- Framelayout to display Fragments -->
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Listview to display drawer slider menu -->
+        <ListView
+            android:id="@+id/list_slidermenu"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start|bottom"
+            android:background="@color/list_background"
+            android:choiceMode="singleChoice"
+            android:clipToPadding="false"
+            android:divider="@color/list_background"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/list_selector" />
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>

@@ -1,23 +1,17 @@
 package com.gabilheri.formulacalculator.main.fragments.preferences;
 
-import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.gabilheri.formulacalculator.main.MainActivity;
 import com.gabilheri.formulacalculator.main.R;
 import com.gabilheri.formulacalculator.main.fragments.XmlFragment;
-import com.gabilheri.formulacalculator.main.interfaces.FragmentWithDrawable;
-import com.gabilheri.formulacalculator.main.utils.Utils;
 
 /**
  * Created by <a href="mailto:marcusandreog@gmail.com">Marcus Gabilheri</a>
@@ -26,9 +20,8 @@ import com.gabilheri.formulacalculator.main.utils.Utils;
  * @version 1.0
  * @since 5/7/14.
  */
-public class SettingsFragment extends XmlFragment implements FragmentManager.OnBackStackChangedListener, FragmentWithDrawable {
+public class SettingsFragment extends XmlFragment implements FragmentManager.OnBackStackChangedListener {
 
-    private ActionBar mActionBar;
     private MainActivity mainActivity;
     private static String LOG_TAG = "SettingsFragment";
 
@@ -59,16 +52,6 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LinearLayout settingsFrag = (LinearLayout) view.findViewById(R.id.settingsFrag);
-        //Utils.setInsets(getActivity(), settingsFrag);
-        LinearLayout actionBarSettings = (LinearLayout) view.findViewById(R.id.actionBarSettings);
-        actionBarSettings.setBackgroundColor(Utils.getCurrentTheme(getActivity()).getSecondaryColor());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            actionBarSettings.setLayoutParams(
-                    new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.action_bar_size) + Utils.getStatusBarHeight(getActivity())));
-        }
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         FragmentManager fm = getFragmentManager();
@@ -81,18 +64,6 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         PreferencesFrag placeDetailsFragment = new PreferencesFrag();
         xTransaction.replace(R.id.fragHolder, placeDetailsFragment);
         xTransaction.commit();
-
-        mActionBar = getActivity().getActionBar();
-        mActionBar.setIcon(R.drawable.ic_settings);
-    }
-
-    /**
-     * Gets the drawable for this fragment
-     * @return
-     */
-    @Override
-    public Drawable getDrawable() {
-        return getResources().getDrawable(R.drawable.ic_settings);
     }
 
     @Override
@@ -105,11 +76,16 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         boolean canback = false;
         try {
             canback = getFragmentManager().getBackStackEntryCount() > 0;
-        } catch (Exception ex) {};
+        } catch (Exception ex) {}
         if (canback) {
             mainActivity.getDrawerToggle().setDrawerIndicatorEnabled(false);
+            mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mainActivity.getSupportActionBar().setHomeButtonEnabled(true);
+            mainActivity.getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+            mainActivity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_arrow_back);
         } else {
             mainActivity.getDrawerToggle().setDrawerIndicatorEnabled(true);
+
         }
     }
 
@@ -118,8 +94,6 @@ public class SettingsFragment extends XmlFragment implements FragmentManager.OnB
         switch (item.getItemId()) {
             case android.R.id.home:
                 getFragmentManager().popBackStack();
-                getActivity().getActionBar().setIcon(getResources().getDrawable(R.drawable.ic_settings));
-                getActivity().getActionBar().setTitle(getString(R.string.settings_title));
                 return true;
         }
         return super.onOptionsItemSelected(item);

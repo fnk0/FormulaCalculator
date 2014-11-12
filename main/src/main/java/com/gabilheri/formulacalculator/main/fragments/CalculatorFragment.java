@@ -1,6 +1,5 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -95,8 +94,6 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        ActionBar mActionBar = getActivity().getActionBar();
-        mActionBar.setIcon(R.drawable.ic_launcher);
         SharedPreferences mPreferences = getActivity().getSharedPreferences(MainActivity.CURRENT_THEME, Context.MODE_PRIVATE);
         DatabaseHelper dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
         currentTheme = dbHelper.getThemeByName(mPreferences.getString(MainActivity.CURRENT_THEME, MainActivity.CURRENT_THEME));

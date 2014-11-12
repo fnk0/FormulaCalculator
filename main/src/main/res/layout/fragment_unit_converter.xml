@@ -8,9 +8,6 @@
     android:weightSum="10"
     tools:context=".fragments.UnitConverterFragment">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="72dip" />
     <Spinner
         android:id="@+id/unit_type"
         android:entries="@array/unit_types"

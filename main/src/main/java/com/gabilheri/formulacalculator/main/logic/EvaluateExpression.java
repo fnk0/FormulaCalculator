@@ -268,6 +268,7 @@ public class EvaluateExpression {
                 }
             }
         } catch (Exception ex) {
+
         }
         Log.i("EXPRESSION: ", expression);
 

@@ -42,7 +42,7 @@ public class CardsFormulasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toAddStuff = (LinearLayout) inflater.inflate(R.layout.fragment_formulas, null);
-        //Utils.setInsets(getActivity(), toAddStuff);
+        Utils.setInsets(getActivity(), toAddStuff);
         mCardList = (CardListView) toAddStuff.findViewById(R.id.testList);
         mCards = new ArrayList<>();
 
@@ -69,8 +69,5 @@ public class CardsFormulasFragment extends Fragment {
 
         TextView comingSoon = (TextView) view.findViewById(R.id.comingSoonText);
         comingSoon.setTextColor(currentTheme.getDisplayTextColor());
-
-        mActionBar = getActivity().getActionBar();
-        mActionBar.setIcon(R.drawable.ic_formula);
     }
 }

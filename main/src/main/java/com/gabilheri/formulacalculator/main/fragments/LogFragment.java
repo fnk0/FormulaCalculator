@@ -1,6 +1,5 @@
 package com.gabilheri.formulacalculator.main.fragments;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -60,8 +59,6 @@ public class LogFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        ActionBar mBar = getActivity().getActionBar();
-        mBar.setIcon(R.drawable.ic_log);
 
         return inflater.inflate(R.layout.fragment_logs, container, false);
     }

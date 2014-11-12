@@ -1,7 +1,6 @@
 package com.gabilheri.formulacalculator.main;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -15,8 +14,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +26,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabilheri.formulacalculator.main.adapters.NavDrawerListAdapter;
@@ -39,7 +40,6 @@ import com.gabilheri.formulacalculator.main.fragments.LogFragment;
 import com.gabilheri.formulacalculator.main.fragments.ThemesFragment;
 import com.gabilheri.formulacalculator.main.fragments.UnitConverterFragment;
 import com.gabilheri.formulacalculator.main.fragments.preferences.SettingsFragment;
-import com.gabilheri.formulacalculator.main.interfaces.FragmentWithDrawable;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.navDrawer.NavDrawerItem;
 import com.gabilheri.formulacalculator.main.tests.TestFragment;
@@ -63,7 +63,7 @@ import java.util.HashMap;
  * @since May 2014.
  */
 
-public class MainActivity extends Activity
+public class MainActivity extends ActionBarActivity
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     /**
@@ -120,14 +120,13 @@ public class MainActivity extends Activity
     private Fragment activeFragment;
     private FragmentWithKeypad keypadFragment;
     private Intent mIntent;
-
+    private LinearLayout mLayout;
     private DatabaseHelper mHelper;
     private SystemBarTintManager tintManager;
     private int mActionBarColor, mActionBarTextColor, titleID;
-    private TextView mActionBarTitle;
-    private FragmentWithDrawable mDrawableFragment;
+    //private TextView mActionBarTitle;
     private boolean isCalculatorFrag = false;
-
+    private Toolbar toolbar;
     //private RevMob revMob;
     private static String APPLICATION_ID = "537d798281d7eed52d9822b7";
 
@@ -136,8 +135,10 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
 
         mIntent = getIntent();
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         FontsOverride.replaceFont("SERIF", Utils.getTypeface(this));
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
@@ -186,13 +187,14 @@ public class MainActivity extends Activity
 
         Theme currentTheme = Utils.getCurrentTheme(this);
 
-        // Enabling action bar app and Icon , and behaving it as a toggle button.
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        //getActionBar().setBackgroundDrawable(new ColorDrawable(currentTheme.getDisplayColor()));
-        getActionBar().setHomeButtonEnabled(true);
-        titleID = getResources().getIdentifier("action_bar_title", "id", "android");
-        mActionBarTitle = (TextView) findViewById(titleID);
-        mActionBarTitle.setTextColor(currentTheme.getDisplayTextColor());
+        //int color = currentTheme.getDisplayTextColor();
+        //String htmlColor = String.format(Locale.US, "#%06X", (0xFFFFFF & Color.argb(0, Color.red(color), Color.green(color), Color.blue(color))));
+        //getSupportActionBar().setTitle(Html.fromHtml("<font color=\"" + htmlColor +  "\">" + mTitle + "</font>"));
+
+
+        //titleID = getResources().getIdentifier("action_bar_title", "id", "android");
+        //mActionBarTitle = (TextView) findViewById(titleID);
+        //mActionBarTitle.setTextColor(currentTheme.getDisplayTextColor());
 
         tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
@@ -201,13 +203,28 @@ public class MainActivity extends Activity
 
         setContentView(R.layout.activity_main);
 
+        mLayout = (LinearLayout) findViewById(R.id.mainLayout);
+        //Utils.setInsets(this, mLayout);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        if(toolbar != null) {
+            toolbar.setTitleTextColor(currentTheme.getDisplayTextColor());
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
+
+
+
         mTitle = mDrawerTitle = getTitle();
 
         // load nav drawer menu items
         navMenuTitles = getResources().getStringArray(R.array.drawer_items);
         navMenuIcons = getResources().obtainTypedArray(R.array.drawer_icons);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-        Utils.setInsets(this, mDrawerList);
+        //Utils.setInsets(this, mDrawerList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navDrawerItems = new ArrayList<>();
 
@@ -219,11 +236,7 @@ public class MainActivity extends Activity
                 .addOnConnectionFailedListener(this).addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN).build();
         for(int i = 0; i < navMenuTitles.length; i++) {
-            if(i == navMenuTitles.length - 1 && !DEBUG) {
-                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
-            } else {
-                navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
-            }
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
         }
 
         // Recycle the typed array to avoid wast resources
@@ -241,23 +254,25 @@ public class MainActivity extends Activity
          * Handles the Drawer close and drawer open.
          */
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_navigation_drawer, // Nav drawer icon
+                toolbar, // Nav drawer icon
                 R.string.app_name, // Nav Drawer open - description for accessibility
                 R.string.app_name // Nav drawer close.
         ) {
             @Override
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle(mTitle);
                 // Calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
+                syncState();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 //getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
-                getActionBar().setTitle(mTitle);
+                getSupportActionBar().setTitle(mTitle);
                 // Calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
+                syncState();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -325,7 +340,9 @@ public class MainActivity extends Activity
      *
      */
     public void displayView(int position, Bundle fragBundle) {
+        mLayout.setBackgroundColor(mActionBarColor);
         tintManager.setStatusBarTintColor(Color.TRANSPARENT);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0x00FFFFFF));
         // update the main content by replacing fragments
         Utils.setCurrentCalcInput(this, "");
         Theme currentTheme = Utils.getCurrentTheme(this);
@@ -361,7 +378,6 @@ public class MainActivity extends Activity
             case SETTINGS_FRAG:
                 updateActionBar(currentTheme.getSecondaryColor(), currentTheme.getSecondaryButtonTextColor());
                 activeFragment = new SettingsFragment();
-                mDrawableFragment = (SettingsFragment) activeFragment;
                 isCalculatorFrag = false;
                 break;
             case THEMES_FRAG:
@@ -386,7 +402,7 @@ public class MainActivity extends Activity
         if (activeFragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out)
+                    .setCustomAnimations(R.animator.alpha_in, R.animator.alpha_out, R.animator.alpha_in, R.animator.alpha_out)
                     .replace(R.id.frame_container, activeFragment)
                     .commit();
             new Handler().postDelayed(new Runnable() {
@@ -394,7 +410,7 @@ public class MainActivity extends Activity
                 public void run() {
                     setActionBarColor();
                 }
-            }, 800);
+            }, 300);
 
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
@@ -431,7 +447,7 @@ public class MainActivity extends Activity
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
     }
 
     /**
@@ -634,19 +650,24 @@ public class MainActivity extends Activity
      *          Color to change to
      */
     public void updateActionBar(int color, int textColor) {
-        getActionBar().setBackgroundDrawable(new ColorDrawable(0x00FFFFFF));
         mActionBarTextColor = textColor;
         mActionBarColor = color;
     }
 
     public void setActionBarColor() {
-        mActionBarTitle.setTextColor(mActionBarTextColor);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
-       tintManager.setTintColor(mActionBarColor);
+        toolbar.setTitleTextColor(mActionBarTextColor);
+        //mActionBarTitle.setTextColor(mActionBarTextColor);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(mActionBarColor));
+        tintManager.setTintColor(mActionBarColor);
+        mLayout.setBackgroundColor(0xFFFAFAFA);
     }
 
     public ActionBarDrawerToggle getDrawerToggle() {
         return mDrawerToggle;
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
     }
 
     @Override
@@ -654,12 +675,8 @@ public class MainActivity extends Activity
         if(getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
         } else {
-            if(mDrawableFragment != null) {
-                getFragmentManager().popBackStack();
-                getActionBar().setIcon(mDrawableFragment.getDrawable());
-                getActionBar().setTitle(mTitle);
-            }
-
+            getFragmentManager().popBackStack();
+            getSupportActionBar().setTitle(mTitle);
         }
     }
 
