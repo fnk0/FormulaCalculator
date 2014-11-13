@@ -28,6 +28,8 @@ import com.gabilheri.formulacalculator.main.database.Theme;
 import com.gabilheri.formulacalculator.main.dialogs.VariablesDialog;
 import com.gabilheri.formulacalculator.main.interfaces.FragmentWithKeypad;
 import com.gabilheri.formulacalculator.main.logic.EvaluateExpression;
+import com.gabilheri.formulacalculator.main.logic.Expression;
+import com.gabilheri.formulacalculator.main.logic.ExpressionElement;
 import com.gabilheri.formulacalculator.main.utils.Utils;
 import com.gabilheri.formulacalculator.main.xmlElements.DefaultButton;
 
@@ -65,6 +67,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
     private View rootView;
     private Theme currentTheme;
     private int resizeType = Utils.NOT_RESIZE;
+    private Expression stackExpression;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -84,7 +87,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-
+        stackExpression = new Expression();
         return inflater.inflate(R.layout.fragment_calculator, container, false);
     }
 
@@ -224,6 +227,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         int id = view.getId();
         parCounter = 0;
         boolean isAnswerInserted = false;
+        String str;
 
         if (clearResult && Utils.isButtonOperator(id)) {
             //Log.i(LOG_TAG, "Here Inside Operators!!");
@@ -289,54 +293,71 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                     break;
                 case R.id.keypad0:
                     textInputBox1 += getString(R.string._0);
+                    stackExpression.push(new ExpressionElement(getString(R.string._0), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad1:
                     textInputBox1 += getString(R.string._1);
+                    stackExpression.push(new ExpressionElement(getString(R.string._1), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad2:
                     textInputBox1 += getString(R.string._2);
+                    stackExpression.push(new ExpressionElement(getString(R.string._2), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad3:
                     textInputBox1 += getString(R.string._3);
+                    stackExpression.push(new ExpressionElement(getString(R.string._3), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad4:
                     textInputBox1 += getString(R.string._4);
+                    stackExpression.push(new ExpressionElement(getString(R.string._4), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad5:
                     textInputBox1 += getString(R.string._5);
+                    stackExpression.push(new ExpressionElement(getString(R.string._5), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad6:
                     textInputBox1 += getString(R.string._6);
+                    stackExpression.push(new ExpressionElement(getString(R.string._6), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad7:
                     textInputBox1 += getString(R.string._7);
+                    stackExpression.push(new ExpressionElement(getString(R.string._7), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad8:
                     textInputBox1 += getString(R.string._8);
+                    stackExpression.push(new ExpressionElement(getString(R.string._8), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.keypad9:
                     textInputBox1 += getString(R.string._9);
+                    stackExpression.push(new ExpressionElement(getString(R.string._9), ExpressionElement.ExpressionType.NUMBER));
                     break;
                 case R.id.plus:
                     textInputBox1 += getString(R.string.plus);
+                    stackExpression.push(new ExpressionElement(getString(R.string.plus), ExpressionElement.ExpressionType.OPERATOR));
                     break;
                 case R.id.minus:
                     textInputBox1 += getString(R.string.minus_simbol);
+                    stackExpression.push(new ExpressionElement(getString(R.string.minus_simbol), ExpressionElement.ExpressionType.OPERATOR));
                     break;
                 case R.id.multiply:
                     textInputBox1 += getString(R.string.multiply);
+                    stackExpression.push(new ExpressionElement(getString(R.string.multiply), ExpressionElement.ExpressionType.OPERATOR));
                     break;
                 case R.id.divide:
                     textInputBox1 += getString(R.string.divide);
+                    stackExpression.push(new ExpressionElement(getString(R.string.divide), ExpressionElement.ExpressionType.OPERATOR));
                     break;
                 case R.id.varE:
                     textInputBox1 += getString(R.string.var_e);
+                    stackExpression.push(new ExpressionElement(getString(R.string.var_e), ExpressionElement.ExpressionType.CONSTANT));
                     break;
                 case R.id.varPi:
                     textInputBox1 += getString(R.string.pi);
+                    stackExpression.push(new ExpressionElement(getString(R.string.pi), ExpressionElement.ExpressionType.CONSTANT));
                     break;
                 case R.id.keypadDot:
                     textInputBox1 += getString(R.string.dot);
+                    stackExpression.push(new ExpressionElement(getString(R.string.dot), ExpressionElement.ExpressionType.DOT));
                     break;
                 case R.id.keypadStore:
                     startDialog(VariablesDialog.STORE_DIALOG);
@@ -345,42 +366,62 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                     startDialog(VariablesDialog.RELEASE_DIALOG);
                     break;
                 case R.id.keypadSqrt:
-                    textInputBox1 += getString(R.string.sqrt) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = getString(R.string.sqrt) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnCos:
-                    textInputBox1 += "cos" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = "cos" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnSin:
-                    textInputBox1 += "sin" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = "sin" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnTan:
-                    textInputBox1 += "tan" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = "tan" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnFact:
-                    textInputBox1 += getString(R.string.factorial) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = getString(R.string.factorial) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.keypadPwr:
                     textInputBox1 += getString(R.string.exp_symbol);
+                    stackExpression.push(new ExpressionElement(getString(R.string.exp_symbol), ExpressionElement.ExpressionType.OPERATOR));
                     break;
                 case R.id.parLeft:
                     //Log.i("PARSIZE", "" + ("<font color="+ colors[parCounter] + ">" + getString(R.string.par_left) + "</font>").length());
-                    textInputBox1 += "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.parRight:
                     if (parCounter > 0) {
-                        textInputBox1 += "<font color=" + colors[parCounter - 1] + ">" + getString(R.string.par_right) + "</font>";
+                        str = "<font color=" + colors[parCounter - 1] + ">" + getString(R.string.par_right) + "</font>";
+                        textInputBox1 += str;
+                        stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     } else {
                         return;
                     }
                     break;
                 case R.id.btnPercent:
                     textInputBox1 += "%";
+                    stackExpression.push(new ExpressionElement("%", ExpressionElement.ExpressionType.OPERATOR));
                     break;
                 case R.id.btnLog:
-                    textInputBox1 += "log" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = "log" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnLn:
-                    textInputBox1 += "ln" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = "ln" + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.degreeRad:
                     if (angleType == EvaluateExpression.DEGREE) {
@@ -399,19 +440,29 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
                     }
                     break;
                 case R.id.keypadTax:
-                    textInputBox1 += getString(R.string.tax_input) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = getString(R.string.tax_input) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.cubeRoot:
-                    textInputBox1 += getString(R.string.cube_root) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = getString(R.string.cube_root) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnArcSin:
-                    textInputBox1 += getString(R.string.input_arcsin) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = getString(R.string.input_arcsin) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnArcCos:
-                    textInputBox1 += getString(R.string.input_arccos) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = getString(R.string.input_arccos) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
                 case R.id.btnArcTan:
-                    textInputBox1 += getString(R.string.input_arctan) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    str = getString(R.string.input_arctan) + "<font color=" + colors[parCounter] + ">" + getString(R.string.par_left) + "</font>";
+                    textInputBox1 += str;
+                    stackExpression.push(new ExpressionElement(str, ExpressionElement.ExpressionType.FUNCTION));
                     break;
             }
         }
@@ -447,7 +498,7 @@ public class CalculatorFragment extends Fragment implements FragmentWithKeypad, 
         EvaluateExpression expression = new EvaluateExpression(textInputBox1, this, angleType);
         expression.setPreviousResult(previousResult);
         String result = expression.evaluate();
-
+        Log.i("STACK EXPRESSION", stackExpression.toString());
         if (result == null) {
             //Log.i(LOG_TAG, "Empty Input");
             inputBoxKey.setText("");

@@ -316,8 +316,6 @@ public class EvaluateExpression {
         return toReturn;
     }
 
-
-
     /**
      * Small factorial function.
      * Needs to be improved for a more sofiscated version :D
